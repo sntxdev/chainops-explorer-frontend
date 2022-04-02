@@ -4,15 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { WebSock, SidebarWithHeader } from "../components";
 import styles from "../styles/Home.module.css";
-import {
-  Box,
-  Flex,
-  SimpleGrid,
-  Grid,
-  HStack,
-  VStack,
-  Center,
-} from "@chakra-ui/react";
+import { Flex, Box, SimpleGrid, Center } from "@chakra-ui/react";
 // const ws = new WebSocket("ws://194.163.167.188:8000/archway");
 
 // ws.on('open', function open() {
@@ -52,7 +44,7 @@ const Home: NextPage = () => {
           <Flex wrap="wrap" justifyContent="space-between">
             {/*<SimpleGrid columns={2} spacingX="12px" spacingY="10px">*/}
             <Box w="49%" height="390px" bg="white">
-              1
+              <WebSock />
             </Box>
             <Box height="390px" w="49%">
               <SimpleGrid

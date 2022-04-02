@@ -1,4 +1,6 @@
 import React, { ReactNode } from "react";
+import NextLink from "next/link";
+
 import {
   IconButton,
   Avatar,
@@ -9,7 +11,7 @@ import {
   VStack,
   Icon,
   useColorModeValue,
-  Link,
+  Link as ChakraLink,
   Drawer,
   DrawerContent,
   Text,
@@ -40,14 +42,15 @@ import { ReactText } from "react";
 
 interface LinkItemProps {
   name: string;
+  to: string;
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Blocks", icon: FiTrendingUp },
-  { name: "Transactions", icon: FiCompass },
-  { name: "Validators", icon: FiStar },
-  { name: "Governance", icon: FiSettings },
+  { name: "Home", to: "/", icon: FiHome },
+  { name: "Blocks", to: "/blocks", icon: FiTrendingUp },
+  { name: "Transactions", to: "/transactions", icon: FiCompass },
+  { name: "Validators", to: "/validators", icon: FiStar },
+  { name: "Governance", to: "/governance", icon: FiSettings },
 ];
 
 export function SidebarWithHeader({ children }: { children: ReactNode }) {
@@ -103,7 +106,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} to={link.to}>
           {link.name}
         </NavItem>
       ))}
@@ -114,41 +117,43 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  to: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
   return (
-    <Link
-      href="#"
-      style={{ textDecoration: "none", fontSize: "18px" }}
-      _focus={{ boxShadow: "none" }}
-    >
-      <Flex
-        align="center"
-        p="4"
-        role="group"
-        cursor="pointer"
-        _hover={{
-          bg: "#ECE0F5",
-          fontWeight: "bold",
-          color: "#9127E3",
-          borderRight: "4px",
-          borderColor: "#9127E3",
-        }}
-        {...rest}
+    <NextLink href={to} passHref>
+      <ChakraLink
+        style={{ textDecoration: "none", fontSize: "18px" }}
+        _focus={{ boxShadow: "none" }}
       >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: "#9127E3",
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    </Link>
+        <Flex
+          align="center"
+          p="4"
+          role="group"
+          cursor="pointer"
+          _hover={{
+            bg: "#ECE0F5",
+            fontWeight: "bold",
+            color: "#9127E3",
+            borderRight: "4px",
+            borderColor: "#9127E3",
+          }}
+          {...rest}
+        >
+          {icon && (
+            <Icon
+              mr="4"
+              fontSize="16"
+              _groupHover={{
+                color: "#9127E3",
+              }}
+              as={icon}
+            />
+          )}
+          {children}
+        </Flex>
+      </ChakraLink>
+    </NextLink>
   );
 };
 
