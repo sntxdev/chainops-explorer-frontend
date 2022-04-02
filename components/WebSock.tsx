@@ -10,6 +10,8 @@ import {
   Center,
   Button,
 } from "@chakra-ui/react";
+// @ts-nocheck
+
 export const WebSock = () => {
   //Public API that will echo messages sent to it back to the client
   const [socketUrl, setSocketUrl] = useState(
@@ -58,6 +60,7 @@ export const WebSock = () => {
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   }[readyState];
   // @ts-ignore
+  // @ts-ignore
   return (
     <div>
       <Button
@@ -67,7 +70,7 @@ export const WebSock = () => {
         Start websocket
       </Button>
 
-      {lastBlock ? (
+      {lastBlock ? ( // @ts-ignore
         <div>
           <p>Last block height: {lastBlock.height}</p>
           <p>Last block hash: {lastBlock.hash}</p>
