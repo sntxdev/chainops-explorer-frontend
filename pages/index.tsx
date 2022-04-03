@@ -1,31 +1,64 @@
+// @ts-nocheck
 import type { NextPage } from "next";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import { WebSock, SidebarWithHeader } from "../components";
 import styles from "../styles/Home.module.css";
 import { Flex, Box, SimpleGrid, Center } from "@chakra-ui/react";
-// const ws = new WebSocket("ws://194.163.167.188:8000/archway");
-
-// ws.on('open', function open() {
-//   // ws.send('');
-// });
-//
-// ws.on('message', function message(data) {
-//   console.log('received: %s', data);
-// });
+import useWebSocket, { ReadyState } from "react-use-websocket";
 
 const Home: NextPage = () => {
-  // useEffect(() => {
-  //   ws.on('message', function message(data) {
-  //     console.log('received: %s', data);
-  //   });
-  // })
-
   const handleClick = (e: any) => {
     // e.preventDefault()
     // ws.send('{}');
   };
+
+  const [socketUrl, setSocketUrl] = useState(
+    "ws://194.163.167.188:8000/archway"
+  );
+  const [messageHistory, setMessageHistory] = useState([]);
+  const [txs, setTxs] = useState([]);
+  const [blocks, setBlocks] = useState([]);
+  const [lastBlock, setLastBlock] = useState(null);
+  const [lastTxs, setLastTxs] = useState([]);
+  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+
+  useEffect(() => {
+    if (lastMessage !== null) {
+      const data = JSON.parse(lastMessage.data);
+
+      // @ts-ignore
+      setMessageHistory((prev) => prev.concat(lastMessage));
+
+      if (data.hasOwnProperty("block")) {
+        setBlocks((prev) => prev.concat(data.block));
+        setLastBlock(data.block);
+      }
+
+      if (data.hasOwnProperty("transaction")) {
+        setTxs((prev) => prev.concat(data.transaction));
+        if (data.transaction.height == lastBlock.height) {
+          // setLastTxs(data.transaction);
+          setLastTxs((prev) => prev.concat(data.transaction));
+        }
+      }
+    }
+  }, [lastMessage, setMessageHistory]);
+
+  const handleClickSendMessage = useCallback(() => sendMessage("{}"), []);
+  // useEffect(() => console.log("Transactions: ", txs), [txs]);
+  // useEffect(() => console.log(blocks), [blocks]);
+  useEffect(() => console.log("Last Block:", lastBlock), [lastBlock]);
+  useEffect(() => console.log("Last lastTxs:", lastTxs), [lastTxs]);
+
+  const connectionStatus = {
+    [ReadyState.CONNECTING]: "Connecting",
+    [ReadyState.OPEN]: "Open",
+    [ReadyState.CLOSING]: "Closing",
+    [ReadyState.CLOSED]: "Closed",
+    [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+  }[readyState];
+
   return (
     <div>
       <Head>
@@ -42,9 +75,8 @@ const Home: NextPage = () => {
       <main>
         <SidebarWithHeader>
           <Flex wrap="wrap" justifyContent="space-between">
-            {/*<SimpleGrid columns={2} spacingX="12px" spacingY="10px">*/}
             <Box w="49%" height="390px" bg="white">
-              <WebSock />
+              1
             </Box>
             <Box height="390px" w="49%">
               <SimpleGrid
@@ -116,33 +148,10 @@ const Home: NextPage = () => {
 
 export default Home;
 
+// ws.on('open', function open() {
+//   // ws.send('');
+// });
 //
-// <div className={styles.grid}>
-//     <a href="https://nextjs.org/docs" className={styles.card}>
-//     <h2>Documentation &rarr;</h2>
-// <p>Find in-depth information about Next.js features and API.</p>
-// </a>
-//
-// <a href="https://nextjs.org/learn" className={styles.card}>
-//   <h2>Learn &rarr;</h2>
-//   <p>Learn about Next.js in an interactive course with quizzes!</p>
-// </a>
-//
-// <a
-//     href="https://github.com/vercel/next.js/tree/canary/examples"
-//     className={styles.card}
-// >
-//   <h2>Examples &rarr;</h2>
-//   <p>Discover and deploy boilerplate example Next.js projects.</p>
-// </a>
-//
-// <a
-//     href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-//     className={styles.card}
-// >
-//   <h2>Deploy &rarr;</h2>
-//   <p>
-//     Instantly deploy your Next.js site to a public URL with Vercel.
-//   </p>
-// </a>
-// </div>
+// ws.on('message', function message(data) {
+//   console.log('received: %s', data);
+// });

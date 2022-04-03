@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useCallback, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import {
@@ -10,7 +11,6 @@ import {
   Center,
   Button,
 } from "@chakra-ui/react";
-// @ts-nocheck
 
 export const WebSock = () => {
   //Public API that will echo messages sent to it back to the client
@@ -60,7 +60,6 @@ export const WebSock = () => {
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   }[readyState];
   // @ts-ignore
-  // @ts-ignore
   return (
     <div>
       <Button
@@ -69,14 +68,11 @@ export const WebSock = () => {
       >
         Start websocket
       </Button>
-
-      {lastBlock ? ( // @ts-ignore
-        <div>
-          <p>Last block height: {lastBlock.height}</p>
-          <p>Last block hash: {lastBlock.hash}</p>
-          {lastTxs.map((tx) => tx.hash)}
-        </div>
-      ) : null}
+      <div>
+        <p>Last block height: {lastBlock?.height}</p>
+        <p>Last block hash: {lastBlock?.hash}</p>
+        {lastTxs.map((tx) => tx.hash)}
+      </div>
     </div>
   );
 };
