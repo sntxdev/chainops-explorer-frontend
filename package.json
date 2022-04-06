@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "env-cmd -e development next dev",
-    "build": "env-cmd -e production CI='' next build",
-    "start": "env-cmd -e production next start",
+    "dev": "next dev",
+    "build": "CI='' next build",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -13,7 +13,6 @@
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@types/ws": "^8.5.3",
-    "env-cmd": "^10.1.0",
     "framer-motion": "^6.2.8",
     "next": "12.1.4",
     "pg": "^8.7.3",
