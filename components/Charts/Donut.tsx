@@ -11,13 +11,15 @@ export class Donut extends Component {
     this.state = {
       options: {
         colors: ["#1BE3DC", "#9127E3"],
+        legend: {
+          show: false,
+        },
+        dataLabels: {
+          enabled: true,
+        },
+        labels: ["Bonded", "Total"],
       },
-      dataLabels: {
-        enabled: false,
-      },
-      name: "test",
-      series: [40, 60],
-      labels: ["Bonded", "Total"],
+      series: [25, 75],
     };
   }
 

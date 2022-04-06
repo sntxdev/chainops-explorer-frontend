@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
+import { Text } from "@chakra-ui/react";
 
 // https://apexcharts.com/docs/grid/
 // https://apexcharts.com/react-chart-demos/area-charts/datetime-x-axis/#
@@ -22,18 +23,31 @@ export class AreaSpline extends React.Component {
         chart: {
           height: 350,
           type: "area",
-          foreColor: "#ccc",
+          foreColor: "#6E6B7B", // text on axis color
           toolbar: {
             show: false,
+          },
+          dropShadow: {
+            enabled: true,
+            top: 9,
+            left: 2,
+            blur: 5,
+            opacity: 0.2,
           },
         },
         grid: {
           show: true,
+          borderColor: "#E3E3E3", // horizontal lines color
+          padding: {
+            left: 0,
+            right: 0,
+          },
           // row: {
           //   colors: ["#f3f4f5", "#fff"],
           //   opacity: 1,
           // },
         },
+
         dataLabels: {
           enabled: false,
         },
@@ -107,18 +121,27 @@ export class AreaSpline extends React.Component {
 
   render() {
     return (
-      <div id="chart">
-        {typeof window !== "undefined" && (
-          <ReactApexChart
-            // @ts-ignore
-            options={this.state.options}
-            // @ts-ignore
-            series={this.state.series}
-            type="line"
-            height={380}
-          />
-        )}
-      </div>
+      <>
+        <Text pl="30px" mt="30px" fontSize="18px" fontWeight="bold">
+          Price Arch
+        </Text>
+        <Text pl="30px" fontSize="18px" fontWeight="medium">
+          $ 30.064 (-4.007%)
+        </Text>
+
+        <div id="chart" style={{ padding: "0 15px" }}>
+          {typeof window !== "undefined" && (
+            <ReactApexChart
+              // @ts-ignore
+              options={this.state.options}
+              // @ts-ignore
+              series={this.state.series}
+              type="line"
+              height={300}
+            />
+          )}
+        </div>
+      </>
     );
   }
 }
