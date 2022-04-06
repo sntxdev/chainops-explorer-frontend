@@ -63,8 +63,8 @@ const Home: NextPage = () => {
     <div>
       <main>
         <Flex wrap="wrap" justifyContent="space-between">
-          <Box w="49%" height="390px" bg="white">
-            1
+          <Box w="49%" height="378px" bg="white">
+            <Center height="100%">1</Center>
           </Box>
           <Box height="390px" w="49%">
             <SimpleGrid
@@ -81,12 +81,10 @@ const Home: NextPage = () => {
                 borderRadius="10"
                 pos="relative"
               >
-                <Text pos="absolute" fontSize="12px" padding="28px">
+                <Text fontSize="12px" padding="28px">
                   Block height
                 </Text>
-                <Center height="100%" fontWeight="bold">
-                  9 234
-                </Center>
+                <Center fontWeight="bold">9 234</Center>
               </Box>
               <Box
                 bg="white"
@@ -97,14 +95,11 @@ const Home: NextPage = () => {
                   color: "white",
                   bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
                 }}
-                pos="relative"
               >
-                <Text pos="absolute" fontSize="12px" padding="28px">
+                <Text fontSize="12px" padding="28px">
                   Trx count
                 </Text>
-                <Center height="100%" fontWeight="bold">
-                  324 954
-                </Center>
+                <Center fontWeight="bold">324 954</Center>
               </Box>
               <Box
                 bg="white"
@@ -115,14 +110,11 @@ const Home: NextPage = () => {
                   color: "white",
                   bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
                 }}
-                pos="relative"
               >
-                <Text pos="absolute" fontSize="12px" padding="28px">
+                <Text fontSize="12px" padding="28px">
                   Active validators
                 </Text>
-                <Center height="100%" fontWeight="bold">
-                  112 / 155
-                </Center>
+                <Center fontWeight="bold">112 / 155</Center>
               </Box>
               <Box
                 bg="white"
@@ -133,12 +125,11 @@ const Home: NextPage = () => {
                   color: "white",
                   bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
                 }}
-                pos="relative"
               >
-                <Text pos="absolute" fontSize="12px" padding="28px">
+                <Text fontSize="12px" padding="28px">
                   Transactions per second
                 </Text>
-                <Center height="100%" fontWeight="bold">
+                <Center fontWeight="bold">
                   <Flex flexDir="row" alignItems="baseline">
                     <Text>1 248 </Text>
                     <Text
