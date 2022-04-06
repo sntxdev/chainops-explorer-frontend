@@ -1,6 +1,13 @@
 import React, { ReactNode } from "react";
+import { ReactText } from "react";
 import NextLink from "next/link";
+import { IconType } from "react-icons";
 
+import { FiMenu, FiChevronDown } from "react-icons/fi";
+import { GiAtom } from "react-icons/gi";
+import { ImHome, ImChrome } from "react-icons/im";
+import { BsGridFill } from "react-icons/bs";
+import { FaTelegramPlane } from "react-icons/fa";
 import {
   IconButton,
   Box,
@@ -24,11 +31,6 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { FiMenu, FiChevronDown } from "react-icons/fi";
-import { GiAtom } from "react-icons/gi";
-import { ImHome, ImChrome } from "react-icons/im";
-import { BsGridFill } from "react-icons/bs";
-import { FaTelegramPlane } from "react-icons/fa";
 
 import {
   IoSettingsSharp,
@@ -37,14 +39,13 @@ import {
   IoLogoGithub,
   IoLogoTwitter,
 } from "react-icons/io5";
-import { IconType } from "react-icons";
-import { ReactText } from "react";
 
 interface LinkItemProps {
   name: string;
   to: string;
   icon: IconType;
 }
+
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", to: "/", icon: ImHome },
   { name: "Blocks", to: "/blocks", icon: BsGridFill },
@@ -162,6 +163,7 @@ interface NavItemProps extends FlexProps {
   children: ReactText;
   to: string;
 }
+
 const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
   return (
     <NextLink href={to} passHref>
@@ -212,6 +214,7 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
 interface HeaderProps extends FlexProps {
   onOpen: () => void;
 }
+
 const Header = ({ onOpen, ...rest }: HeaderProps) => {
   return (
     <Flex
@@ -219,7 +222,7 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
       px={{ base: 4, md: 4 }}
       py="30px"
       alignItems="center"
-      // bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue("white", "gray.900")}
       // borderBottomWidth="1px"
       // borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       // justifyContent={{ base: "space-between", md: "flex-end" }}

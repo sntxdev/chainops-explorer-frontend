@@ -13,7 +13,8 @@ import {
 
 export const BlocksTable = ({ data }: any) => {
   const [socketUrl, setSocketUrl] = useState(
-    "ws://194.163.167.188:8000/archway"
+    // "ws://194.163.167.188:8000/archway"
+    "wss://explorer.chainops.org/ws/archway"
   );
 
   const [blocks, setBlocks] = useState([]);

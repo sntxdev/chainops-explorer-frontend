@@ -11,8 +11,8 @@ const Blocks = ({ data }: any) => {
 
   const getBlocks = async () => {
     // Fetch data from external API
-    // const API_URL = "https://chainops-explorer-frontend.vercel.app/api/hello";
-    const API_URL = `http://localhost:3000/api/hello`;
+    const API_URL = "https://chainops-explorer-frontend.vercel.app/api/hello";
+    // const API_URL = `http://localhost:3000/api/hello`;
     const res = await fetch(API_URL);
     const data = await res.json();
     console.log(data);
