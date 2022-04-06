@@ -91,7 +91,7 @@ export function LayoutWithSidebar({ children }: { children: ReactNode }) {
       <Header onOpen={onOpen} />
 
       {/* Page content */}
-      <Box ml={{ base: 0, md: "282px" }} p="4">
+      <Box ml={{ base: 0, md: "282px" }} px="4">
         {children}
       </Box>
     </Box>

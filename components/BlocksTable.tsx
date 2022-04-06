@@ -9,7 +9,9 @@ import {
   Th,
   Td,
   TableContainer,
+  Box,
 } from "@chakra-ui/react";
+
 import { formatTime } from "../utils/formatTime";
 
 export const BlocksTable = ({ data }: any) => {
@@ -58,26 +60,62 @@ export const BlocksTable = ({ data }: any) => {
   }[readyState];
   // @ts-ignore
   return (
-    <TableContainer>
+    <TableContainer borderRadius="8px">
       <Table variant="simple">
-        <Thead>
+        <Thead background="brand.accentLight">
           <Tr>
-            <Th>Height</Th>
-            <Th>Hash</Th>
-            <Th>Validated by</Th>
-            <Th>Tx num</Th>
-            <Th>Time</Th>
+            <Th
+              py="34px"
+              fontSize="14px"
+              fontWeight="bold"
+              color="brand.primaryBlack"
+            >
+              Height
+            </Th>
+            <Th
+              py="34px"
+              fontSize="14px"
+              fontWeight="bold"
+              color="brand.primaryBlack"
+            >
+              Hash
+            </Th>
+            <Th
+              py="34px"
+              fontSize="14px"
+              fontWeight="bold"
+              color="brand.primaryBlack"
+            >
+              Validated by
+            </Th>
+            <Th
+              py="34px"
+              fontSize="14px"
+              fontWeight="bold"
+              color="brand.primaryBlack"
+            >
+              Tx num
+            </Th>
+            <Th
+              py="34px"
+              fontSize="14px"
+              fontWeight="bold"
+              color="brand.primaryBlack"
+            >
+              Time
+            </Th>
           </Tr>
         </Thead>
+
         <Tbody fontSize="16px" fontWeight="medium">
           {allBlocks
             .sort((a, b) => b.height - a.height)
             .map((block, idx) => (
-              <Tr key={idx}>
-                <Td>{block.height}</Td>
-                <Td>{block.hash}</Td>
-                <Td>Vasya</Td>
-                <Td>{block.num_txs}</Td>
+              <Tr key={idx} bg="white">
+                <Td py="20px">{block.height}</Td>
+                <Td py="20px">{block.hash}</Td>
+                <Td py="20px">Vasya</Td>
+                <Td py="20px">{block.num_txs}</Td>
                 {/*<Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>*/}
                 <Td>{formatTime(block.timestamp)}</Td>
               </Tr>

@@ -1,10 +1,20 @@
 import { BlocksTable } from "../../components";
 import React, { useState, useEffect } from "react";
+import {
+  Skeleton,
+  SkeletonCircle,
+  SkeletonText,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 
 const Blocks = () => {
   const [allBlocks, setAllBlocks] = useState([]);
   useEffect(() => {
-    getBlocks();
+    setTimeout(function () {
+      getBlocks();
+    }, 2000);
+    // getBlocks();
     console.log("Blocks Page", allBlocks);
     console.log(process.env.NEXT_PUBLIC_API_URL);
   }, [setAllBlocks]);
@@ -17,7 +27,26 @@ const Blocks = () => {
 
   return (
     <>
-      <BlocksTable data={allBlocks} wssUrl={process.env.NEXT_PUBLIC_WSS_URL} />
+      <Text mb="26px" fontSize="22px" fontWeight="medium" color="#323B5A">
+        Blocks
+      </Text>
+      {allBlocks.length > 0 ? (
+        <BlocksTable
+          data={allBlocks}
+          wssUrl={process.env.NEXT_PUBLIC_WSS_URL}
+        />
+      ) : (
+        <Stack>
+          {[...Array(20)].map((item, idx) => (
+            <Skeleton
+              height="50px"
+              startColor="#fff"
+              endColor="#e3e3e3"
+              key={idx}
+            />
+          ))}
+        </Stack>
+      )}
     </>
   );
 };

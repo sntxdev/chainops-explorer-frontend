@@ -7,8 +7,10 @@ import React from "react";
 const theme = extendTheme({
   colors: {
     brand: {
+      primaryBlack: "#323B5A",
       accent: "#9127E3",
       accentLight: "#ECE0F5",
+      accentBlue: "#1BE3DC",
       greyPrimary: "#38383d",
       greySecondary: "#42414d",
     },
