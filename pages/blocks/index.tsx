@@ -1,28 +1,34 @@
 import { BlocksTable } from "../../components";
 import React, { useState, useEffect } from "react";
 
-const Blocks = ({ data }: any) => {
+const Blocks = ({ env }: any) => {
   const [allBlocks, setAllBlocks] = useState([]);
   useEffect(() => {
     getBlocks();
-
     console.log("Blocks Page", allBlocks);
   }, [setAllBlocks]);
 
   const getBlocks = async () => {
-    // const API_URL = "https://chainops-explorer-frontend.vercel.app/api/hello";
-    const API_URL = `http://localhost:3000/api/hello`;
-    const res = await fetch(API_URL);
+    const res = await fetch(env.API_URL);
     const data = await res.json();
-    console.log(data);
     setAllBlocks(data);
   };
 
   return (
-    <h1>
-      <BlocksTable data={allBlocks} />
-    </h1>
+    <>
+      <BlocksTable data={allBlocks} wssUrl={env.WSS_URL} />
+    </>
   );
 };
 
 export default Blocks;
+
+export async function getServerSideProps() {
+  const env = {
+    API_URL: `${process.env.API_URL}`,
+    WSS_URL: `${process.env.WSS_URL}`,
+  };
+  return {
+    props: { env },
+  };
+}

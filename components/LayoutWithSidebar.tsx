@@ -9,6 +9,14 @@ import { ImHome, ImChrome } from "react-icons/im";
 import { BsGridFill } from "react-icons/bs";
 import { FaTelegramPlane } from "react-icons/fa";
 import {
+  IoSettingsSharp,
+  IoWallet,
+  IoBarChart,
+  IoLogoGithub,
+  IoLogoTwitter,
+} from "react-icons/io5";
+
+import {
   IconButton,
   Box,
   CloseButton,
@@ -31,14 +39,6 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-
-import {
-  IoSettingsSharp,
-  IoWallet,
-  IoBarChart,
-  IoLogoGithub,
-  IoLogoTwitter,
-} from "react-icons/io5";
 
 interface LinkItemProps {
   name: string;
