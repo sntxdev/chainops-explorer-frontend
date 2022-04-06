@@ -1,40 +1,24 @@
 // @ts-nocheck
-import React, {
-  useState,
-  useCallback,
-  useLayoutEffect,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import {
-  Box,
-  Flex,
-  SimpleGrid,
-  Grid,
-  HStack,
-  VStack,
-  Center,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
-  Button,
 } from "@chakra-ui/react";
 
-export const BlocksTable = () => {
+export const BlocksTable = ({ data }: any) => {
   const [socketUrl, setSocketUrl] = useState(
     "ws://194.163.167.188:8000/archway"
   );
-  // const [messageHistory, setMessageHistory] = useState([]);
-  // const [txs, setTxs] = useState([]);
+
   const [blocks, setBlocks] = useState([]);
+  const [allBlocks, setAllBlocks] = useState([]);
   const [lastBlock, setLastBlock] = useState(null);
-  // const [lastTxs, setLastTxs] = useState([]);
   const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(
     socketUrl,
     {
@@ -43,11 +27,15 @@ export const BlocksTable = () => {
   );
 
   useEffect(() => {
+    setAllBlocks(data);
+  }, [data]);
+
+  useEffect(() => {
     if (lastMessage !== null) {
       const data = JSON.parse(lastMessage.data);
       if (data.hasOwnProperty("block")) {
         if (!blocks.some((block) => block.height == data.block.height)) {
-          setBlocks((prev) => prev.concat(data.block));
+          setAllBlocks((prev) => prev.concat(data.block));
           // setBlocks(prevBlocks => [...prevBlocks, data.block])
         }
       }
@@ -56,7 +44,8 @@ export const BlocksTable = () => {
 
   // const handleClickSendMessage = useCallback(() => sendMessage("{}"), []);
 
-  useEffect(() => console.log(blocks), [blocks]);
+  // useEffect(() => console.log(blocks), [blocks]);
+  // useEffect(() => console.log(allBlocks), [data]);
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: "Connecting",
@@ -77,7 +66,7 @@ export const BlocksTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {blocks
+          {allBlocks
             .sort((a, b) => b.height - a.height)
             .map((block, idx) => (
               <Tr key={idx}>

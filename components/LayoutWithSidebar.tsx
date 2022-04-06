@@ -61,7 +61,7 @@ const socialsLinkItems: Array<LinkItemProps> = [
   // { name: "Medium", to: "/validators", icon: IoLogoMedium },
 ];
 
-export function SidebarWithHeader({ children }: { children: ReactNode }) {
+export function LayoutWithSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("#F8F8F8", "gray.900")}>

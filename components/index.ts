@@ -1,3 +1,3 @@
 export { WebSock } from "./WebSock";
-export { SidebarWithHeader } from "./Sidebar";
+export { LayoutWithSidebar } from "./LayoutWithSidebar";
 export { BlocksTable } from "./BlocksTable";
