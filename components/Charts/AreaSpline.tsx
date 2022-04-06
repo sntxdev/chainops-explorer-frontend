@@ -15,7 +15,7 @@ export class AreaSpline extends React.Component {
       series: [
         {
           name: "$",
-          data: [30.0, 30.5, 30, 29.5, 30, 30.2, 31, 30, 29],
+          data: [30.0, 30.5, 30, 28.5, 30, 30.2, 31, 30, 29],
         },
       ],
       options: {
@@ -40,8 +40,19 @@ export class AreaSpline extends React.Component {
         stroke: {
           curve: "smooth",
         },
-        colors: ["#9127E3"],
-
+        colors: ["#E332BF"],
+        fill: {
+          type: "gradient",
+          gradient: {
+            shade: "dark",
+            gradientToColors: ["#9127E3"],
+            shadeIntensity: 1,
+            type: "horizontal",
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100, 100, 100],
+          },
+        },
         yaxis: {
           lines: {
             show: false,
