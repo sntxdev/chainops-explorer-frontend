@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "env-cmd -e development next dev",
-    "build": "CI='' env-cmd -e production next build",
+    "build": "env-cmd -e production CI='' next build",
     "start": "env-cmd -e production next start",
     "lint": "next lint"
   },
