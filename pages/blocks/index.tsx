@@ -9,12 +9,7 @@ const Blocks = ({ env }: any) => {
   }, [setAllBlocks]);
 
   const getBlocks = async () => {
-    // костыль для vercel, убрать при переезде на дев сервер
-    const url =
-      env.API_URL !== undefined
-        ? env.API_URL
-        : "https://chainops-explorer-frontend.vercel.app/api/hello";
-    const res = await fetch(url);
+    const res = await fetch(env.API_URL);
     const data = await res.json();
     setAllBlocks(data);
   };
