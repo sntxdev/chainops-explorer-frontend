@@ -12,52 +12,52 @@ const Home: NextPage = () => {
     // e.preventDefault()
     // ws.send('{}');
   };
-
-  const [socketUrl, setSocketUrl] = useState(
-    "ws://194.163.167.188:8000/archway"
-  );
-  const [messageHistory, setMessageHistory] = useState([]);
-  const [txs, setTxs] = useState([]);
-  const [blocks, setBlocks] = useState([]);
-  const [lastBlock, setLastBlock] = useState(null);
-  const [lastTxs, setLastTxs] = useState([]);
-  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
-
-  useEffect(() => {
-    if (lastMessage !== null) {
-      const data = JSON.parse(lastMessage.data);
-
-      // @ts-ignore
-      setMessageHistory((prev) => prev.concat(lastMessage));
-
-      if (data.hasOwnProperty("block")) {
-        setBlocks((prev) => prev.concat(data.block));
-        setLastBlock(data.block);
-      }
-
-      if (data.hasOwnProperty("transaction")) {
-        setTxs((prev) => prev.concat(data.transaction));
-        if (data.transaction.height == lastBlock.height) {
-          // setLastTxs(data.transaction);
-          setLastTxs((prev) => prev.concat(data.transaction));
-        }
-      }
-    }
-  }, [lastMessage, setMessageHistory]);
-
-  const handleClickSendMessage = useCallback(() => sendMessage("{}"), []);
+  //
+  // const [socketUrl, setSocketUrl] = useState(
+  //   "ws://194.163.167.188:8000/archway"
+  // );
+  // const [messageHistory, setMessageHistory] = useState([]);
+  // const [txs, setTxs] = useState([]);
+  // const [blocks, setBlocks] = useState([]);
+  // const [lastBlock, setLastBlock] = useState(null);
+  // const [lastTxs, setLastTxs] = useState([]);
+  // const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+  //
+  // useEffect(() => {
+  //   if (lastMessage !== null) {
+  //     const data = JSON.parse(lastMessage.data);
+  //
+  //     // @ts-ignore
+  //     setMessageHistory((prev) => prev.concat(lastMessage));
+  //
+  //     if (data.hasOwnProperty("block")) {
+  //       setBlocks((prev) => prev.concat(data.block));
+  //       setLastBlock(data.block);
+  //     }
+  //
+  //     if (data.hasOwnProperty("transaction")) {
+  //       setTxs((prev) => prev.concat(data.transaction));
+  //       if (data.transaction.height == lastBlock.height) {
+  //         // setLastTxs(data.transaction);
+  //         setLastTxs((prev) => prev.concat(data.transaction));
+  //       }
+  //     }
+  //   }
+  // }, [lastMessage, setMessageHistory]);
+  //
+  // const handleClickSendMessage = useCallback(() => sendMessage("{}"), []);
   // useEffect(() => console.log("Transactions: ", txs), [txs]);
   // useEffect(() => console.log(blocks), [blocks]);
   // useEffect(() => console.log("Last Block:", lastBlock), [lastBlock]);
   // useEffect(() => console.log("Last lastTxs:", lastTxs), [lastTxs]);
 
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: "Connecting",
-    [ReadyState.OPEN]: "Open",
-    [ReadyState.CLOSING]: "Closing",
-    [ReadyState.CLOSED]: "Closed",
-    [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-  }[readyState];
+  // const connectionStatus = {
+  //   [ReadyState.CONNECTING]: "Connecting",
+  //   [ReadyState.OPEN]: "Open",
+  //   [ReadyState.CLOSING]: "Closing",
+  //   [ReadyState.CLOSED]: "Closed",
+  //   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+  // }[readyState];
 
   return (
     <div>

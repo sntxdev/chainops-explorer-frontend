@@ -62,17 +62,21 @@ export const BlocksTable = ({ data }: any) => {
           <Tr>
             <Th>Height</Th>
             <Th>Hash</Th>
-            <Th>Timestamp</Th>
+            <Th>Validated by</Th>
+            <Th>Tx num</Th>
+            <Th>Time</Th>
           </Tr>
         </Thead>
-        <Tbody>
+        <Tbody fontSize="16px" fontWeight="medium">
           {allBlocks
             .sort((a, b) => b.height - a.height)
             .map((block, idx) => (
               <Tr key={idx}>
                 <Td>{block.height}</Td>
                 <Td>{block.hash}</Td>
-                <Td>{block.timestamp}</Td>
+                <Td>Vasya</Td>
+                <Td>{block.num_txs}</Td>
+                <Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>
               </Tr>
             ))}
         </Tbody>
