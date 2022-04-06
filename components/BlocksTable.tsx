@@ -48,6 +48,7 @@ export const BlocksTable = () => {
       if (data.hasOwnProperty("block")) {
         if (!blocks.some((block) => block.height == data.block.height)) {
           setBlocks((prev) => prev.concat(data.block));
+          // setBlocks(prevBlocks => [...prevBlocks, data.block])
         }
       }
     }

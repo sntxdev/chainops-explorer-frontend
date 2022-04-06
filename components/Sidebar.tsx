@@ -3,7 +3,6 @@ import NextLink from "next/link";
 
 import {
   IconButton,
-  Avatar,
   Box,
   CloseButton,
   Flex,
@@ -25,18 +24,19 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { GiAtom } from "react-icons/gi";
+import { ImHome, ImChrome } from "react-icons/im";
+import { BsGridFill } from "react-icons/bs";
+import { FaTelegramPlane } from "react-icons/fa";
 
+import {
+  IoSettingsSharp,
+  IoWallet,
+  IoBarChart,
+  IoLogoGithub,
+  IoLogoTwitter,
+} from "react-icons/io5";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 
@@ -46,21 +46,26 @@ interface LinkItemProps {
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", to: "/", icon: FiHome },
-  { name: "Blocks", to: "/blocks", icon: FiTrendingUp },
-  { name: "Transactions", to: "/transactions", icon: FiCompass },
-  { name: "Validators", to: "/validators", icon: FiStar },
-  { name: "Governance", to: "/governance", icon: FiSettings },
+  { name: "Home", to: "/", icon: ImHome },
+  { name: "Blocks", to: "/blocks", icon: BsGridFill },
+  { name: "Transactions", to: "/transactions", icon: IoWallet },
+  { name: "Validators", to: "/validators", icon: IoSettingsSharp },
+  { name: "Governance", to: "/governance", icon: IoBarChart },
+];
+
+const socialsLinkItems: Array<LinkItemProps> = [
+  { name: "Telegram", to: "/", icon: FaTelegramPlane },
+  { name: "Github", to: "/blocks", icon: IoLogoGithub },
+  { name: "Website", to: "/transactions", icon: ImChrome },
+  { name: "Twitter", to: "/governance", icon: IoLogoTwitter },
+  // { name: "Medium", to: "/validators", icon: IoLogoMedium },
 ];
 
 export function SidebarWithHeader({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("#F8F8F8", "gray.900")}>
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
-      />
+      {/*Drawer mobile*/}
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -74,9 +79,18 @@ export function SidebarWithHeader({ children }: { children: ReactNode }) {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+
+      {/*Sidebar*/}
+      <SidebarContent
+        onClose={() => onClose}
+        display={{ base: "none", md: "block" }}
+      />
+
+      {/* Header */}
+      <Header onOpen={onOpen} />
+
+      {/* Page content */}
+      <Box ml={{ base: 0, md: "282px" }} p="4">
         {children}
       </Box>
     </Box>
@@ -93,19 +107,48 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       transition="3s ease"
       bg={useColorModeValue("white", "gray.900")}
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
+      w={{ base: "full", md: "282px" }}
       pos="fixed"
       h="full"
       boxShadow="sm"
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+        {/*Logo*/}
+        <Text pl="28px" fontSize="2xl" fontWeight="bold">
+          CHAINOPS
         </Text>
+
+        {/*Close drawer button */}
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
+
+      {/*Sidenav menu*/}
       {LinkItems.map((link) => (
+        <NavItem key={link.name} icon={link.icon} to={link.to}>
+          {link.name}
+        </NavItem>
+      ))}
+
+      {/*Social networks menu*/}
+      <NavSocials />
+    </Box>
+  );
+};
+
+const NavSocials = () => {
+  return (
+    <Box mt="80px">
+      <Text
+        pl="60px"
+        mb="20px"
+        fontSize="14px"
+        fontWeight="medium"
+        color="#6E6B7B"
+      >
+        LINKS
+      </Text>
+      {socialsLinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} to={link.to}>
           {link.name}
         </NavItem>
@@ -123,14 +166,23 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
   return (
     <NextLink href={to} passHref>
       <ChakraLink
-        style={{ textDecoration: "none", fontSize: "18px" }}
+        style={{
+          textDecoration: "none",
+          fontSize: "18px",
+          fontWeight: "500",
+        }}
         _focus={{ boxShadow: "none" }}
       >
         <Flex
           align="center"
           p="4"
+          pl="60px"
           role="group"
           cursor="pointer"
+          borderRight="4px"
+          fontWeight="medium"
+          borderColor="transparent"
+          transition="background 0.32s ease"
           _hover={{
             bg: "#ECE0F5",
             fontWeight: "bold",
@@ -157,13 +209,13 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
   );
 };
 
-interface MobileProps extends FlexProps {
+interface HeaderProps extends FlexProps {
   onOpen: () => void;
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const Header = ({ onOpen, ...rest }: HeaderProps) => {
   return (
     <Flex
-      ml={{ base: 0, md: 60 }}
+      ml={{ base: 0, md: "282px" }}
       px={{ base: 4, md: 4 }}
       py="30px"
       alignItems="center"
@@ -173,6 +225,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       // justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}
     >
+      {/*BURGER MENU ICONButton*/}
       <IconButton
         display={{ base: "flex", md: "none" }}
         onClick={onOpen}
@@ -181,6 +234,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
 
+      {/*SELECT NETWORK MENU*/}
       <HStack spacing={{ base: "0", md: "6" }} mr="40px">
         <Flex alignItems={"center"} w="252px" bg="#9127E3" borderRadius="md">
           <Menu>
@@ -191,7 +245,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               py="14px"
             >
               <HStack justifyContent={"center"}>
-                {/*<Avatar size={"sm"} src={} />*/}
                 <GiAtom fill="white" size="18px" />
                 <VStack
                   display={{ base: "none", md: "flex" }}
@@ -222,6 +275,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Menu>
         </Flex>
       </HStack>
+
+      {/*SEARCH */}
       <Input
         height="56px"
         borderRadius="md"
