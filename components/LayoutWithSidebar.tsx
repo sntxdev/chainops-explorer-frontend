@@ -223,9 +223,6 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
       py="30px"
       alignItems="center"
       bg={useColorModeValue("transparent", "gray.900")}
-      // borderBottomWidth="1px"
-      // borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-      // justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}
     >
       {/*BURGER MENU ICONButton*/}
