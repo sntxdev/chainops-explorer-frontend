@@ -186,11 +186,11 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
           borderColor="transparent"
           transition="background 0.32s ease"
           _hover={{
-            bg: "#ECE0F5",
+            bg: "brand.accentLight",
             fontWeight: "bold",
             color: "#9127E3",
             borderRight: "4px",
-            borderColor: "#9127E3",
+            borderColor: "brand.accent",
           }}
           {...rest}
         >
@@ -236,7 +236,12 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
 
       {/*SELECT NETWORK MENU*/}
       <HStack spacing={{ base: "0", md: "6" }} mr="40px">
-        <Flex alignItems={"center"} w="252px" bg="#9127E3" borderRadius="md">
+        <Flex
+          alignItems={"center"}
+          w="252px"
+          bg="brand.accent"
+          borderRadius="md"
+        >
           <Menu>
             <MenuButton
               transition="all 0.3s"

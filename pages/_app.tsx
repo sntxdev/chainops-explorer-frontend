@@ -1,17 +1,25 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme, ScaleFade, Fade } from "@chakra-ui/react";
 import { LayoutWithSidebar } from "../components";
 import Head from "next/head";
 import React from "react";
 const theme = extendTheme({
+  colors: {
+    brand: {
+      accent: "#9127E3",
+      accentLight: "#ECE0F5",
+      greyPrimary: "#38383d",
+      greySecondary: "#42414d",
+    },
+  },
   fonts: {
     heading: "Montserrat, sans-serif",
     body: "Montserrat, sans-serif",
   },
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Head>
@@ -24,7 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <LayoutWithSidebar>
-        <Component {...pageProps} />
+        <Fade key={router.route} in={true} unmountOnExit={true}>
+          <Component {...pageProps} />
+        </Fade>
       </LayoutWithSidebar>
     </ChakraProvider>
   );

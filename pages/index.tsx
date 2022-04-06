@@ -6,6 +6,7 @@ import { WebSock, LayoutWithSidebar } from "../components";
 import styles from "../styles/Home.module.css";
 import { Flex, Box, SimpleGrid, Center, Text } from "@chakra-ui/react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import { AreaSpline, Donut } from "../components/Charts";
 
 const Home: NextPage = () => {
   const handleClick = (e: any) => {
@@ -64,7 +65,7 @@ const Home: NextPage = () => {
       <main>
         <Flex wrap="wrap" justifyContent="space-between">
           <Box w="49%" height="378px" bg="white">
-            <Center height="100%">1</Center>
+            <AreaSpline />
           </Box>
           <Box height="390px" w="49%">
             <SimpleGrid
@@ -88,7 +89,6 @@ const Home: NextPage = () => {
               </Box>
               <Box
                 bg="white"
-                boxShadow="md"
                 height="180px"
                 borderRadius="10"
                 _hover={{
@@ -147,10 +147,10 @@ const Home: NextPage = () => {
             </SimpleGrid>
           </Box>
           <Box bg="white" height="40vh" w="49%">
-            <Center height="100%">4</Center>
+            <Donut />
           </Box>
           <Box bg="white" height="40vh" w="49%">
-            <Center height="100%">3</Center>
+            3
           </Box>
         </Flex>
       </main>
