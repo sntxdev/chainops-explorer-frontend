@@ -8,7 +8,7 @@ import { Flex, Box, SimpleGrid, Center, Text } from "@chakra-ui/react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { AreaSpline, Donut } from "../components/Charts";
 
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
   const handleClick = (e: any) => {
     // e.preventDefault()
     // ws.send('{}');
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
   //   [ReadyState.CLOSED]: "Closed",
   //   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   // }[readyState];
-
+  console.log("props: ", props);
   return (
     <div>
       <main>
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
                 <Text fontSize="12px" padding="28px">
                   Block height
                 </Text>
-                <Center fontWeight="bold">9 234</Center>
+                <Center fontWeight="bold">{props.lastBlock?.height}</Center>
               </Box>
               <Box
                 bg="white"
@@ -99,7 +99,7 @@ const Home: NextPage = () => {
                 <Text fontSize="12px" padding="28px">
                   Trx count
                 </Text>
-                <Center fontWeight="bold">324 954</Center>
+                <Center fontWeight="bold">{props?.trxCounter}</Center>
               </Box>
               <Box
                 bg="white"

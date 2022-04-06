@@ -58,52 +58,25 @@ export const BlocksTable = ({ data }: any) => {
     [ReadyState.CLOSED]: "Closed",
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   }[readyState];
+
+  const tableRowsData = ["Height", "Hash", "Validated by", "Tx num", "Time"];
   // @ts-ignore
   return (
     <TableContainer borderRadius="8px">
       <Table variant="simple">
         <Thead background="brand.accentLight">
           <Tr>
-            <Th
-              py="34px"
-              fontSize="14px"
-              fontWeight="bold"
-              color="brand.primaryBlack"
-            >
-              Height
-            </Th>
-            <Th
-              py="34px"
-              fontSize="14px"
-              fontWeight="bold"
-              color="brand.primaryBlack"
-            >
-              Hash
-            </Th>
-            <Th
-              py="34px"
-              fontSize="14px"
-              fontWeight="bold"
-              color="brand.primaryBlack"
-            >
-              Validated by
-            </Th>
-            <Th
-              py="34px"
-              fontSize="14px"
-              fontWeight="bold"
-              color="brand.primaryBlack"
-            >
-              Tx num
-            </Th>
-            <Th
-              py="34px"
-              fontSize="14px"
-              fontWeight="bold"
-              color="brand.primaryBlack"
-            >
-              Time
-            </Th>
+            {tableRowsData.map((item, idx) => (
+              <Th
+                key={idx}
+                py="34px"
+                fontSize="14px"
+                fontWeight="bold"
+                color="brand.primaryBlack"
+              >
+                {item}
+              </Th>
+            ))}
           </Tr>
         </Thead>
 
@@ -125,3 +98,35 @@ export const BlocksTable = ({ data }: any) => {
     </TableContainer>
   );
 };
+// <Th
+//     py="34px"
+//     fontSize="14px"
+//     fontWeight="bold"
+//     color="brand.primaryBlack"
+// >
+//   Hash
+// </Th>
+// <Th
+//     py="34px"
+//     fontSize="14px"
+//     fontWeight="bold"
+//     color="brand.primaryBlack"
+// >
+//   Validated by
+// </Th>
+// <Th
+//     py="34px"
+//     fontSize="14px"
+//     fontWeight="bold"
+//     color="brand.primaryBlack"
+// >
+//   Tx num
+// </Th>
+// <Th
+//     py="34px"
+//     fontSize="14px"
+//     fontWeight="bold"
+//     color="brand.primaryBlack"
+// >
+//   Time
+// </Th>

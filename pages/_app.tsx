@@ -1,9 +1,11 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import React, { useState, useEffect, useCallback } from "react";
+
 import { ChakraProvider, extendTheme, ScaleFade, Fade } from "@chakra-ui/react";
 import { LayoutWithSidebar } from "../components";
 import Head from "next/head";
-import React from "react";
+import useWebSocket from "react-use-websocket";
 const theme = extendTheme({
   colors: {
     brand: {
@@ -22,6 +24,33 @@ const theme = extendTheme({
 });
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const [lastBlock, setLastBlock] = useState(null);
+  const [trxCounter, setTrxCounter] = useState(9234);
+  const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(
+    "wss://explorer.chainops.org/ws/archway",
+    {
+      onOpen: () => sendMessage("{}"),
+    }
+  );
+  // useEffect(() => {
+  //   setAllBlocks(data);
+  // }, [data]);
+
+  useEffect(() => {
+    if (lastMessage !== null) {
+      const data = JSON.parse(lastMessage.data);
+      if (data.hasOwnProperty("block")) {
+        setLastBlock(data.block);
+        setTrxCounter((prev) => prev + data.block.num_txs);
+        // if (!blocks.some((block) => block.height == data.block.height)) {
+        // setAllBlocks((prev) => prev.concat(data.block));
+        // setBlocks(prevBlocks => [...prevBlocks, data.block])
+        // }
+      }
+    }
+  }, [lastMessage]);
+
+  useEffect(() => console.log("lastblock: ", lastBlock), [lastMessage]);
   return (
     <ChakraProvider theme={theme}>
       <Head>
@@ -35,7 +64,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       </Head>
       <LayoutWithSidebar>
         <Fade key={router.route} in={true} unmountOnExit={true}>
-          <Component {...pageProps} />
+          <Component
+            {...pageProps}
+            lastBlock={lastBlock}
+            trxCounter={trxCounter}
+          />
         </Fade>
       </LayoutWithSidebar>
     </ChakraProvider>

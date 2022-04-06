@@ -8,12 +8,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const Blocks = () => {
+const Blocks = (props: any) => {
   const [allBlocks, setAllBlocks] = useState([]);
   useEffect(() => {
     setTimeout(function () {
       getBlocks();
-    }, 2000);
+    }, 1000);
     // getBlocks();
     console.log("Blocks Page", allBlocks);
     console.log(process.env.NEXT_PUBLIC_API_URL);
@@ -24,7 +24,7 @@ const Blocks = () => {
     const data = await res.json();
     setAllBlocks(data);
   };
-
+  console.log("props: ", props);
   return (
     <>
       <Text mb="26px" fontSize="22px" fontWeight="medium" color="#323B5A">
