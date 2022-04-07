@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 import { ReactText } from "react";
+import { useRouter } from "next/router";
+
 import NextLink from "next/link";
 import { IconType } from "react-icons";
 
@@ -49,16 +51,20 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", to: "/", icon: ImHome },
   { name: "Blocks", to: "/blocks", icon: BsGridFill },
-  { name: "Transactions", to: "/transactions", icon: IoWallet },
+  // { name: "Transactions", to: "/transactions", icon: IoWallet },
   { name: "Validators", to: "/validators", icon: IoSettingsSharp },
   { name: "Governance", to: "/governance", icon: IoBarChart },
 ];
 
 const socialsLinkItems: Array<LinkItemProps> = [
-  { name: "Telegram", to: "/", icon: FaTelegramPlane },
-  { name: "Github", to: "/blocks", icon: IoLogoGithub },
-  { name: "Website", to: "/transactions", icon: ImChrome },
-  { name: "Twitter", to: "/governance", icon: IoLogoTwitter },
+  { name: "Telegram", to: "https://t.me/ChainOps", icon: FaTelegramPlane },
+  {
+    name: "Github",
+    to: "https://github.com/chainops-org/",
+    icon: IoLogoGithub,
+  },
+  { name: "Website", to: "/12", icon: ImChrome },
+  { name: "Twitter", to: "/34", icon: IoLogoTwitter },
   // { name: "Medium", to: "/validators", icon: IoLogoMedium },
 ];
 
@@ -171,6 +177,8 @@ interface NavItemProps extends FlexProps {
 }
 
 const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
+  const router = useRouter();
+  const isActive = router.pathname === "/";
   return (
     <NextLink href={to} passHref>
       <ChakraLink
@@ -188,14 +196,15 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
           role="group"
           cursor="pointer"
           borderRight="4px"
-          fontWeight="medium"
-          borderColor="transparent"
           transition="background 0.32s ease"
+          bg={router.pathname == to ? "brand.accentLight" : "transparent"}
+          borderColor={router.pathname == to ? "brand.accent" : "transparent"}
+          color={router.pathname == to ? "brand.accent" : "brand.primaryBlack"}
+          fontWeight={router.pathname == to ? "bold" : "medium"}
           _hover={{
             bg: "brand.accentLight",
             fontWeight: "bold",
             color: "#9127E3",
-            borderRight: "4px",
             borderColor: "brand.accent",
           }}
           {...rest}
