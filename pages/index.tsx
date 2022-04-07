@@ -1,8 +1,7 @@
 // @ts-nocheck
 import type { NextPage } from "next";
 import React, { useState, useEffect, useCallback } from "react";
-import Head from "next/head";
-import { WebSock, LayoutWithSidebar } from "../components";
+
 import styles from "../styles/Home.module.css";
 import { Flex, Box, SimpleGrid, Center, Text } from "@chakra-ui/react";
 import useWebSocket, { ReadyState } from "react-use-websocket";

@@ -114,7 +114,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       boxShadow="sm"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex
+        h="20"
+        mb="24px"
+        alignItems="center"
+        mx="8"
+        justifyContent="space-between"
+      >
         {/*Logo*/}
         <Text pl="28px" fontSize="2xl" fontWeight="bold">
           CHAINOPS
