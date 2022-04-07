@@ -37,6 +37,7 @@ export const BlocksTable = ({ data }: any) => {
   useEffect(() => {
     if (lastMessage !== null) {
       const data = JSON.parse(lastMessage.data);
+
       if (data.hasOwnProperty("block")) {
         if (!blocks.some((block) => block.height == data.block.height)) {
           setAllBlocks((prev) => prev.concat(data.block));
@@ -46,9 +47,6 @@ export const BlocksTable = ({ data }: any) => {
     }
   }, [lastMessage]);
 
-  // const handleClickSendMessage = useCallback(() => sendMessage("{}"), []);
-
-  // useEffect(() => console.log(blocks), [blocks]);
   // useEffect(() => console.log(allBlocks), [data]);
 
   const connectionStatus = {

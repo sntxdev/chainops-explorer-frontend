@@ -85,7 +85,11 @@ const Home: NextPage = (props) => {
                 <Text fontSize="12px" padding="28px">
                   Block height
                 </Text>
-                <Center fontWeight="bold">{props.lastBlock?.height}</Center>
+                <Center fontWeight="bold">
+                  <Text color="white">
+                    {props.lastBlock?.height || "633198"}
+                  </Text>
+                </Center>
               </Box>
               <Box
                 bg="white"
