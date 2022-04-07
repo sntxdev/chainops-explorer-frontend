@@ -13,7 +13,7 @@ const Blocks = (props: any) => {
   useEffect(() => {
     setTimeout(function () {
       getBlocks();
-    }, 1000);
+    }, 500);
     // getBlocks();
     console.log("Blocks Page", allBlocks);
     console.log(process.env.NEXT_PUBLIC_API_URL);
