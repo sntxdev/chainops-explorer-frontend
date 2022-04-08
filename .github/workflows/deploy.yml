@@ -37,27 +37,27 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Deploy Container to production server
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.USERNAME }}
-            password: ${{ secrets.PASSWORD }}
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
 
-            script: |
-              echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-              IMAGE_ID=ghcr.io/chainops-org/chainops-explorer-frontend:latest
-              # Change all uppercase to lowercase
-              IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-              # Strip git ref prefix from version
-              VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-              # Strip "v" prefix from tag name
-              [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-              # Use Docker `latest` tag convention
-              [ "$VERSION" == "main" ] && VERSION=latest
-              echo IMAGE_ID=$IMAGE_ID
-              echo VERSION=$VERSION
-              docker pull $IMAGE_ID:$VERSION
-              docker update --restart=no chainops-explorer-frontend || true
-              docker stop $(docker ps -a -q) || true
-              docker rm $(docker ps -a -q) || true
-              docker run -d --restart unless-stopped -p 3000:3000 --name chainops-explorer-frontend $IMAGE_ID:$VERSION
+          script: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            IMAGE_ID=ghcr.io/chainops-org/chainops-explorer-frontend:latest
+            # Change all uppercase to lowercase
+            IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+            # Strip git ref prefix from version
+            VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+            # Strip "v" prefix from tag name
+            [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+            # Use Docker `latest` tag convention
+            [ "$VERSION" == "main" ] && VERSION=latest
+            echo IMAGE_ID=$IMAGE_ID
+            echo VERSION=$VERSION
+            docker pull $IMAGE_ID:$VERSION
+            docker update --restart=no chainops-explorer-frontend || true
+            docker stop $(docker ps -a -q) || true
+            docker rm $(docker ps -a -q) || true
+            docker run -d --restart unless-stopped -p 3000:3000 --name chainops-explorer-frontend $IMAGE_ID:$VERSION
