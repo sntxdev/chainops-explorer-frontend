@@ -12,7 +12,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-import { formatTime } from "../utils/formatTime";
+import { formatTime, truncate } from "../utils";
 
 export const BlocksTable = ({ data }: any) => {
   const [socketUrl, setSocketUrl] = useState(
@@ -84,7 +84,7 @@ export const BlocksTable = ({ data }: any) => {
             .map((block, idx) => (
               <Tr key={idx} bg="white">
                 <Td py="20px">{block.height}</Td>
-                <Td py="20px">{block.hash}</Td>
+                <Td py="20px">{truncate(block.hash, 5, 5, 13)}</Td>
                 <Td py="20px">Vasya</Td>
                 <Td py="20px">{block.num_txs}</Td>
                 {/*<Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>*/}
