@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(
     "wss://explorer.chainops.org/ws/archway",
     {
-      onOpen: () => sendMessage("{}"),
+      // onOpen: () => sendMessage("{}"),
     }
   );
   // useEffect(() => {
