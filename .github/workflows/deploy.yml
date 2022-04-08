@@ -22,7 +22,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Push image
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/nextjs-blog
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/chainops-explorer-frontend
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           # Strip git ref prefix from version
@@ -33,5 +33,5 @@ jobs:
           [ "$VERSION" == "main" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag nextjs-blog $IMAGE_ID:$VERSION
+          docker tag chainops-explorer-frontend $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
