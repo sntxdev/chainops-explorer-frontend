@@ -16,8 +16,8 @@ jobs:
     needs: build
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node-version: [14.x]
+        os: [ ubuntu-latest ]
+        node-version: [ 14.x ]
       steps:
         - uses: actions/checkout@v2
         - name: Use Node.js ${{ matrix.node-version }}
@@ -54,4 +54,3 @@ build-and-deploy:
         echo VERSION=$VERSION
         docker tag nextjs-blog $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
-        
