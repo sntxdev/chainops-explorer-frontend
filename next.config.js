@@ -9,10 +9,18 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 };
-
 module.exports = nextConfig;
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-module.exports = withBundleAnalyzer({});
+module.exports = {
+  experimental: {
+    outputStandalone: true,
+  },
+};
+
+// https://nextjs.org/docs/advanced-features/output-file-tracing#automatically-copying-traced-files-experimental
+
+// // Bundle analyzer
+// const withBundleAnalyzer = require("@next/bundle-analyzer")({
+//   enabled: process.env.ANALYZE === "true",
+// });
+// module.exports = withBundleAnalyzer({});

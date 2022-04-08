@@ -4,14 +4,9 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import styles from "../styles/Home.module.css";
 import { Flex, Box, SimpleGrid, Center, Text } from "@chakra-ui/react";
-import useWebSocket, { ReadyState } from "react-use-websocket";
 import { AreaSpline, Donut } from "../components/Charts";
 
 const Home: NextPage = (props) => {
-  const handleClick = (e: any) => {
-    // e.preventDefault()
-    // ws.send('{}');
-  };
   //
   // const [socketUrl, setSocketUrl] = useState(
   //   "ws://194.163.167.188:8000/archway"
@@ -93,6 +88,7 @@ const Home: NextPage = (props) => {
               <Box
                 bg="white"
                 height="180px"
+                boxShadow="sm"
                 borderRadius="10"
                 _hover={{
                   color: "white",
@@ -121,7 +117,7 @@ const Home: NextPage = (props) => {
               </Box>
               <Box
                 bg="white"
-                boxShadow="md"
+                boxShadow="sm"
                 height="180px"
                 borderRadius="10"
                 _hover={{
@@ -162,11 +158,3 @@ const Home: NextPage = (props) => {
 };
 
 export default Home;
-
-// ws.on('open', function open() {
-//   // ws.send('');
-// });
-//
-// ws.on('message', function message(data) {
-//   console.log('received: %s', data);
-// });

@@ -23,6 +23,9 @@ const theme = extendTheme({
   },
 });
 
+// Roboto Mono
+// Montserrat
+
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [lastBlock, setLastBlock] = useState(null);
   const [trxCounter, setTrxCounter] = useState(9234);
@@ -56,7 +59,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <ChakraProvider theme={theme}>
       <Head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
         <title>Chainops Block Explorer</title>
