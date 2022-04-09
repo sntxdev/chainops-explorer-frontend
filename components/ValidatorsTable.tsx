@@ -6,11 +6,8 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box } from '@chakra-ui
 
 import { formatTime, truncate } from '../utils';
 
-export const BlocksTable = ({ data }: any) => {
-  const [socketUrl, setSocketUrl] = useState(
-    // "ws://194.163.167.188:8000/archway"
-    'wss://explorer.chainops.org/ws/archway'
-  );
+export const ValidatorsTable = ({ data }: any) => {
+  const [socketUrl, setSocketUrl] = useState('wss://explorer.chainops.org/ws/archway');
 
   const [blocks, setBlocks] = useState([]);
   const [allBlocks, setAllBlocks] = useState([]);

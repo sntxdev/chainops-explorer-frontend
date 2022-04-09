@@ -70,7 +70,19 @@ const Home: NextPage = (props) => {
             >
               <Box
                 color="white"
-                bgGradient="linear(to-tr, #1BE3DC,  #9127E3, #E332BF)"
+                bg="#9127E3"
+                bgGradient={
+                  " radial-gradient(\n" +
+                  "      farthest-side at bottom left,\n" +
+                  "      #1BE3DC, \n" +
+                  "      transparent\n 95%" +
+                  "    ),\n" +
+                  "    radial-gradient(\n" +
+                  "      farthest-corner at bottom right,\n" +
+                  "      #E332BF, \n" +
+                  "      transparent\n 90%" +
+                  "    );"
+                }
                 boxShadow="sm"
                 height="180px"
                 borderRadius="10"
@@ -92,7 +104,18 @@ const Home: NextPage = (props) => {
                 borderRadius="10"
                 _hover={{
                   color: "white",
-                  bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
+                  bg: "#E332BF",
+                  bgGradient:
+                    " radial-gradient(\n" +
+                    "      farthest-side at bottom left,\n" +
+                    "      #1BE3DC, \n" +
+                    "      transparent\n 95%" +
+                    "    ),\n" +
+                    "    radial-gradient(\n" +
+                    "      farthest-corner at bottom right,\n" +
+                    "      #9127E3, \n" +
+                    "      transparent\n 90%" +
+                    "    );",
                 }}
               >
                 <Text fontSize="12px" padding="28px">
@@ -107,7 +130,18 @@ const Home: NextPage = (props) => {
                 borderRadius="10"
                 _hover={{
                   color: "white",
-                  bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
+                  bg: "#E332BF",
+                  bgGradient:
+                    " radial-gradient(\n" +
+                    "      farthest-side at bottom left,\n" +
+                    "      #9127E3, \n" +
+                    "      transparent\n 90%" +
+                    "    ),\n" +
+                    "    radial-gradient(\n" +
+                    "      farthest-corner at bottom right,\n" +
+                    "      #1BE3DC, \n" +
+                    "      transparent\n 90%" +
+                    "    );",
                 }}
               >
                 <Text fontSize="12px" padding="28px">
@@ -122,7 +156,18 @@ const Home: NextPage = (props) => {
                 borderRadius="10"
                 _hover={{
                   color: "white",
-                  bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
+                  bg: "#9127E3",
+                  bgGradient:
+                    " radial-gradient(\n" +
+                    "      farthest-side at top right,\n" +
+                    "      #1BE3DC, \n" +
+                    "      transparent\n 105%" +
+                    "    ),\n" +
+                    "    radial-gradient(\n" +
+                    "      farthest-corner at bottom left,\n" +
+                    "      #E332BF, \n" +
+                    "      transparent\n 100%" +
+                    "    );",
                 }}
               >
                 <Text fontSize="12px" padding="28px">
@@ -158,3 +203,5 @@ const Home: NextPage = (props) => {
 };
 
 export default Home;
+
+// bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",

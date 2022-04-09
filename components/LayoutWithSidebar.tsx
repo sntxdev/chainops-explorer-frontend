@@ -1,22 +1,22 @@
-import React, { ReactNode } from "react";
-import { ReactText } from "react";
-import { useRouter } from "next/router";
+import React, { ReactNode } from 'react';
+import { ReactText } from 'react';
+import { useRouter } from 'next/router';
 
-import NextLink from "next/link";
-import { IconType } from "react-icons";
+import NextLink from 'next/link';
+import { IconType } from 'react-icons';
 
-import { FiMenu, FiChevronDown } from "react-icons/fi";
-import { GiAtom } from "react-icons/gi";
-import { ImHome, ImChrome } from "react-icons/im";
-import { BsGridFill } from "react-icons/bs";
-import { FaTelegramPlane } from "react-icons/fa";
+import { FiMenu, FiChevronDown } from 'react-icons/fi';
+import { GiAtom } from 'react-icons/gi';
+import { ImHome, ImChrome } from 'react-icons/im';
+import { BsGridFill } from 'react-icons/bs';
+import { FaTelegramPlane } from 'react-icons/fa';
 import {
   IoSettingsSharp,
   IoWallet,
   IoBarChart,
   IoLogoGithub,
   IoLogoTwitter,
-} from "react-icons/io5";
+} from 'react-icons/io5';
 
 import {
   IconButton,
@@ -40,7 +40,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface LinkItemProps {
   name: string;
@@ -49,29 +49,29 @@ interface LinkItemProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", to: "/", icon: ImHome },
-  { name: "Blocks", to: "/blocks", icon: BsGridFill },
+  { name: 'Home', to: '/', icon: ImHome },
+  { name: 'Blocks', to: '/blocks', icon: BsGridFill },
   // { name: "Transactions", to: "/transactions", icon: IoWallet },
-  { name: "Validators", to: "/validators", icon: IoSettingsSharp },
-  { name: "Governance", to: "/governance", icon: IoBarChart },
+  { name: 'Validators', to: '/validators', icon: IoSettingsSharp },
+  { name: 'Governance', to: '/governance', icon: IoBarChart },
 ];
 
 const socialsLinkItems: Array<LinkItemProps> = [
-  { name: "Telegram", to: "https://t.me/ChainOps", icon: FaTelegramPlane },
+  { name: 'Telegram', to: 'https://t.me/ChainOps', icon: FaTelegramPlane },
   {
-    name: "Github",
-    to: "https://github.com/chainops-org/",
+    name: 'Github',
+    to: 'https://github.com/chainops-org/',
     icon: IoLogoGithub,
   },
-  { name: "Website", to: "/12", icon: ImChrome },
-  { name: "Twitter", to: "/34", icon: IoLogoTwitter },
+  { name: 'Website', to: '/12', icon: ImChrome },
+  { name: 'Twitter', to: '/34', icon: IoLogoTwitter },
   // { name: "Medium", to: "/validators", icon: IoLogoMedium },
 ];
 
 export function LayoutWithSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue("#F8F8F8", "gray.900")}>
+    <Box minH="100vh" bg={useColorModeValue('#F8F8F8', 'gray.900')}>
       {/*Drawer mobile*/}
       <Drawer
         autoFocus={false}
@@ -88,16 +88,13 @@ export function LayoutWithSidebar({ children }: { children: ReactNode }) {
       </Drawer>
 
       {/*Sidebar*/}
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
-      />
+      <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
 
       {/* Header */}
       <Header onOpen={onOpen} />
 
       {/* Page content */}
-      <Box ml={{ base: 0, md: "282px" }} px="4">
+      <Box ml={{ base: 0, md: '282px' }} px="4">
         {children}
       </Box>
     </Box>
@@ -112,28 +109,22 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue("white", "gray.900")}
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: "282px" }}
+      bg={useColorModeValue('white', 'gray.900')}
+      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      w={{ base: 'full', md: '282px' }}
       pos="fixed"
       h="full"
       boxShadow="sm"
       {...rest}
     >
-      <Flex
-        h="20"
-        mb="24px"
-        alignItems="center"
-        mx="8"
-        justifyContent="space-between"
-      >
+      <Flex h="20" mb="24px" alignItems="center" mx="8" justifyContent="space-between">
         {/*Logo*/}
         <Text pl="28px" fontSize="2xl" fontWeight="bold">
           CHAINOPS
         </Text>
 
         {/*Close drawer button */}
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
 
       {/*Sidenav menu*/}
@@ -152,13 +143,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 const NavSocials = () => {
   return (
     <Box mt="80px">
-      <Text
-        pl="60px"
-        mb="20px"
-        fontSize="14px"
-        fontWeight="medium"
-        color="#6E6B7B"
-      >
+      <Text pl="60px" mb="20px" fontSize="14px" fontWeight="medium" color="#6E6B7B">
         LINKS
       </Text>
       {socialsLinkItems.map((link) => (
@@ -178,16 +163,16 @@ interface NavItemProps extends FlexProps {
 
 const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
   const router = useRouter();
-  const isActive = router.pathname === "/";
+  const isActive = router.pathname === '/';
   return (
     <NextLink href={to} passHref>
       <ChakraLink
         style={{
-          textDecoration: "none",
-          fontSize: "18px",
-          fontWeight: "500",
+          textDecoration: 'none',
+          fontSize: '18px',
+          fontWeight: '500',
         }}
-        _focus={{ boxShadow: "none" }}
+        _focus={{ boxShadow: 'none' }}
       >
         <Flex
           align="center"
@@ -197,15 +182,15 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
           cursor="pointer"
           borderRight="4px"
           transition="background 0.32s ease"
-          bg={router.pathname == to ? "brand.accentLight" : "transparent"}
-          borderColor={router.pathname == to ? "brand.accent" : "transparent"}
-          color={router.pathname == to ? "brand.accent" : "brand.primaryBlack"}
-          fontWeight={router.pathname == to ? "bold" : "medium"}
+          bg={router.pathname == to ? 'brand.accentLight' : 'transparent'}
+          borderColor={router.pathname == to ? 'brand.accent' : 'transparent'}
+          color={router.pathname == to ? 'brand.accent' : 'brand.primaryBlack'}
+          fontWeight={router.pathname == to ? 'bold' : 'medium'}
           _hover={{
-            bg: "brand.accentLight",
-            fontWeight: "bold",
-            color: "#9127E3",
-            borderColor: "brand.accent",
+            bg: 'brand.accentLight',
+            fontWeight: 'bold',
+            color: '#9127E3',
+            borderColor: 'brand.accent',
           }}
           {...rest}
         >
@@ -214,7 +199,7 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
               mr="4"
               fontSize="16"
               _groupHover={{
-                color: "#9127E3",
+                color: '#9127E3',
               }}
               as={icon}
             />
@@ -233,16 +218,16 @@ interface HeaderProps extends FlexProps {
 const Header = ({ onOpen, ...rest }: HeaderProps) => {
   return (
     <Flex
-      ml={{ base: 0, md: "282px" }}
+      ml={{ base: 0, md: '282px' }}
       px={{ base: 4, md: 4 }}
       py="30px"
       alignItems="center"
-      bg={useColorModeValue("transparent", "gray.900")}
+      bg={useColorModeValue('transparent', 'gray.900')}
       {...rest}
     >
       {/*BURGER MENU ICONButton*/}
       <IconButton
-        display={{ base: "flex", md: "none" }}
+        display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
         variant="outline"
         aria-label="open menu"
@@ -250,24 +235,14 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
       />
 
       {/*SELECT NETWORK MENU*/}
-      <HStack spacing={{ base: "0", md: "6" }} mr="40px">
-        <Flex
-          alignItems={"center"}
-          w="252px"
-          bg="brand.accent"
-          borderRadius="md"
-        >
+      <HStack spacing={{ base: '0', md: '6' }} mr="40px">
+        <Flex alignItems={'center'} w="252px" bg="brand.accent" borderRadius="md">
           <Menu>
-            <MenuButton
-              transition="all 0.3s"
-              _focus={{ boxShadow: "none" }}
-              w="100%"
-              py="14px"
-            >
-              <HStack justifyContent={"center"}>
+            <MenuButton transition="all 0.3s" _focus={{ boxShadow: 'none' }} w="100%" py="14px">
+              <HStack justifyContent={'center'}>
                 <GiAtom fill="white" size="18px" />
                 <VStack
-                  display={{ base: "none", md: "flex" }}
+                  display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2"
@@ -276,14 +251,14 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
                     Archway
                   </Text>
                 </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
-                  <FiChevronDown fill="white" stroke={"white"} />
+                <Box display={{ base: 'none', md: 'flex' }}>
+                  <FiChevronDown fill="white" stroke={'white'} />
                 </Box>
               </HStack>
             </MenuButton>
             <MenuList
-              bg={useColorModeValue("white", "gray.900")}
-              borderColor={useColorModeValue("gray.200", "gray.700")}
+              bg={useColorModeValue('white', 'gray.900')}
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
               <MenuItem>Cosmos</MenuItem>
               <MenuItem>BitCanna</MenuItem>
@@ -305,7 +280,7 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
         border="0"
         focusBorderColor="none"
         placeholder="Search transaction, address or go to block #"
-        _placeholder={{ color: "#D3D3D3" }}
+        _placeholder={{ color: '#D3D3D3' }}
         w="100%"
       />
     </Flex>
