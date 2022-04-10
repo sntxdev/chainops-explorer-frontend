@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // import Chart from "react-apexcharts";
-import dynamic from "next/dynamic";
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import dynamic from 'next/dynamic';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 // https://apexcharts.com/docs/grid/
 export class Donut extends Component {
@@ -10,14 +10,14 @@ export class Donut extends Component {
 
     this.state = {
       options: {
-        colors: ["#1BE3DC", "#9127E3"],
+        colors: ['#1BE3DC', '#9127E3'],
         legend: {
           show: false,
         },
         dataLabels: {
           enabled: true,
         },
-        labels: ["Bonded", "Total"],
+        labels: ['Bonded', 'Total'],
       },
       series: [25, 75],
     };
@@ -26,14 +26,15 @@ export class Donut extends Component {
   render() {
     return (
       <div className="donut">
-        {typeof window !== "undefined" && (
+        {typeof window !== 'undefined' && (
           <Chart
             // @ts-ignore
             options={this.state.options}
             // @ts-ignore
             series={this.state.series}
             type="donut"
-            width="400"
+            height="auto"
+            width="300"
           />
         )}
       </div>

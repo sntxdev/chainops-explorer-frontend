@@ -1,25 +1,28 @@
-import type { AppProps } from "next/app";
-import Head from "next/head";
-import React, { useState, useEffect, useCallback } from "react";
-import useWebSocket from "react-use-websocket";
-import { ChakraProvider, extendTheme, ScaleFade, Fade } from "@chakra-ui/react";
-import { LayoutWithSidebar } from "../components";
-import "../styles/globals.css";
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import React, { useState, useEffect, useCallback } from 'react';
+import useWebSocket from 'react-use-websocket';
+import { ChakraProvider, extendTheme, ScaleFade, Fade } from '@chakra-ui/react';
+import { LayoutWithSidebar } from '../components';
+import '../styles/globals.css';
 
 const theme = extendTheme({
   colors: {
+    primary: {
+      main: '#323B5A',
+    },
     brand: {
-      primaryBlack: "#323B5A",
-      accent: "#9127E3",
-      accentLight: "#ECE0F5",
-      accentBlue: "#1BE3DC",
-      greyPrimary: "#38383d",
-      greySecondary: "#42414d",
+      primaryBlack: '#323B5A',
+      accent: '#9127E3',
+      accentLight: '#ECE0F5',
+      accentBlue: '#1BE3DC',
+      greyPrimary: '#38383d',
+      greySecondary: '#42414d',
     },
   },
   fonts: {
-    heading: "Montserrat, sans-serif",
-    body: "Montserrat, sans-serif",
+    heading: 'Montserrat, sans-serif',
+    body: 'Montserrat, sans-serif',
   },
 });
 
@@ -30,7 +33,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const [lastBlock, setLastBlock] = useState(null);
   const [trxCounter, setTrxCounter] = useState(9234);
   const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(
-    "wss://explorer.chainops.org/ws/archway",
+    'wss://explorer.chainops.org/ws/archway',
     {
       // onOpen: () => sendMessage("{}"),
     }
@@ -42,7 +45,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   useEffect(() => {
     if (lastMessage !== null) {
       const data = JSON.parse(lastMessage.data);
-      if (data.hasOwnProperty("block")) {
+      if (data.hasOwnProperty('block')) {
         setLastBlock(data.block);
         setTrxCounter((prev) => prev + data.block.num_txs);
         // if (!blocks.some((block) => block.height == data.block.height)) {
@@ -53,7 +56,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     }
   }, [lastMessage]);
 
-  useEffect(() => console.log("lastblock: ", lastBlock), [lastMessage]);
+  useEffect(() => console.log('lastblock: ', lastBlock), [lastMessage]);
 
   return (
     <ChakraProvider theme={theme}>
@@ -68,11 +71,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       </Head>
       <LayoutWithSidebar>
         <Fade key={router.route} in={true} unmountOnExit={true}>
-          <Component
-            {...pageProps}
-            lastBlock={lastBlock}
-            trxCounter={trxCounter}
-          />
+          <Component {...pageProps} lastBlock={lastBlock} trxCounter={trxCounter} />
         </Fade>
       </LayoutWithSidebar>
     </ChakraProvider>
