@@ -60,4 +60,4 @@ jobs:
             docker update --restart=no chainops-explorer-frontend || true
             docker stop chainops-explorer-frontend || true
             docker rm chainops-explorer-frontend || true
-            docker run -d --restart unless-stopped -p 3000:3000 --name chainops-explorer-frontend $IMAGE_ID:$VERSION
+            docker run -d --restart unless-stopped -p 127.0.0.1:3000:3000 --name chainops-explorer-frontend $IMAGE_ID:$VERSION
