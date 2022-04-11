@@ -6,11 +6,13 @@ const Blocks = (props: any) => {
   const [allBlocks, setAllBlocks] = useState([]);
 
   useEffect(() => {
-    setTimeout(function () {
-      getBlocks();
-    }, 500);
+    // Delay for table skeleton show
+    // setTimeout(function () {
+    //   getBlocks();
+    // }, 500);
     // console.log("Blocks Page", allBlocks);
 
+    getBlocks();
     console.log(process.env.NEXT_PUBLIC_API_URL);
   }, [setAllBlocks]);
 

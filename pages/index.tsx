@@ -3,8 +3,9 @@ import type { NextPage } from 'next';
 import React, { useState, useEffect, useCallback } from 'react';
 
 import styles from '../styles/Home.module.css';
-import { Flex, Box, SimpleGrid, Center, Text } from '@chakra-ui/react';
-import { AreaSpline, Donut } from '../components/Charts';
+import { Flex, Box, SimpleGrid, Center, Text, Square } from '@chakra-ui/react';
+import { AreaSpline, Donut, Radialbar } from '../components/Charts';
+import { TopCoinHoldersTable } from '../components/';
 
 const Home: NextPage = (props) => {
   //
@@ -200,26 +201,48 @@ const Home: NextPage = (props) => {
             w="50%"
             borderRadius="10"
             mt="10px"
-            p="30px"
+            px="30px"
           >
-            <Box>
-              <Text pl="30px" mt="30px" fontSize="18px" fontWeight="bold">
+            <Box py="20px" position="relative" width="60%">
+              <Text p="0 30px" fontSize="18px" fontWeight="bold">
                 Tokenomics
               </Text>
-              <Text pl="30px" fontSize="18px" fontWeight="medium" mt="6px" mb="18px">
-                Supply
-              </Text>
-              <Text pl="30px" fontSize="18px" fontWeight="medium" mt="6px" mb="18px">
-                Bonded
-              </Text>
-              <Text pl="30px" fontSize="18px" fontWeight="medium" mt="6px" mb="18px">
-                Total supply 10 220 637 486 23
+              <Box pl="30px" mt="30px" display="flex" alignItems="center">
+                <Square size="20px" bg="brand.accent" color="white" borderRadius="4px" />
+                <Text pl="6px" fontSize="16px" fontWeight="medium">
+                  Supply
+                </Text>
+                <Text pl="6px" marginLeft="68px" fontSize="16px" fontWeight="medium">
+                  75%
+                </Text>
+              </Box>
+              <Box pl="30px" mt="15px" display="inline-flex" alignItems="center">
+                <Square size="20px" bg="brand.accentBlue" color="white" borderRadius="4px" />
+                <Text pl="6px" fontSize="16px" fontWeight="medium">
+                  Bonded
+                </Text>
+                <Text pl="6px" marginLeft="60px" fontSize="16px" fontWeight="medium">
+                  25%
+                </Text>
+              </Box>
+
+              <Text pl="30px" position="absolute" bottom="20px" fontSize="16px" fontWeight="medium">
+                Total supply:
+                <Text as="span" ml="10px" fontWeight="semibold">
+                  10 220 637 486 23
+                </Text>
               </Text>
             </Box>
-            <Donut />
+            {/*<Donut />*/}
+            <Box width="40%">
+              <Radialbar />
+            </Box>
           </Box>
-          <Box bg="white" height="38vh" w="49%" borderRadius="10" mt="10px">
-            3
+          <Box bg="white" height="270px" w="49%" borderRadius="10" mt="10px">
+            <Text p="20px" fontSize="18px" fontWeight="bold">
+              Top 5 coin holders
+            </Text>
+            <TopCoinHoldersTable />
           </Box>
         </Flex>
       </main>

@@ -11,6 +11,21 @@ export class Donut extends Component {
     this.state = {
       options: {
         colors: ['#1BE3DC', '#9127E3'],
+
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                name: '75%',
+                value: 'supply',
+              },
+            },
+          },
+        },
+        chartOptions: {
+          borderRadius: '40px',
+        },
         legend: {
           show: false,
         },

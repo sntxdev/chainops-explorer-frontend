@@ -1,5 +1,7 @@
+import { ValidatorsTable } from '../../components';
+
 const Validators = () => {
-  return <div>Validators</div>;
+  return <ValidatorsTable />;
 };
 
 export default Validators;
