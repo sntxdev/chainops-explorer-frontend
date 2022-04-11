@@ -204,10 +204,10 @@ const Home: NextPage = (props) => {
             px="30px"
           >
             <Box py="20px" position="relative" width="60%">
-              <Text p="0 30px" fontSize="18px" fontWeight="bold">
+              <Text fontSize="18px" fontWeight="bold">
                 Tokenomics
               </Text>
-              <Box pl="30px" mt="30px" display="flex" alignItems="center">
+              <Box mt="30px" display="flex" alignItems="center">
                 <Square size="20px" bg="brand.accent" color="white" borderRadius="4px" />
                 <Text pl="6px" fontSize="16px" fontWeight="medium">
                   Supply
@@ -216,7 +216,7 @@ const Home: NextPage = (props) => {
                   75%
                 </Text>
               </Box>
-              <Box pl="30px" mt="15px" display="inline-flex" alignItems="center">
+              <Box mt="15px" display="inline-flex" alignItems="center">
                 <Square size="20px" bg="brand.accentBlue" color="white" borderRadius="4px" />
                 <Text pl="6px" fontSize="16px" fontWeight="medium">
                   Bonded
@@ -226,7 +226,7 @@ const Home: NextPage = (props) => {
                 </Text>
               </Box>
 
-              <Text pl="30px" position="absolute" bottom="20px" fontSize="16px" fontWeight="medium">
+              <Text position="absolute" bottom="20px" fontSize="16px" fontWeight="medium">
                 Total supply:
                 <Text as="span" ml="10px" fontWeight="semibold">
                   10 220 637 486 23
