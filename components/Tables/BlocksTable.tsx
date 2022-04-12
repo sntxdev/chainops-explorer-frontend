@@ -49,7 +49,7 @@ export const BlocksTable = ({ data }: any) => {
     }
   }, [lastMessage]);
 
-  // useEffect(() => console.log(allBlocks), [data]);
+  useEffect(() => console.log(allBlocks));
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: 'Connecting',
@@ -101,7 +101,7 @@ export const BlocksTable = ({ data }: any) => {
                 <Td py="20px">Vasya</Td>
                 <Td py="20px">{block.num_txs}</Td>
                 {/*<Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>*/}
-                {/*<Td>{formatTime(block.timestamp)}</Td>*/}
+                <Td>{formatTime(block.datetime)}</Td>
               </Tr>
             ))}
         </Tbody>
