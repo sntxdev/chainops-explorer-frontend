@@ -2,7 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box } from '@chakra-ui/react';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Box,
+  Text,
+  IconButton,
+  Tooltip,
+} from '@chakra-ui/react';
+import { IoCopyOutline } from 'react-icons/io5';
 
 import { formatTime, truncate } from '../../utils';
 
@@ -71,7 +84,20 @@ export const BlocksTable = ({ data }: any) => {
                     <a style={{ color: '#1F1BE3' }}>{block.height}</a>
                   </Link>
                 </Td>
-                <Td py="20px">{truncate(block.hash, 5, 5, 13)}</Td>
+                <Td py="20px" display="flex">
+                  <Text as="span" mr="8px">
+                    {truncate(block.hash, 5, 5, 13)}
+                  </Text>
+                  <Tooltip label="copy" placement="top-end" closeDelay={100}>
+                    <IconButton
+                      variant="link"
+                      verticalAlign="text-top"
+                      icon={<IoCopyOutline />}
+                      _hover={{ cursor: 'pointer' }}
+                      _focus={{ outline: 'none' }}
+                    />
+                  </Tooltip>
+                </Td>
                 <Td py="20px">Vasya</Td>
                 <Td py="20px">{block.num_txs}</Td>
                 {/*<Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>*/}

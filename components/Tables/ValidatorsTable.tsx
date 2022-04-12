@@ -3,47 +3,19 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Box } from '@chakra-ui/react';
-
+import { validatorsData } from '../../utils/validatorsData';
 import { formatTime, truncate } from '../../utils';
 
 export const ValidatorsTable = ({ data }: any) => {
-  const [socketUrl, setSocketUrl] = useState('wss://explorer.chainops.org/ws/archway');
-
-  const [blocks, setBlocks] = useState([]);
-  const [allBlocks, setAllBlocks] = useState([]);
-  const [lastBlock, setLastBlock] = useState(null);
-  const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(socketUrl, {
-    onOpen: () => sendMessage('{}'),
-  });
+  const [validators, setValidators] = useState([]);
 
   useEffect(() => {
-    setAllBlocks(data);
-  }, [data]);
+    setValidators(validatorsData);
+  }, []);
 
-  useEffect(() => {
-    if (lastMessage !== null) {
-      const wssData = JSON.parse(lastMessage.data);
+  useEffect(() => console.log(validators), []);
 
-      if (wssData.hasOwnProperty('block')) {
-        if (!blocks.some((block) => block.height == wssData.block.height)) {
-          setAllBlocks((prev) => prev.concat(wssData.block));
-          // setBlocks(prevBlocks => [...prevBlocks, data.block])
-        }
-      }
-    }
-  }, [lastMessage]);
-
-  // useEffect(() => console.log(allBlocks), [data]);
-
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: 'Connecting',
-    [ReadyState.OPEN]: 'Open',
-    [ReadyState.CLOSING]: 'Closing',
-    [ReadyState.CLOSED]: 'Closed',
-    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  }[readyState];
-
-  const tableRowsData = ['Height', 'Hash', 'Validated by', 'Tx num', 'Time'];
+  const tableRowsData = ['Rank', 'Validator', 'Total stake', 'Uptime', 'Commission'];
   // @ts-ignore
   return (
     <TableContainer borderRadius="8px">
@@ -59,20 +31,19 @@ export const ValidatorsTable = ({ data }: any) => {
         </Thead>
 
         <Tbody fontSize="16px" fontWeight="medium">
-          {allBlocks
-            .sort((a, b) => b.height - a.height)
-            .map((block, idx) => (
+          {validators
+            .sort((a, b) => a.rank - b.rank)
+            .map((validator, idx) => (
               <Tr key={idx} bg="white">
+                <Td py="20px">{validator.rank}</Td>
                 <Td py="20px">
-                  <Link href={`/blocks/${block.height}`}>
-                    <a style={{ color: '#1F1BE3' }}>{block.height}</a>
+                  <Link href={`/validator/${validator.operator_address}`}>
+                    <a style={{ color: '#1F1BE3' }}>{validator.moniker}</a>
                   </Link>
                 </Td>
-                <Td py="20px">{truncate(block.hash, 5, 5, 13)}</Td>
-                <Td py="20px">Vasya</Td>
-                <Td py="20px">{block.num_txs}</Td>
-                {/*<Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>*/}
-                <Td>{formatTime(block.timestamp)}</Td>
+                <Td py="20px">{validator.tokens}</Td>
+                <Td py="20px">{validator.uptime.over_blocks}%</Td>
+                <Td py="20px">{validator.rate}</Td>
               </Tr>
             ))}
         </Tbody>

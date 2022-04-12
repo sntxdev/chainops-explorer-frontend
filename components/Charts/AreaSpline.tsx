@@ -24,6 +24,9 @@ export class AreaSpline extends React.Component {
           height: '100',
           type: 'area',
           foreColor: '#6E6B7B', // text on axis color
+          animations: {
+            enabled: false, //no animations
+          },
           toolbar: {
             show: false,
           },
