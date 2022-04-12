@@ -10,7 +10,6 @@ const Blocks = (props: any) => {
     setTimeout(function () {
       getBlocks();
     }, 500);
-    console.log('Blocks Page', allBlocks);
 
     // getBlocks();
     console.log(process.env.NEXT_PUBLIC_API_URL);
@@ -22,6 +21,7 @@ const Blocks = (props: any) => {
     setAllBlocks(data);
   };
 
+  useEffect(() => console.log('allblocks: ', allBlocks), []);
   console.log('props: ', props);
   return (
     <>
