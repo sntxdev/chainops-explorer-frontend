@@ -8,7 +8,7 @@ const Governance = () => {
       <Text mb="26px" fontSize="22px" fontWeight="medium" color="#323B5A">
         Governance
       </Text>
-      <SimpleGrid columns={[1, 2, 3]} spacing={10}>
+      <SimpleGrid columns={[1, 2, 2, 3]} spacing={10}>
         <GovernanceCard />
         <GovernanceCard />
         <GovernanceCard />
