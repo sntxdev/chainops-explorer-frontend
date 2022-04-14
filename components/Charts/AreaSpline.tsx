@@ -82,36 +82,7 @@ export class AreaSpline extends React.Component {
             show: false,
           },
           type: 'date', //datetime
-
-          categories: [
-            new Date('2018-01-19T00:00:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-02-19T01:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-03-19T02:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-04-19T03:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-05-19T04:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-06-19T05:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-07-19T06:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-08-19T06:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-            new Date('2018-09-19T06:30:00.000Z').toLocaleString('default', {
-              month: 'short',
-            }),
-          ],
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
         },
         tooltip: {
           x: {
@@ -140,3 +111,33 @@ export class AreaSpline extends React.Component {
     );
   }
 }
+//
+// categories: [
+//   new Date('2018-01-19T00:00:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-02-19T01:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-03-19T02:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-04-19T03:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-05-19T04:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-06-19T05:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-07-19T06:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-08-19T06:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+//   new Date('2018-09-19T06:30:00.000Z').toLocaleString('default', {
+//     month: 'short',
+//   }),
+// ],

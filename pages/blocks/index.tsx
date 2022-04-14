@@ -1,17 +1,12 @@
 import { BlocksTable } from '../../components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { Skeleton, SkeletonCircle, SkeletonText, Stack, Text } from '@chakra-ui/react';
 
 const Blocks = (props: any) => {
   const [allBlocks, setAllBlocks] = useState([]);
 
   useEffect(() => {
-    // Delay for table skeleton show
-    setTimeout(function () {
-      getBlocks();
-    }, 500);
-
-    // getBlocks();
+    getBlocks();
     console.log(process.env.NEXT_PUBLIC_API_URL);
   }, [setAllBlocks]);
 
