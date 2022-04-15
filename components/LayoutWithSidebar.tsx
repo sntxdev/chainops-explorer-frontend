@@ -41,6 +41,7 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
+import { NetworksMenuModal } from './NetworksMenu';
 
 interface LinkItemProps {
   name: string;
@@ -233,43 +234,43 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
+      <NetworksMenuModal />
       {/*SELECT NETWORK MENU*/}
-      <HStack spacing={{ base: '0', md: '6' }} mr="40px">
-        <Flex alignItems={'center'} w="252px" bg="brand.accent" borderRadius="md">
-          <Menu>
-            <MenuButton transition="all 0.3s" _focus={{ boxShadow: 'none' }} w="100%" py="14px">
-              <HStack justifyContent={'center'}>
-                <GiAtom fill="white" size="18px" />
-                <VStack
-                  display={{ base: 'none', md: 'flex' }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="18px" fontWeight="medium" color="white">
-                    Archway
-                  </Text>
-                </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown fill="white" stroke={'white'} />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}
-            >
-              <MenuItem>Cosmos</MenuItem>
-              <MenuItem>BitCanna</MenuItem>
-              <MenuItem>Kyve</MenuItem>
-              <MenuDivider />
-              <MenuItem>SubQuery</MenuItem>
-              <MenuItem>Acala</MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-      </HStack>
+      {/*<HStack spacing={{ base: '0', md: '6' }} mr="40px">*/}
+      {/*  <Flex alignItems={'center'} w="252px" bg="brand.accent" borderRadius="md">*/}
+      {/*    <Menu>*/}
+      {/*      <MenuButton transition="all 0.3s" _focus={{ boxShadow: 'none' }} w="100%" py="14px">*/}
+      {/*        <HStack justifyContent={'center'}>*/}
+      {/*          <GiAtom fill="white" size="18px" />*/}
+      {/*          <VStack*/}
+      {/*            display={{ base: 'none', md: 'flex' }}*/}
+      {/*            alignItems="flex-start"*/}
+      {/*            spacing="1px"*/}
+      {/*            ml="2"*/}
+      {/*          >*/}
+      {/*            <Text fontSize="18px" fontWeight="medium" color="white">*/}
+      {/*              Archway*/}
+      {/*            </Text>*/}
+      {/*          </VStack>*/}
+      {/*          <Box display={{ base: 'none', md: 'flex' }}>*/}
+      {/*            <FiChevronDown fill="white" stroke={'white'} />*/}
+      {/*          </Box>*/}
+      {/*        </HStack>*/}
+      {/*      </MenuButton>*/}
+      {/*      <MenuList*/}
+      {/*        bg={useColorModeValue('white', 'gray.900')}*/}
+      {/*        borderColor={useColorModeValue('gray.200', 'gray.700')}*/}
+      {/*      >*/}
+      {/*        <MenuItem>Cosmos</MenuItem>*/}
+      {/*        <MenuItem>BitCanna</MenuItem>*/}
+      {/*        <MenuItem>Kyve</MenuItem>*/}
+      {/*        <MenuDivider />*/}
+      {/*        <MenuItem>SubQuery</MenuItem>*/}
+      {/*        <MenuItem>Acala</MenuItem>*/}
+      {/*      </MenuList>*/}
+      {/*    </Menu>*/}
+      {/*  </Flex>*/}
+      {/*</HStack>*/}
 
       {/*SEARCH */}
       <Input
