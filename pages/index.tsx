@@ -1,14 +1,46 @@
 // @ts-nocheck
 import type { NextPage } from 'next';
 import React, { useState, useEffect, useCallback } from 'react';
-import { gql } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
+
 import client from '../utils/apolloClient';
 
 import { Flex, Box, SimpleGrid, Center, Text, Square } from '@chakra-ui/react';
 import { AreaSpline, Donut, Radialbar } from '../components/Charts';
 import { TopCoinHoldersTable } from '../components/';
 
+const Query = gql`
+  query MyQuery {
+    archway_block(limit: 10, order_by: { height: desc }) {
+      hash
+      height
+      num_txs
+      timestamp
+      transactions {
+        hash
+        height
+        fee
+        gas_used
+        gas_wanted
+      }
+    }
+  }
+`;
+
 const Home: NextPage = (props) => {
+  useEffect(() => console.log('data:', props), [props]);
+  // const { data, loading, error } = useQuery(Query);
+  // useEffect(() => console.log('data:', data), [data]);
+  //
+  // if (loading) {
+  //   return <span>loading...</span>;
+  // }
+  //
+  // if (error) {
+  //   console.error(error);
+  //   return null;
+  // }
+
   //
   // const [socketUrl, setSocketUrl] = useState(
   //   "ws://194.163.167.188:8000/archway"
@@ -55,7 +87,7 @@ const Home: NextPage = (props) => {
   //   [ReadyState.CLOSED]: "Closed",
   //   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   // }[readyState];
-  console.log('props with gql: ', props);
+  // console.log('props with gql: ', props);
   return (
     <div>
       <main>

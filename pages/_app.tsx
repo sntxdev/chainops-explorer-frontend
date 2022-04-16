@@ -1,16 +1,12 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import React, { useState, useEffect, useCallback } from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
 import useWebSocket from 'react-use-websocket';
 import { ChakraProvider, extendTheme, ScaleFade, Fade } from '@chakra-ui/react';
 import { LayoutWithSidebar } from '../components';
 import '../styles/globals.css';
-
-// const client = new ApolloClient({
-//   uri: 'https://explorer.chainops.org/api/v1/graphql',
-//   cache: new InMemoryCache(),
-// });
 
 const theme = extendTheme({
   colors: {
@@ -35,15 +31,21 @@ const theme = extendTheme({
 // Roboto Mono
 // Montserrat
 
+const client = new ApolloClient({
+  uri: 'https://explorer.chainops.org/api/v1/graphql',
+  cache: new InMemoryCache(),
+});
+
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [lastBlock, setLastBlock] = useState(null);
-  const [trxCounter, setTrxCounter] = useState(9234);
+  const [trxCounter, setTrxCounter] = useState(0);
   const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(
     'wss://explorer.chainops.org/ws/archway',
     {
       // onOpen: () => sendMessage("{}"),
     }
   );
+
   // useEffect(() => {
   //   setAllBlocks(data);
   // }, [data]);
@@ -62,25 +64,27 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     }
   }, [lastMessage]);
 
-  useEffect(() => console.log('lastblock: ', lastBlock), [lastMessage]);
+  // useEffect(() => console.log('lastblock: ', lastBlock), [lastMessage]);
 
   return (
-    <ChakraProvider theme={theme}>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-        <title>Chainops Block Explorer</title>
-        <meta name="description" content="Chainops Block Explorer" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <LayoutWithSidebar>
-        <Fade key={router.route} in={true} unmountOnExit={true}>
-          <Component {...pageProps} lastBlock={lastBlock} trxCounter={trxCounter} />
-        </Fade>
-      </LayoutWithSidebar>
-    </ChakraProvider>
+    <ApolloProvider client={client}>
+      <ChakraProvider theme={theme}>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+          />
+          <title>Chainops Block Explorer</title>
+          <meta name="description" content="Chainops Block Explorer" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <LayoutWithSidebar>
+          <Fade key={router.route} in={true} unmountOnExit={true}>
+            <Component {...pageProps} lastBlock={lastBlock} trxCounter={trxCounter} />
+          </Fade>
+        </LayoutWithSidebar>
+      </ChakraProvider>
+    </ApolloProvider>
   );
 }
 

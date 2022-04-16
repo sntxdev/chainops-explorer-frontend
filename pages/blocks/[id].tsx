@@ -1,23 +1,52 @@
 // @ts-nocheck
 import { useRouter } from 'next/router';
+import { useQuery, gql } from '@apollo/client';
 import { Box, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { TransactionsTable } from '../../components/Tables/TransactionsTable';
 
+const Query = gql`
+  query MyQuery {
+    archway_block_by_pk(height: "17282") {
+      height
+      hash
+      num_txs
+      total_gas
+      proposer_address
+      timestamp
+      transactions {
+        gas_used
+        gas_wanted
+        hash
+        height
+        messages
+        memo
+        success
+        signatures
+        signer_infos
+        fee
+      }
+    }
+  }
+`;
+
 const BlockDetailsPage = () => {
-  const [block, setBlock] = useState();
+  const { data, loading, error } = useQuery(Query);
+  useEffect(() => console.log('data:', data), [data]);
+  // const [block, setBlock] = useState();
   const router = useRouter();
   const { id } = router.query;
-
-  useEffect(() => {
-    getBlockDetails(id);
-  }, []);
-
-  const getBlockDetails = async (blockId: any) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block?q=${blockId}`);
-    const data = await res.json();
-    setBlock(data);
-  };
+  const block = data?.archway_block_by_pk;
+  //
+  // useEffect(() => {
+  //   getBlockDetails(id);
+  // }, []);
+  //
+  // const getBlockDetails = async (blockId: any) => {
+  //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block?q=${blockId}`);
+  //   const data = await res.json();
+  //   setBlock(data);
+  // };
   return (
     <>
       <Text mb="22px" fontSize="22px" fontWeight="medium">

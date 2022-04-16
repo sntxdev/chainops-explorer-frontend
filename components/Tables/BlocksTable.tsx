@@ -34,7 +34,7 @@ export const BlocksTable = ({ data }: any) => {
 
   useEffect(() => {
     setAllBlocks(data);
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     if (lastMessage !== null) {
@@ -49,7 +49,7 @@ export const BlocksTable = ({ data }: any) => {
     }
   }, [lastMessage]);
 
-  useEffect(() => console.log(allBlocks));
+  // useEffect(() => console.log(allBlocks));
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: 'Connecting',
@@ -75,7 +75,7 @@ export const BlocksTable = ({ data }: any) => {
         </Thead>
 
         <Tbody fontSize="16px" fontWeight="medium">
-          {allBlocks
+          {data
             .sort((a, b) => b.height - a.height)
             .map((block, idx) => (
               <Tr key={idx} bg="white">
@@ -101,7 +101,7 @@ export const BlocksTable = ({ data }: any) => {
                 <Td py="20px">Vasya</Td>
                 <Td py="20px">{block.num_txs}</Td>
                 {/*<Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>*/}
-                <Td>{formatTime(block.datetime)}</Td>
+                <Td>{formatTime(block.timestamp)}</Td>
               </Tr>
             ))}
         </Tbody>

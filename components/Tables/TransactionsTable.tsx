@@ -44,10 +44,11 @@ export const TransactionsTable = ({ transactions }: any) => {
               <Tr key={i} fontSize="15px">
                 <Td py="10px">{truncate(t.hash, 5, 5, 13)}</Td>
                 <Td py="1px">{t.messages[0]['@type']}</Td>
-                <Td py="1px">{t.status.toString()}</Td>
+                <Td py="1px">{t.success.toString()}</Td>
                 <Td py="1px">?</Td>
                 <Td py="1px" textTransform="uppercase" textAlign="right">
-                  {t.fee != 'NaN' ? t.fee : '0 AUGUST'}
+                  {/*{t.fee != 'NaN' ? t.fee : '0 AUGUST'}*/}
+                  fee?
                 </Td>
               </Tr>
             ))
