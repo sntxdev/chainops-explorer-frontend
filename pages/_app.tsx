@@ -1,10 +1,16 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import React, { useState, useEffect, useCallback } from 'react';
+import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apollo/client';
 import useWebSocket from 'react-use-websocket';
 import { ChakraProvider, extendTheme, ScaleFade, Fade } from '@chakra-ui/react';
 import { LayoutWithSidebar } from '../components';
 import '../styles/globals.css';
+
+// const client = new ApolloClient({
+//   uri: 'https://explorer.chainops.org/api/v1/graphql',
+//   cache: new InMemoryCache(),
+// });
 
 const theme = extendTheme({
   colors: {

@@ -1,8 +1,9 @@
 // @ts-nocheck
 import type { NextPage } from 'next';
 import React, { useState, useEffect, useCallback } from 'react';
+import { gql } from '@apollo/client';
+import client from '../utils/apolloClient';
 
-import styles from '../styles/Home.module.css';
 import { Flex, Box, SimpleGrid, Center, Text, Square } from '@chakra-ui/react';
 import { AreaSpline, Donut, Radialbar } from '../components/Charts';
 import { TopCoinHoldersTable } from '../components/';
@@ -54,7 +55,7 @@ const Home: NextPage = (props) => {
   //   [ReadyState.CLOSED]: "Closed",
   //   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
   // }[readyState];
-  console.log('props: ', props);
+  console.log('props with gql: ', props);
   return (
     <div>
       <main>
@@ -62,7 +63,7 @@ const Home: NextPage = (props) => {
           Network statistics
         </Text>
         <Flex wrap="wrap" justifyContent="space-between">
-          <Box w="50%" bg="white" borderRadius="10">
+          <Box w="50%" bg="white" borderRadius="10" boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)">
             <Text pl="30px" mt="30px" fontSize="18px" fontWeight="bold">
               Price Arch
             </Text>
@@ -76,6 +77,7 @@ const Home: NextPage = (props) => {
               <Box
                 color="white"
                 bg="#9127E3"
+                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
                 bgGradient={
                   ' radial-gradient(\n' +
                   '      farthest-side at bottom left,\n' +
@@ -88,8 +90,7 @@ const Home: NextPage = (props) => {
                   '      transparent\n 90%' +
                   '    );'
                 }
-                boxShadow="sm"
-                height="190px"
+                height="192px"
                 borderRadius="10"
                 pos="relative"
               >
@@ -103,7 +104,7 @@ const Home: NextPage = (props) => {
               <Box
                 bg="white"
                 height="190px"
-                boxShadow="sm"
+                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
                 borderRadius="10"
                 _hover={{
                   color: 'white',
@@ -128,7 +129,7 @@ const Home: NextPage = (props) => {
               </Box>
               <Box
                 bg="white"
-                boxShadow="sm"
+                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
                 height="180px"
                 borderRadius="10"
                 _hover={{
@@ -154,7 +155,7 @@ const Home: NextPage = (props) => {
               </Box>
               <Box
                 bg="white"
-                boxShadow="sm"
+                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
                 height="180px"
                 borderRadius="10"
                 _hover={{
@@ -202,6 +203,7 @@ const Home: NextPage = (props) => {
             borderRadius="10"
             mt="10px"
             px="30px"
+            boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
           >
             <Box py="20px" position="relative" width="60%">
               <Text fontSize="18px" fontWeight="bold">
@@ -238,7 +240,14 @@ const Home: NextPage = (props) => {
               <Radialbar />
             </Box>
           </Box>
-          <Box bg="white" height="270px" w="49%" borderRadius="10" mt="10px">
+          <Box
+            bg="white"
+            height="270px"
+            w="49%"
+            borderRadius="10"
+            mt="10px"
+            boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
+          >
             <Text p="20px" fontSize="18px" fontWeight="bold">
               Top 5 coin holders
             </Text>
@@ -251,5 +260,33 @@ const Home: NextPage = (props) => {
 };
 
 export default Home;
+
+export async function getServerSideProps() {
+  const { data } = await client.query({
+    query: gql`
+      query MyQuery {
+        archway_block(limit: 10, order_by: { height: desc }) {
+          hash
+          height
+          num_txs
+          proposer_address
+          transactions {
+            hash
+            height
+            fee
+            gas_used
+            gas_wanted
+          }
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      gqlBlocks: data.archway_block,
+    },
+  };
+}
 
 // bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
