@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { TransactionsTable } from '../../components/Tables/TransactionsTable';
 
 const Query = gql`
-  query MyQuery {
-    archway_block_by_pk(height: "17282") {
+  query MyQuery($archwayBlockByPkHeight: bigint!) {
+    archway_block_by_pk(height: $archwayBlockByPkHeight) {
       height
       hash
       num_txs
@@ -31,11 +31,14 @@ const Query = gql`
 `;
 
 const BlockDetailsPage = () => {
-  const { data, loading, error } = useQuery(Query);
-  useEffect(() => console.log('data:', data), [data]);
-  // const [block, setBlock] = useState();
   const router = useRouter();
   const { id } = router.query;
+  const { data, loading, error } = useQuery(Query, {
+    variables: { archwayBlockByPkHeight: id },
+  });
+  useEffect(() => console.log('data:', data), [data]);
+  // const [block, setBlock] = useState();
+
   const block = data?.archway_block_by_pk;
   //
   // useEffect(() => {
