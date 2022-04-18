@@ -1,4 +1,4 @@
-import { ValidatorsTable } from '../../components';
+import { ValidatorsTable } from '../../components/Validators/ValidatorsTable';
 import { Text } from '@chakra-ui/react';
 import React from 'react';
 

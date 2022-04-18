@@ -37,7 +37,7 @@ export const ValidatorsTable = ({ data }: any) => {
               <Tr key={idx} bg="white">
                 <Td py="20px">{validator.rank}</Td>
                 <Td py="20px">
-                  <Link href={`/validator/${validator.operator_address}`}>
+                  <Link href={`/validators/${validator.operator_address}`}>
                     <a style={{ color: '#1F1BE3' }}>{validator.moniker}</a>
                   </Link>
                 </Td>

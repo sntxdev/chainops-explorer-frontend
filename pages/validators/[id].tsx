@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
+import { ValidatorDetails } from '../../components/Validators/ValidatorDetails';
 
-const ValidatorDetails = () => {
+// eslint-disable-next-line react/display-name
+export default () => {
   const router = useRouter();
   const { id } = router.query;
   return (
     <>
-      <div>Validator {id} details</div>
+      <ValidatorDetails />
     </>
   );
 };
-export default ValidatorDetails;

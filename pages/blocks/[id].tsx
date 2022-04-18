@@ -36,20 +36,10 @@ const BlockDetailsPage = () => {
   const { data, loading, error } = useQuery(Query, {
     variables: { archwayBlockByPkHeight: id },
   });
-  useEffect(() => console.log('data:', data), [data]);
-  // const [block, setBlock] = useState();
 
   const block = data?.archway_block_by_pk;
-  //
-  // useEffect(() => {
-  //   getBlockDetails(id);
-  // }, []);
-  //
-  // const getBlockDetails = async (blockId: any) => {
-  //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/block?q=${blockId}`);
-  //   const data = await res.json();
-  //   setBlock(data);
-  // };
+  useEffect(() => console.log('data:', data), [data]);
+
   return (
     <>
       <Text mb="22px" fontSize="22px" fontWeight="medium">
