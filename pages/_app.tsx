@@ -7,7 +7,7 @@ import useWebSocket from 'react-use-websocket';
 import { ChakraProvider, extendTheme, ScaleFade, Fade } from '@chakra-ui/react';
 import { LayoutWithSidebar } from '../components';
 import '../styles/globals.css';
-
+import apolloClient from '../utils/apolloClient';
 const theme = extendTheme({
   colors: {
     primary: {
@@ -31,10 +31,10 @@ const theme = extendTheme({
 // Roboto Mono
 // Montserrat
 
-const client = new ApolloClient({
-  uri: 'https://explorer.chainops.org/api/v1/graphql',
-  cache: new InMemoryCache(),
-});
+// const client = new ApolloClient({
+//   uri: 'https://explorer.chainops.org/api/v1/graphql',
+//   cache: new InMemoryCache(),
+// });
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [lastBlock, setLastBlock] = useState(null);
@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   // useEffect(() => console.log('lastblock: ', lastBlock), [lastMessage]);
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <ChakraProvider theme={theme}>
         <Head>
           <link
