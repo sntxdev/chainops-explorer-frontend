@@ -145,8 +145,18 @@ const DataBoxBlockHeight = () => {
 
 const DataBoxTrxCount = () => {
   const { data, loading, error } = useSubscription(TxCountSubscription);
-  useEffect(() => console.log('TrxCount:', trxCounter), [data]);
   const trxCounter = data?.tx?.aggregate?.count;
+  useEffect(() => console.log('TrxCount:', trxCounter), []);
+
+  const [tx, setTx] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => setTx(trxCounter), 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <ClientOnly>
       <Box

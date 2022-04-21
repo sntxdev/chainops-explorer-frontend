@@ -3,7 +3,6 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import WebSocket from 'isomorphic-ws';
-import { WebSocketLink } from '@apollo/client/link/ws';
 
 const httpLink = new HttpLink({
   uri: 'https://explorer.chainops.org/api/v1/graphql',
@@ -28,24 +27,10 @@ const splitLink =
       )
     : httpLink;
 
-// export default function createApolloClient() {
-//   const ssrMode = typeof window === 'undefined';
-//   let link;
-//   if (ssrMode) {
-//     link = httpLink;
-//   } else {
-//     link = createWSLink();
-//   }
-//   return new ApolloClient({
-//     ssrMode,
-//     link,
-//     cache: new InMemoryCache(),
-//   });
-// }
-
 const client = new ApolloClient({
   ssrMode: typeof window === 'undefined',
   link: splitLink,
   cache: new InMemoryCache(),
 });
+
 export default client;
