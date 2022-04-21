@@ -1,35 +1,19 @@
 // @ts-nocheck
 import type { NextPage } from 'next';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useQuery, gql } from '@apollo/client';
-
-import client from '../utils/apolloClient';
-
+import { useQuery, useSubscription, gql } from '@apollo/client';
+import ClientOnly from '../components/ClientOnly';
 import { Flex, Box, SimpleGrid, Center, Text, Square } from '@chakra-ui/react';
 import { AreaSpline, Donut, Radialbar } from '../components/Charts';
 import { TopCoinHoldersTable } from '../components/';
-
-const Query = gql`
-  query MyQuery {
-    archway_block(limit: 10, order_by: { height: desc }) {
-      hash
-      height
-      num_txs
-      timestamp
-      transactions {
-        hash
-        height
-        fee
-        gas_used
-        gas_wanted
-      }
-    }
-  }
-`;
+import {
+  BlockHeightCountSubscription,
+  BlocksQuery,
+  TxCountSubscription,
+  ActiveValidatorsQuery,
+} from '../graphql';
 
 const Home: NextPage = (props) => {
-  // useEffect(() => console.log('data:', props), [props]);
-
   return (
     <div>
       <main>
@@ -48,124 +32,10 @@ const Home: NextPage = (props) => {
           </Box>
           <Box w="49%">
             <SimpleGrid columns={2} spacingX="15px" spacingY="10px" fontSize="24px">
-              <Box
-                color="white"
-                bg="#9127E3"
-                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
-                bgGradient={
-                  ' radial-gradient(\n' +
-                  '      farthest-side at bottom left,\n' +
-                  '      #1BE3DC, \n' +
-                  '      transparent\n 95%' +
-                  '    ),\n' +
-                  '    radial-gradient(\n' +
-                  '      farthest-corner at bottom right,\n' +
-                  '      #E332BF, \n' +
-                  '      transparent\n 90%' +
-                  '    );'
-                }
-                height="192px"
-                borderRadius="10"
-                pos="relative"
-              >
-                <Text fontSize="12px" padding="28px">
-                  Block height
-                </Text>
-                <Center fontWeight="bold">
-                  <Text color="white">{props.lastBlock?.height || '633198'}</Text>
-                </Center>
-              </Box>
-              <Box
-                bg="white"
-                height="190px"
-                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
-                borderRadius="10"
-                _hover={{
-                  color: 'white',
-                  bg: '#E332BF',
-                  bgGradient:
-                    ' radial-gradient(\n' +
-                    '      farthest-side at bottom left,\n' +
-                    '      #1BE3DC, \n' +
-                    '      transparent\n 95%' +
-                    '    ),\n' +
-                    '    radial-gradient(\n' +
-                    '      farthest-corner at bottom right,\n' +
-                    '      #9127E3, \n' +
-                    '      transparent\n 90%' +
-                    '    );',
-                }}
-              >
-                <Text fontSize="12px" padding="28px">
-                  Trx count
-                </Text>
-                <Center fontWeight="bold">{props?.trxCounter}</Center>
-              </Box>
-              <Box
-                bg="white"
-                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
-                height="180px"
-                borderRadius="10"
-                _hover={{
-                  color: 'white',
-                  bg: '#E332BF',
-                  bgGradient:
-                    ' radial-gradient(\n' +
-                    '      farthest-side at bottom left,\n' +
-                    '      #9127E3, \n' +
-                    '      transparent\n 90%' +
-                    '    ),\n' +
-                    '    radial-gradient(\n' +
-                    '      farthest-corner at bottom right,\n' +
-                    '      #1BE3DC, \n' +
-                    '      transparent\n 90%' +
-                    '    );',
-                }}
-              >
-                <Text fontSize="12px" padding="28px">
-                  Active validators
-                </Text>
-                <Center fontWeight="bold">112 / 155</Center>
-              </Box>
-              <Box
-                bg="white"
-                boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
-                height="180px"
-                borderRadius="10"
-                _hover={{
-                  color: 'white',
-                  bg: '#9127E3',
-                  bgGradient:
-                    ' radial-gradient(\n' +
-                    '      farthest-side at top right,\n' +
-                    '      #1BE3DC, \n' +
-                    '      transparent\n 105%' +
-                    '    ),\n' +
-                    '    radial-gradient(\n' +
-                    '      farthest-corner at bottom left,\n' +
-                    '      #E332BF, \n' +
-                    '      transparent\n 100%' +
-                    '    );',
-                }}
-              >
-                <Text fontSize="12px" padding="28px">
-                  Transactions per second
-                </Text>
-                <Center fontWeight="bold">
-                  <Flex flexDir="row" alignItems="baseline">
-                    <Text>1 248 </Text>
-                    <Text
-                      style={{
-                        color: '#9C9B9E',
-                        fontSize: '12px',
-                        fontWeight: '300',
-                      }}
-                    >
-                      &nbsp;Tp / s
-                    </Text>
-                  </Flex>
-                </Center>
-              </Box>
+              <DataBoxBlockHeight />
+              <DataBoxTrxCount />
+              <DataBoxActiveValidators />
+              <DataBoxTrxPs />
             </SimpleGrid>
           </Box>
           <Box
@@ -235,32 +105,162 @@ const Home: NextPage = (props) => {
 
 export default Home;
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: gql`
-      query MyQuery {
-        archway_block(limit: 10, order_by: { height: desc }) {
-          hash
-          height
-          num_txs
-          proposer_address
-          transactions {
-            hash
-            height
-            fee
-            gas_used
-            gas_wanted
-          }
+const DataBoxBlockHeight = () => {
+  const { data, loading, error } = useSubscription(BlockHeightCountSubscription);
+  useEffect(() => console.log('blockHeight:', lastBlockHeight), [data]);
+  const lastBlockHeight = data?.archway_block[0].height;
+
+  return (
+    <ClientOnly>
+      <Box
+        color="white"
+        bg="#9127E3"
+        boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
+        bgGradient={
+          ' radial-gradient(\n' +
+          '      farthest-side at bottom left,\n' +
+          '      #1BE3DC, \n' +
+          '      transparent\n 95%' +
+          '    ),\n' +
+          ' radial-gradient(\n' +
+          '   farthest-corner at bottom right,\n' +
+          '   #E332BF, \n' +
+          '   transparent\n 90%' +
+          ' );'
         }
-      }
-    `,
-  });
+        height="192px"
+        borderRadius="10"
+        pos="relative"
+      >
+        <Text fontSize="12px" padding="28px">
+          Block height
+        </Text>
+        <Center fontWeight="bold">
+          <Text color="white">{lastBlockHeight}</Text>
+        </Center>
+      </Box>
+    </ClientOnly>
+  );
+};
 
-  return {
-    props: {
-      gqlBlocks: data.archway_block,
-    },
-  };
-}
+const DataBoxTrxCount = () => {
+  const { data, loading, error } = useSubscription(TxCountSubscription);
+  useEffect(() => console.log('TrxCount:', trxCounter), [data]);
+  const trxCounter = data?.tx?.aggregate?.count;
+  return (
+    <ClientOnly>
+      <Box
+        bg="white"
+        height="190px"
+        boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
+        borderRadius="10"
+        _hover={{
+          color: 'white',
+          bg: '#E332BF',
+          bgGradient:
+            ' radial-gradient(\n' +
+            '      farthest-side at bottom left,\n' +
+            '      #1BE3DC, \n' +
+            '      transparent\n 95%' +
+            '    ),\n' +
+            '    radial-gradient(\n' +
+            '      farthest-corner at bottom right,\n' +
+            '      #9127E3, \n' +
+            '      transparent\n 90%' +
+            '    );',
+        }}
+      >
+        <Text fontSize="12px" padding="28px">
+          Trx count
+        </Text>
+        <Center fontWeight="bold">{trxCounter}</Center>
+      </Box>
+    </ClientOnly>
+  );
+};
 
-// bgGradient: "linear(to-tr, #1BE3DC,  #9127E3, #E332BF)",
+const DataBoxActiveValidators = () => {
+  const { data, loading, error } = useQuery(ActiveValidatorsQuery);
+  useEffect(() => console.log('active:', active), [data]);
+  // const trxCounter = data?.archway_block[0].height;
+  const active = data?.active?.aggregate?.count;
+  const inactive = data?.inactive?.aggregate?.count;
+  return (
+    <ClientOnly>
+      <Box
+        bg="white"
+        boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
+        height="180px"
+        borderRadius="10"
+        _hover={{
+          color: 'white',
+          bg: '#E332BF',
+          bgGradient:
+            ' radial-gradient(\n' +
+            '      farthest-side at bottom left,\n' +
+            '      #9127E3, \n' +
+            '      transparent\n 90%' +
+            '    ),\n' +
+            '    radial-gradient(\n' +
+            '      farthest-corner at bottom right,\n' +
+            '      #1BE3DC, \n' +
+            '      transparent\n 90%' +
+            '    );',
+        }}
+      >
+        <Text fontSize="12px" padding="28px">
+          Active validators
+        </Text>
+        <Center fontWeight="bold">
+          {active} / {inactive + active}
+        </Center>
+      </Box>
+    </ClientOnly>
+  );
+};
+
+const DataBoxTrxPs = () => {
+  return (
+    <ClientOnly>
+      <Box
+        bg="white"
+        boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
+        height="180px"
+        borderRadius="10"
+        _hover={{
+          color: 'white',
+          bg: '#9127E3',
+          bgGradient:
+            ' radial-gradient(\n' +
+            '      farthest-side at top right,\n' +
+            '      #1BE3DC, \n' +
+            '      transparent\n 105%' +
+            '    ),\n' +
+            '    radial-gradient(\n' +
+            '      farthest-corner at bottom left,\n' +
+            '      #E332BF, \n' +
+            '      transparent\n 100%' +
+            '    );',
+        }}
+      >
+        <Text fontSize="12px" padding="28px">
+          Transactions per second
+        </Text>
+        <Center fontWeight="bold">
+          <Flex flexDir="row" alignItems="baseline">
+            <Text>1 248 </Text>
+            <Text
+              style={{
+                color: '#9C9B9E',
+                fontSize: '12px',
+                fontWeight: '300',
+              }}
+            >
+              &nbsp;Tp / s
+            </Text>
+          </Flex>
+        </Center>
+      </Box>
+    </ClientOnly>
+  );
+};

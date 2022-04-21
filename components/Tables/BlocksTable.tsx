@@ -1,7 +1,8 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { useQuery, useSubscription, gql } from '@apollo/client';
+import { BlocksQuery, TxCountSubscription } from '../../graphql';
 import {
   Table,
   Thead,
@@ -9,6 +10,7 @@ import {
   Tr,
   Th,
   Td,
+  Avatar,
   TableContainer,
   Box,
   Text,
@@ -16,51 +18,24 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 import { IoCopyOutline } from 'react-icons/io5';
-
 import { formatTime, truncate } from '../../utils';
 
-export const BlocksTable = ({ data }: any) => {
-  const [socketUrl, setSocketUrl] = useState(
-    // "ws://194.163.167.188:8000/archway"
-    'wss://explorer.chainops.org/ws/archway'
-  );
+export const BlocksTable = () => {
+  const { data, loading, error } = useQuery(BlocksQuery);
+  useEffect(() => console.log(blocks), [blocks]);
 
-  const [blocks, setBlocks] = useState([]);
-  const [allBlocks, setAllBlocks] = useState([]);
-  const [lastBlock, setLastBlock] = useState(null);
-  const { sendMessage, lastMessage, readyState, getWebSocket } = useWebSocket(socketUrl, {
-    onOpen: () => sendMessage('{}'),
-  });
+  if (loading) {
+    return <div>loading...</div>;
+  }
 
-  useEffect(() => {
-    setAllBlocks(data);
-  }, []);
+  if (error) {
+    console.error(error);
+    return <div>error :(</div>;
+  }
 
-  useEffect(() => {
-    if (lastMessage !== null) {
-      const wssData = JSON.parse(lastMessage.data);
+  const blocks = data?.archway_block;
+  const tableRowsData = ['Height', 'Hash', 'Proposer', 'Tx num', 'Time'];
 
-      if (wssData.hasOwnProperty('block')) {
-        if (!blocks.some((block) => block.height == wssData.block.height)) {
-          setAllBlocks((prev) => prev.concat(wssData.block));
-          // setBlocks(prevBlocks => [...prevBlocks, data.block])
-        }
-      }
-    }
-  }, [lastMessage]);
-
-  // useEffect(() => console.log(allBlocks));
-
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: 'Connecting',
-    [ReadyState.OPEN]: 'Open',
-    [ReadyState.CLOSING]: 'Closing',
-    [ReadyState.CLOSED]: 'Closed',
-    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  }[readyState];
-
-  const tableRowsData = ['Height', 'Hash', 'Validated by', 'Tx num', 'Time'];
-  // @ts-ignore
   return (
     <TableContainer borderRadius="8px">
       <Table variant="simple">
@@ -74,37 +49,46 @@ export const BlocksTable = ({ data }: any) => {
           </Tr>
         </Thead>
 
-        <Tbody fontSize="16px" fontWeight="medium">
-          {data
-            .sort((a, b) => b.height - a.height)
-            .map((block, idx) => (
-              <Tr key={idx} bg="white">
-                <Td py="20px">
-                  <Link href={`/blocks/${block.height}`}>
-                    <a style={{ color: '#1F1BE3' }}>{block.height}</a>
-                  </Link>
-                </Td>
-                <Td py="20px" display="flex">
-                  <Text as="span" mr="8px">
-                    {truncate(block.hash, 5, 5, 13)}
-                  </Text>
-                  <Tooltip label="copy" placement="top-end" closeDelay={100}>
-                    <IconButton
-                      variant="link"
-                      verticalAlign="text-top"
-                      icon={<IoCopyOutline />}
-                      _hover={{ cursor: 'pointer' }}
-                      _focus={{ outline: 'none' }}
-                    />
-                  </Tooltip>
-                </Td>
-                <Td py="20px">Vasya</Td>
-                <Td py="20px">{block.num_txs}</Td>
-                {/*<Td>{new Date(block.timestamp).toLocaleTimeString("en-US")}</Td>*/}
-                <Td>{formatTime(block.timestamp)}</Td>
-              </Tr>
-            ))}
-        </Tbody>
+        {blocks.map((block: any, idx: any) => {
+          const { avatar_url } =
+            block.validator?.validator_description || 'https://bit.ly/broken-link';
+
+          return (
+            <Tr key={idx} bg="white">
+              <Td py="20px">
+                <Link href={`/blocks/${block.height}`}>
+                  <a style={{ color: '#1F1BE3' }}>{block.height}</a>
+                </Link>
+              </Td>
+              <Td py="20px" display="flex">
+                <Text as="span" mr="8px">
+                  {truncate(block.hash, 5, 5, 13)}
+                </Text>
+                <Tooltip label="copy" placement="top-end" closeDelay={100}>
+                  <IconButton
+                    variant="link"
+                    verticalAlign="text-top"
+                    icon={<IoCopyOutline />}
+                    _hover={{ cursor: 'pointer' }}
+                    _focus={{ outline: 'none' }}
+                  />
+                </Tooltip>
+              </Td>
+              <Td>
+                <Link href={`/validators/${block?.validator?.validator_info?.operator_address}`}>
+                  <a style={{ color: '#1F1BE3' }}>
+                    <Avatar src={avatar_url} size="xs" />
+                    <Text as="span" ml="12px">
+                      {block?.validator?.validator_description?.moniker}
+                    </Text>
+                  </a>
+                </Link>
+              </Td>
+              <Td py="20px">{block.num_txs}</Td>
+              <Td>{formatTime(block.timestamp)}</Td>
+            </Tr>
+          );
+        })}
       </Table>
     </TableContainer>
   );

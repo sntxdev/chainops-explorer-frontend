@@ -1,7 +1,29 @@
-import React from 'react';
 import { Box, Divider, Avatar, Text, Progress, Grid, GridItem, Link } from '@chakra-ui/react';
+import { useQuery, useSubscription, gql } from '@apollo/client';
+import { BlocksQuery, TxCountSubscription, ValidatorDetailsQuery } from '../../graphql';
+import React, { useState, useEffect } from 'react';
 
-export const ValidatorDetails = () => {
+export const ValidatorDetails = ({ valoperAddress }: any) => {
+  const { data, loading, error } = useQuery(ValidatorDetailsQuery, {
+    variables: {
+      operator_address: valoperAddress,
+    },
+  });
+
+  useEffect(() => console.log('data val det', data), [data]);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
+  if (error) {
+    console.error(error);
+    return <div>error :(</div>;
+  }
+
+  const description = data?.archway_validator[0]?.validator_description;
+  const info = data?.archway_validator[0]?.validator_info;
+
   return (
     <Box>
       {/*Main info*/}
@@ -14,7 +36,7 @@ export const ValidatorDetails = () => {
           />
           <Box>
             <Text fontSize="22px" fontWeight="semibold">
-              Chainops
+              {description?.moniker}
             </Text>
             <Text mt="8px">Super inspiring slogan here</Text>
           </Box>
@@ -25,7 +47,7 @@ export const ValidatorDetails = () => {
             Website
           </Text>
           <Link href="https://chainops.org" isExternal>
-            https://chainops.org/
+            {description.website}
           </Link>
         </Box>
       </Box>
@@ -35,11 +57,11 @@ export const ValidatorDetails = () => {
         <Grid templateColumns="repeat(2, 1fr)">
           <GridItem w="100%">
             <Text fontWeight="semibold">Operator address</Text>
-            <Text>archwayvaloper1wn8vw5cmyepr9n3llalshjtc2ev9wz5mxepy74</Text>
+            <Text>{info.operator_address}</Text>
           </GridItem>
           <GridItem w="100%">
             <Text fontWeight="semibold">Self Delegate Address</Text>
-            <Text>archway1wn8vw5cmyepr9n3llalshjtc2ev9wz5mc5fs58</Text>
+            <Text>{info.account?.address}</Text>
           </GridItem>
         </Grid>
 

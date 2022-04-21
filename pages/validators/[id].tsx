@@ -1,13 +1,16 @@
 import { useRouter } from 'next/router';
+import ClientOnly from '../../components/ClientOnly';
 import { ValidatorDetails } from '../../components/Validators/ValidatorDetails';
 
-// eslint-disable-next-line react/display-name
-export default () => {
+const ValidatorDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
+
   return (
-    <>
-      <ValidatorDetails />
-    </>
+    <ClientOnly>
+      <ValidatorDetails valoperAddress={id} />
+    </ClientOnly>
   );
 };
+
+export default ValidatorDetailPage;
