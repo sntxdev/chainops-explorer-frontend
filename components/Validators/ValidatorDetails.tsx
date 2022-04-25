@@ -2,6 +2,7 @@ import { Box, Divider, Avatar, Text, Progress, Grid, GridItem, Link } from '@cha
 import { useQuery, useSubscription, gql } from '@apollo/client';
 import { BlocksQuery, TxCountSubscription, ValidatorDetailsQuery } from '../../graphql';
 import React, { useState, useEffect } from 'react';
+import { AiOutlineUser } from 'react-icons/all';
 
 export const ValidatorDetails = ({ valoperAddress }: any) => {
   const { data, loading, error } = useQuery(ValidatorDetailsQuery, {
@@ -29,16 +30,18 @@ export const ValidatorDetails = ({ valoperAddress }: any) => {
       {/*Main info*/}
       <Box bg="white" borderRadius="10px" p="18px">
         <Box display="flex" alignItems="center">
-          <Avatar
-            src="https://avatars.githubusercontent.com/u/102529967?s=200&v=4"
-            mr="16px"
-            size="lg"
-          />
-          <Box>
+          {description?.avatar_url ? (
+            <Avatar src={description?.avatar_url} mr="16px" size="lg" />
+          ) : (
+            <Avatar bg="red.100" icon={<AiOutlineUser fontSize="1rem" />} />
+            // <Avatar bg="red.500" icon={<AiOutlineUser fontSize="1.5rem" />} />
+          )}
+
+          <Box ml="16px">
             <Text fontSize="22px" fontWeight="semibold">
               {description?.moniker}
             </Text>
-            <Text mt="8px">Super inspiring slogan here</Text>
+            <Text mt="2px">{description?.details}</Text>
           </Box>
         </Box>
         <Divider my="32px" />
@@ -46,8 +49,8 @@ export const ValidatorDetails = ({ valoperAddress }: any) => {
           <Text as="span" mr="100px" fontWeight="semibold">
             Website
           </Text>
-          <Link href="https://chainops.org" isExternal>
-            {description.website}
+          <Link href={description?.website} isExternal>
+            {description?.website}
           </Link>
         </Box>
       </Box>

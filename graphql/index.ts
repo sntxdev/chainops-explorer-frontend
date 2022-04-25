@@ -54,7 +54,7 @@ export const BlocksQuery = gql`
 
 export const ValidatorsQuery = gql`
   query Validators {
-    archway_validator(limit: 10) {
+    archway_validator(limit: 10, order_by: { validator_voting_power: {} }) {
       validator_status {
         jailed
         status
@@ -72,6 +72,9 @@ export const ValidatorsQuery = gql`
         details
         moniker
         website
+      }
+      validator_voting_power {
+        voting_power
       }
     }
   }

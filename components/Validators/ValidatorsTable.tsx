@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { ValidatorsQuery } from '../../graphql';
+import { AiOutlineUser } from 'react-icons/ai';
 
 export const ValidatorsTable = () => {
   const { data, loading, error } = useQuery(ValidatorsQuery);
@@ -48,23 +49,32 @@ export const ValidatorsTable = () => {
         <Tbody fontSize="16px" fontWeight="medium">
           {validators?.map((validator, idx) => (
             <Tr key={idx} bg="white">
-              <Td py="20px">{validator.rank || 'n/a'}</Td>
+              <Td width="100px" py="20px">
+                {idx + 1}
+              </Td>
               <Td py="20px">
                 <Link href={`/validators/${validator.validator_info?.operator_address}`}>
-                  <a style={{ color: '#1F1BE3' }}>
-                    <Avatar
-                      src={
-                        validator.validator_description?.avatar_url || 'https://bit.ly/broken-link'
-                      }
-                      size="xs"
-                    />
-                    <Text as="span" ml="12px">
-                      {validator.validator_description?.moniker}
-                    </Text>
+                  <a display="block" style={{ color: '#1F1BE3' }}>
+                    <Box display="flex" alignItems="center">
+                      {validator.validator_description?.avatar_url ? (
+                        <Avatar src={validator.validator_description?.avatar_url} size="sm" />
+                      ) : (
+                        <Avatar
+                          size="sm"
+                          color="black"
+                          bg="red.100"
+                          icon={<AiOutlineUser fontSize="1rem" />}
+                        />
+                      )}
+
+                      <Text as="span" ml="16px" fontWeight="400">
+                        {validator.validator_description?.moniker}
+                      </Text>
+                    </Box>
                   </a>
                 </Link>
               </Td>
-              <Td py="20px">{validator.tokens || 'n/a'}</Td>
+              <Td py="20px">{validator?.validator_voting_power?.voting_power || 'n/a'}</Td>
               <Td py="20px">{validator.uptime?.over_blocks || 'n/a'}%</Td>
               <Td py="20px">{parseFloat(validator.validator_info.max_rate) * 100}%</Td>
             </Tr>

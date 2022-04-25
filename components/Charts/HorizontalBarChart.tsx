@@ -10,66 +10,84 @@ export class HorizontalBarChart extends React.Component {
     this.state = {
       series: [
         {
+          name: 'Marine Sprite',
           data: [44],
+        },
+        {
+          name: 'Striking Calf',
+          data: [53],
+        },
+        {
+          name: 'Tank Picture',
+          data: [12],
+        },
+        {
+          name: 'Bucket Slope',
+          data: [9],
+        },
+        {
+          name: 'Reborn Kid',
+          data: [25],
         },
       ],
       options: {
         chart: {
-          height: 70,
           type: 'bar',
+          height: 350,
           stacked: true,
-          sparkline: {
-            enabled: true,
-          },
+          stackType: '100%',
         },
         plotOptions: {
           bar: {
             horizontal: true,
-            barHeight: '20%',
-            colors: {
-              backgroundBarColors: ['#40475D'],
+          },
+        },
+        stroke: {
+          width: 1,
+          colors: ['#fff'],
+        },
+        title: {
+          text: '100% Stacked Bar',
+        },
+        xaxis: {
+          categories: [2008],
+          labels: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+        },
+        yaxis: {
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+          labels: {
+            style: {
+              colors: '#78909c',
             },
           },
         },
-        colors: ['#f02fc2'],
-        stroke: {
-          width: 0,
-        },
-        series: [
-          {
-            name: 'Process 3',
-            data: [74],
-          },
-        ],
-        fill: {
-          type: 'gradient',
-          gradient: {
-            gradientToColors: ['#6094ea'],
-          },
-        },
-        title: {
-          floating: true,
-          offsetX: -10,
-          offsetY: 5,
-          text: 'test',
-        },
-        subtitle: {
-          floating: true,
-          align: 'right',
-          offsetY: 0,
-          text: '74%',
-          style: {
-            fontSize: '15px',
-          },
-        },
         tooltip: {
-          enabled: false,
+          y: {
+            formatter: function (val: any) {
+              return val + 'K';
+            },
+          },
         },
-        xaxis: {
-          categories: ['Process 3'],
+        fill: {
+          opacity: 1,
         },
-        yaxis: {
-          max: 100,
+        legend: {
+          position: 'top',
+          horizontalAlign: 'left',
+          offsetX: 40,
         },
       },
     };

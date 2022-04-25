@@ -120,7 +120,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" mb="24px" alignItems="center" mx="8" justifyContent="space-between">
         {/*Logo*/}
-        <Text pl="28px" fontSize="2xl" fontWeight="bold">
+        <Text
+          pl="28px"
+          fontSize="2xl"
+          fontWeight="bold"
+          textShadow="0px 4px 10px rgb(79 79 79 / 55%)"
+        >
           CHAINOPS
         </Text>
 
@@ -182,14 +187,14 @@ const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
           role="group"
           cursor="pointer"
           borderRight="4px"
-          transition="background 0.32s ease"
+          transition="background 0.15s cubic-bezier(0.25, 0.1, 0.25, 1)"
           bg={router.pathname == to ? 'brand.accentLight' : 'transparent'}
           borderColor={router.pathname == to ? 'brand.accent' : 'transparent'}
           color={router.pathname == to ? 'brand.accent' : 'brand.primaryBlack'}
           fontWeight={router.pathname == to ? 'bold' : 'medium'}
           _hover={{
             bg: 'brand.accentLight',
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
             color: '#9127E3',
             borderColor: 'brand.accent',
           }}
