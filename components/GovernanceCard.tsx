@@ -54,8 +54,8 @@ export const GovernanceCard = () => {
           <Text fontWeight="semibold">65%</Text>
         </Box>
       </Box>
-      <Progress colorScheme="green" height="26px" value={75} />
-      {/*<HorizontalBarChart />*/}
+      {/*<Progress colorScheme="green" height="26px" value={75} />*/}
+      <HorizontalBarChart />
     </Box>
   );
 };

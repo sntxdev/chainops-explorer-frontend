@@ -10,32 +10,35 @@ export class HorizontalBarChart extends React.Component {
     this.state = {
       series: [
         {
-          name: 'Marine Sprite',
-          data: [44],
+          name: 'Yes',
+          data: [48],
         },
         {
-          name: 'Striking Calf',
-          data: [53],
+          name: 'No',
+          data: [23],
         },
         {
-          name: 'Tank Picture',
+          name: 'No with veto',
           data: [12],
         },
         {
-          name: 'Bucket Slope',
+          name: 'Abstain',
           data: [9],
-        },
-        {
-          name: 'Reborn Kid',
-          data: [25],
         },
       ],
       options: {
+        colors: ['#48bb78', '#ff9f43', '#e53e3e', '#00bdc9'],
         chart: {
           type: 'bar',
-          height: 350,
+          // height: 150,
           stacked: true,
           stackType: '100%',
+          toolbar: {
+            show: false,
+          },
+        },
+        grid: {
+          show: false,
         },
         plotOptions: {
           bar: {
@@ -43,14 +46,17 @@ export class HorizontalBarChart extends React.Component {
           },
         },
         stroke: {
-          width: 1,
+          width: 0, // add white space between blocks
           colors: ['#fff'],
         },
         title: {
-          text: '100% Stacked Bar',
+          text: '',
         },
         xaxis: {
-          categories: [2008],
+          categories: [''],
+          tooltip: {
+            enabled: false,
+          },
           labels: {
             show: false,
           },
@@ -62,6 +68,9 @@ export class HorizontalBarChart extends React.Component {
           },
         },
         yaxis: {
+          tooltip: {
+            enabled: false,
+          },
           axisBorder: {
             show: false,
           },
@@ -77,14 +86,16 @@ export class HorizontalBarChart extends React.Component {
         tooltip: {
           y: {
             formatter: function (val: any) {
-              return val + 'K';
+              return val + ' ' + 'validators';
             },
           },
         },
         fill: {
           opacity: 1,
         },
+
         legend: {
+          show: false,
           position: 'top',
           horizontalAlign: 'left',
           offsetX: 40,

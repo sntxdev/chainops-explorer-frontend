@@ -9,11 +9,12 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Text,
 } from '@chakra-ui/react';
 import React from 'react';
 import { formatTime, truncate } from '../../utils';
 
-const tableRowsData = ['Tx Hash', 'Type', 'Result', 'Amount'];
+const tableRowsData = ['Tx Hash', 'Type', 'Status', 'Amount'];
 
 export const TransactionsTable = ({ transactions }: any) => {
   return (
@@ -43,12 +44,17 @@ export const TransactionsTable = ({ transactions }: any) => {
             transactions.map((t, i) => (
               <Tr key={i} fontSize="15px">
                 <Td py="10px">{truncate(t.hash, 5, 5, 13)}</Td>
-                <Td py="1px">{t.messages[0]['@type']}</Td>
-                <Td py="1px">{t.success.toString()}</Td>
+                <Td py="1px">{t.messages[0]['@type'].split('.').slice(-1)[0]}</Td>
+                <Td py="1px">
+                  {t.success ? <Text color="green">Success</Text> : <Text color="red">Fail</Text>}
+                </Td>
                 <Td py="1px">?</Td>
                 <Td py="1px" textTransform="uppercase" textAlign="right">
-                  {/*{t.fee != 'NaN' ? t.fee : '0 AUGUST'}*/}
-                  fee?
+                  {t.fee?.amount[0]?.amount || 0}
+                  <Text as="span" fontSize="12px">
+                    {' '}
+                    {t.fee?.amount[0]?.denom}
+                  </Text>
                 </Td>
               </Tr>
             ))

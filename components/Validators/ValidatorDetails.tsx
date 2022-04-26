@@ -1,8 +1,23 @@
-import { Box, Divider, Avatar, Text, Progress, Grid, GridItem, Link } from '@chakra-ui/react';
+import {
+  Box,
+  Divider,
+  Avatar,
+  Text,
+  Progress,
+  Grid,
+  GridItem,
+  Link,
+  VStack,
+  HStack,
+  Flex,
+  ButtonGroup,
+  Button,
+} from '@chakra-ui/react';
 import { useQuery, useSubscription, gql } from '@apollo/client';
 import { BlocksQuery, TxCountSubscription, ValidatorDetailsQuery } from '../../graphql';
 import React, { useState, useEffect } from 'react';
 import { AiOutlineUser } from 'react-icons/all';
+import { DelegatorsTable } from './DelegatorsTable';
 
 export const ValidatorDetails = ({ valoperAddress }: any) => {
   const { data, loading, error } = useQuery(ValidatorDetailsQuery, {
@@ -34,7 +49,6 @@ export const ValidatorDetails = ({ valoperAddress }: any) => {
             <Avatar src={description?.avatar_url} mr="16px" size="lg" />
           ) : (
             <Avatar bg="red.100" icon={<AiOutlineUser fontSize="1rem" />} />
-            // <Avatar bg="red.500" icon={<AiOutlineUser fontSize="1.5rem" />} />
           )}
 
           <Box ml="16px">
@@ -56,7 +70,7 @@ export const ValidatorDetails = ({ valoperAddress }: any) => {
       </Box>
 
       {/*Addresses*/}
-      <Box bg="white" borderRadius="10px" my="16px" p="18px">
+      <Box bg="white" borderRadius="10px" my="16px" p="18px" overflow="hidden">
         <Grid templateColumns="repeat(2, 1fr)">
           <GridItem w="100%">
             <Text fontWeight="semibold">Operator address</Text>
@@ -89,30 +103,73 @@ export const ValidatorDetails = ({ valoperAddress }: any) => {
         </Grid>
       </Box>
 
-      {/*Voting Power*/}
-      <Box maxWidth="60%" bg="white" borderRadius="10px" my="16px" p="18px">
-        <Text my="16px" fontSize="22px" fontWeight="semibold">
-          Voting Power
-        </Text>
-        <Box my="16px">
-          <Text as="span" mr="18px">
-            14.48%
+      {/* Voting Power / Bonded */}
+      <HStack align="start">
+        {/*Voting Power*/}
+        <Box flex="0 0 55%" bg="white" borderRadius="10px" p="18px">
+          <Text my="16px" fontSize="22px" fontWeight="semibold">
+            Voting Power
           </Text>
-          <Text as="span">3,491,560 / 77,955,680</Text>
+          <Box my="16px">
+            <Text as="span" mr="18px">
+              14.48%
+            </Text>
+            <Text as="span">3,491,560 / 77,955,680</Text>
+          </Box>
+          <Progress value={14.48} my="16px" />
+          <Box display="flex" justifyContent="space-between" my="12px">
+            <Text fontWeight="semibold">Block</Text>
+            <Link>5,148,118</Link>
+          </Box>
+          <Box display="flex" justifyContent="space-between" my="12px">
+            <Text fontWeight="semibold">Voting Power</Text>
+            <Link>3,491,560</Link>
+          </Box>
+          <Box display="flex" justifyContent="space-between" my="12px">
+            <Text fontWeight="semibold">Voting Power %</Text>
+            <Link>4.48%</Link>
+          </Box>
         </Box>
-        <Progress value={14.48} my="16px" />
-        <Box display="flex" justifyContent="space-between" my="12px">
-          <Text fontWeight="semibold">Block</Text>
-          <Link>5,148,118</Link>
-        </Box>
-        <Box display="flex" justifyContent="space-between" my="12px">
-          <Text fontWeight="semibold">Voting Power</Text>
-          <Link>3,491,560</Link>
-        </Box>
-        <Box display="flex" justifyContent="space-between" my="12px">
-          <Text fontWeight="semibold">Voting Power %</Text>
-          <Link>4.48%</Link>
-        </Box>
+
+        {/*Bonded*/}
+        <VStack flex="0 0 45%" bg="white" borderRadius="10px" my="16px" p="18px">
+          <Text my="16px" fontSize="22px" fontWeight="semibold">
+            Bonded
+          </Text>
+          <VStack alignSelf="stretch">
+            <Flex justifyContent="space-between" width="100%">
+              <Text fontWeight="semibold">Self Bonded</Text>
+              <VStack alignItems="flex-end">
+                <Text>99.96%</Text>
+                <Text>(714 936.68 TORII)</Text>
+              </VStack>
+            </Flex>
+            <Flex justifyContent="space-between" width="100%" my="12px">
+              <Text fontWeight="semibold">Delegators</Text>
+              <Text>11</Text>
+            </Flex>
+            <Flex justifyContent="space-between" width="100%" my="12px">
+              <Text fontWeight="semibold">Bonded Height</Text>
+              <Text>1</Text>
+            </Flex>
+          </VStack>
+        </VStack>
+      </HStack>
+
+      {/*Delegators Table*/}
+      <Box mt="16px" p="8px" bg="white">
+        <ButtonGroup spacing="2" mb="12px">
+          <Button bg="#f8f8f8" fontWeight="600">
+            Delegations (85)
+          </Button>
+          <Button bg="#f8f8f8" fontWeight="300">
+            Redelegations (2)
+          </Button>
+          <Button bg="#f8f8f8" fontWeight="300">
+            Undelegations (0)
+          </Button>
+        </ButtonGroup>
+        <DelegatorsTable />
       </Box>
     </Box>
   );

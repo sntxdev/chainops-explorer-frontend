@@ -10,7 +10,7 @@ export default () => {
       <Text mb="26px" fontSize="22px" fontWeight="medium" color="#323B5A">
         Blocks
       </Text>
-      <DataBlocks />
+
       <ClientOnly>
         <BlocksTable />
       </ClientOnly>
