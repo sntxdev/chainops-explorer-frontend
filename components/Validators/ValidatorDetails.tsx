@@ -16,7 +16,7 @@ import {
 import { useQuery, useSubscription, gql } from '@apollo/client';
 import { BlocksQuery, TxCountSubscription, ValidatorDetailsQuery } from '../../graphql';
 import React, { useState, useEffect } from 'react';
-import { AiOutlineUser } from 'react-icons/all';
+import { AiOutlineUser } from 'react-icons/ai';
 import { DelegatorsTable } from './DelegatorsTable';
 
 export const ValidatorDetails = ({ valoperAddress }: any) => {
