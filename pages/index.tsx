@@ -14,6 +14,11 @@ import {
 } from '../graphql';
 
 const Home: NextPage = (props) => {
+  const [activeBox, setActiveBox] = useState<any>(0);
+  const handleHover = (id: String) => {
+    setActiveBox(id);
+  };
+
   return (
     <div>
       <main>
@@ -30,12 +35,14 @@ const Home: NextPage = (props) => {
             </Text>
             <AreaSpline />
           </Box>
-          <Box w="49%">
+
+          {/*DataBoxes*/}
+          <Box w="49%" onMouseLeave={() => setActiveBox(0)}>
             <SimpleGrid columns={2} spacingX="15px" spacingY="10px" fontSize="24px">
-              <DataBoxBlockHeight />
-              <DataBoxTrxCount />
-              <DataBoxActiveValidators />
-              <DataBoxTrxPs />
+              <DataBoxBlockHeight onHover={handleHover} activeBox={activeBox} />
+              <DataBoxTrxCount onHover={handleHover} activeBox={activeBox} />
+              <DataBoxActiveValidators onHover={handleHover} activeBox={activeBox} />
+              <DataBoxTrxPs onHover={handleHover} activeBox={activeBox} />
             </SimpleGrid>
           </Box>
           <Box
@@ -105,7 +112,7 @@ const Home: NextPage = (props) => {
 
 export default Home;
 
-const DataBoxBlockHeight = () => {
+const DataBoxBlockHeight = ({ onHover, activeBox }: any) => {
   const { data, loading, error } = useSubscription(BlockHeightCountSubscription);
   useEffect(() => console.log('blockHeight:', lastBlockHeight), [data]);
   const lastBlockHeight = data?.archway_block[0].height;
@@ -113,20 +120,37 @@ const DataBoxBlockHeight = () => {
   return (
     <ClientOnly>
       <Box
-        color="white"
-        bg="#9127E3"
+        color={activeBox == 0 ? 'white' : 'brand.primaryBlack'}
+        bg={activeBox == 0 ? '#9127E3' : 'white'}
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
+        _hover={{
+          color: 'white',
+          bg: '#9127E3',
+          bgGradient:
+            ' radial-gradient(\n' +
+            '      farthest-side at bottom left,\n' +
+            '      #1BE3DC, \n' +
+            '      transparent\n 95%' +
+            '    ),\n' +
+            ' radial-gradient(\n' +
+            '   farthest-corner at bottom right,\n' +
+            '   #E332BF, \n' +
+            '   transparent\n 90%' +
+            ' );',
+        }}
         bgGradient={
-          ' radial-gradient(\n' +
-          '      farthest-side at bottom left,\n' +
-          '      #1BE3DC, \n' +
-          '      transparent\n 95%' +
-          '    ),\n' +
-          ' radial-gradient(\n' +
-          '   farthest-corner at bottom right,\n' +
-          '   #E332BF, \n' +
-          '   transparent\n 90%' +
-          ' );'
+          activeBox == 0
+            ? ' radial-gradient(\n' +
+              '      farthest-side at bottom left,\n' +
+              '      #1BE3DC, \n' +
+              '      transparent\n 95%' +
+              '    ),\n' +
+              ' radial-gradient(\n' +
+              '   farthest-corner at bottom right,\n' +
+              '   #E332BF, \n' +
+              '   transparent\n 90%' +
+              ' );'
+            : 'none'
         }
         height="192px"
         borderRadius="10"
@@ -136,14 +160,14 @@ const DataBoxBlockHeight = () => {
           Block height
         </Text>
         <Center fontWeight="bold">
-          <Text color="white">{lastBlockHeight}</Text>
+          <Text>{lastBlockHeight}</Text>
         </Center>
       </Box>
     </ClientOnly>
   );
 };
 
-const DataBoxTrxCount = () => {
+const DataBoxTrxCount = ({ onHover, activeBox }: any) => {
   const { data, loading, error } = useSubscription(TxCountSubscription);
   const trxCounter = data?.tx?.aggregate?.count;
   useEffect(() => console.log('TrxCount:', trxCounter), []);
@@ -160,6 +184,7 @@ const DataBoxTrxCount = () => {
   return (
     <ClientOnly>
       <Box
+        onMouseEnter={() => onHover(1)}
         bg="white"
         height="190px"
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
@@ -189,7 +214,7 @@ const DataBoxTrxCount = () => {
   );
 };
 
-const DataBoxActiveValidators = () => {
+const DataBoxActiveValidators = ({ onHover, activeBox }: any) => {
   const { data, loading, error } = useQuery(ActiveValidatorsQuery);
   useEffect(() => console.log('active:', active), [data]);
   // const trxCounter = data?.archway_block[0].height;
@@ -198,6 +223,7 @@ const DataBoxActiveValidators = () => {
   return (
     <ClientOnly>
       <Box
+        onMouseEnter={() => onHover(2)}
         bg="white"
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
         height="180px"
@@ -229,10 +255,11 @@ const DataBoxActiveValidators = () => {
   );
 };
 
-const DataBoxTrxPs = () => {
+const DataBoxTrxPs = ({ onHover, activeBox }: any) => {
   return (
     <ClientOnly>
       <Box
+        onMouseEnter={() => onHover(3)}
         bg="white"
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
         height="180px"

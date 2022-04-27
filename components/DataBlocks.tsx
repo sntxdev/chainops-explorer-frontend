@@ -1,40 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useHover } from '../utils/hooks';
+
 const DataBlocks = () => {
-  const [active, setActive] = useState('0');
-  const handleSetActive = (id: String) => {
-    setActive(id.toString());
+  const [active, setActive] = useState<any>();
+  const handleHover = (id: String) => {
+    setActive(id);
   };
+  useEffect(() => console.log(active));
   return (
     <div>
-      <DataBlock2 />
-
-      <DataBlock1 />
+      <DataBlock1 onHover={handleHover} />
+      <DataBlock2 onHover={handleHover} />
     </div>
   );
 };
 
 export default DataBlocks;
 
-const DataBlock1 = () => {
-  const [hoverRef, isHovered] = useHover();
+const DataBlock1 = ({ onHover }: any) => {
   const id = 1;
   return (
-    <div ref={hoverRef as any}>
-      {isHovered ? '😁' : '☹️'}
-      <p>hover me 1</p>
-    </div>
+    <p onMouseEnter={() => onHover(id)} onMouseLeave={() => onHover(0)}>
+      hover me 1
+    </p>
   );
 };
 
-const DataBlock2 = () => {
-  const [hoverRef, isHovered] = useHover();
+const DataBlock2 = ({ onHover }: any) => {
   const id = 2;
   return (
-    <div ref={hoverRef as any}>
-      {isHovered ? 'hovered!' : '!hovered️'}
-      <p>hover me 2</p>
-    </div>
+    <p onMouseEnter={() => onHover(id)} onMouseLeave={() => onHover(0)}>
+      hover me 2
+    </p>
   );
 };
 
