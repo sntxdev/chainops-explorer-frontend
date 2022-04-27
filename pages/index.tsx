@@ -120,6 +120,7 @@ const DataBoxBlockHeight = ({ onHover, activeBox }: any) => {
   return (
     <ClientOnly>
       <Box
+        onMouseEnter={() => onHover(0)}
         color={activeBox == 0 ? 'white' : 'brand.primaryBlack'}
         bg={activeBox == 0 ? '#9127E3' : 'white'}
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
@@ -185,10 +186,25 @@ const DataBoxTrxCount = ({ onHover, activeBox }: any) => {
     <ClientOnly>
       <Box
         onMouseEnter={() => onHover(1)}
-        bg="white"
         height="190px"
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
         borderRadius="10"
+        color={activeBox == 1 ? 'white' : 'brand.primaryBlack'}
+        bg={activeBox == 1 ? '#E332BF' : 'white'}
+        bgGradient={
+          activeBox == 1
+            ? ' radial-gradient(\n' +
+              '      farthest-side at bottom left,\n' +
+              '      #1BE3DC, \n' +
+              '      transparent\n 95%' +
+              '    ),\n' +
+              '    radial-gradient(\n' +
+              '      farthest-corner at bottom right,\n' +
+              '      #9127E3, \n' +
+              '      transparent\n 90%' +
+              '    );'
+            : 'none'
+        }
         _hover={{
           color: 'white',
           bg: '#E332BF',
@@ -224,10 +240,25 @@ const DataBoxActiveValidators = ({ onHover, activeBox }: any) => {
     <ClientOnly>
       <Box
         onMouseEnter={() => onHover(2)}
-        bg="white"
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
         height="180px"
         borderRadius="10"
+        color={activeBox == 2 ? 'white' : 'brand.primaryBlack'}
+        bg={activeBox == 2 ? '#E332BF' : 'white'}
+        bgGradient={
+          activeBox == 2
+            ? ' radial-gradient(\n' +
+              '      farthest-side at bottom left,\n' +
+              '      #9127E3, \n' +
+              '      transparent\n 90%' +
+              '    ),\n' +
+              '    radial-gradient(\n' +
+              '      farthest-corner at bottom right,\n' +
+              '      #1BE3DC, \n' +
+              '      transparent\n 90%' +
+              '    );'
+            : 'none'
+        }
         _hover={{
           color: 'white',
           bg: '#E332BF',
@@ -260,10 +291,25 @@ const DataBoxTrxPs = ({ onHover, activeBox }: any) => {
     <ClientOnly>
       <Box
         onMouseEnter={() => onHover(3)}
-        bg="white"
         boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
         height="180px"
         borderRadius="10"
+        color={activeBox == 3 ? 'white' : 'brand.primaryBlack'}
+        bg={activeBox == 3 ? '#9127E3' : 'white'}
+        bgGradient={
+          activeBox == 3
+            ? ' radial-gradient(\n' +
+              '      farthest-side at top right,\n' +
+              '      #1BE3DC, \n' +
+              '      transparent\n 105%' +
+              '    ),\n' +
+              '    radial-gradient(\n' +
+              '      farthest-corner at bottom left,\n' +
+              '      #E332BF, \n' +
+              '      transparent\n 100%' +
+              '    );'
+            : 'none'
+        }
         _hover={{
           color: 'white',
           bg: '#9127E3',
