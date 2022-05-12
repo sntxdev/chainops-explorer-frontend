@@ -1,13 +1,11 @@
 import * as React from 'react';
 import NextLink from 'next/link';
-
 import { Box, Text, Heading, Link, Button } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td } from '../table';
-import { TableCaption } from '@chakra-ui/react';
 // https://codesandbox.io/s/j51cd
 // ProposalTable.css imported in _app.tsx
 
-export default function TableExample() {
+export const ProposalsTable = () => {
   return (
     <Box
       mt="22px"
@@ -132,4 +130,4 @@ export default function TableExample() {
       </Table>
     </Box>
   );
-}
+};

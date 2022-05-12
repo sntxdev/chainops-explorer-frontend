@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  Badge,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  StackDivider,
-  Text,
-  VStack,
-  HStack,
-} from '@chakra-ui/react';
+import { Badge, Box, Button, Divider, Flex, Text, HStack } from '@chakra-ui/react';
 import Link from 'next/link';
 
 export const ProposalCard = () => {
