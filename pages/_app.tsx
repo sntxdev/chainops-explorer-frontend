@@ -6,7 +6,7 @@ import { ChakraProvider, extendTheme, ScaleFade, Fade } from '@chakra-ui/react';
 import apolloClient from '../utils/apolloClient';
 import { LayoutWithSidebar } from '../components';
 import '../styles/globals.css';
-
+import '../components/Governance/ProposalsTable.css';
 const theme = extendTheme({
   colors: {
     primary: {
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <ChakraProvider theme={theme}>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
           />
           <title>Chainops Block Explorer</title>

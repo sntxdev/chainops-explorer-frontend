@@ -120,12 +120,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" mb="24px" alignItems="center" mx="8" justifyContent="space-between">
         {/*Logo*/}
-        <Text
-          pl="28px"
-          fontSize="2xl"
-          fontWeight="bold"
-          textShadow="0px 4px 10px rgb(79 79 79 / 55%)"
-        >
+        <Text pl="28px" fontSize="2xl" fontWeight="bold">
           CHAINOPS
         </Text>
 
