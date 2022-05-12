@@ -11,26 +11,27 @@ export class HorizontalBarChart extends React.Component {
       series: [
         {
           name: 'Yes',
-          data: [48],
+          data: [64.77],
         },
         {
           name: 'No',
-          data: [23],
+          data: [5],
         },
         {
           name: 'No with veto',
-          data: [12],
+          data: [1],
         },
         {
           name: 'Abstain',
-          data: [9],
+          data: [29.23],
         },
       ],
       options: {
-        colors: ['#48bb78', '#ff9f43', '#e53e3e', '#00bdc9'],
+        colors: ['#9fe6b9', '#ff8686', '#ffd029', '#e3e3e3'],
         chart: {
           type: 'bar',
-          // height: 150,
+
+          width: '100%',
           stacked: true,
           stackType: '100%',
           toolbar: {
@@ -93,26 +94,31 @@ export class HorizontalBarChart extends React.Component {
         fill: {
           opacity: 1,
         },
-
+        dataLabels: {
+          enabled: false, // show/hide percentage value inside bars
+        },
         legend: {
           show: false,
-          position: 'top',
+          position: 'bottom',
           horizontalAlign: 'left',
-          offsetX: 40,
+          offsetX: 0,
+          onItemClick: {
+            toggleDataSeries: false,
+          },
         },
       },
     };
   }
   render() {
     return (
-      <div id="chart">
+      <div id="chart" style={{ marginLeft: '-26px' }}>
         <Chart
           // @ts-ignore
           options={this.state.options}
           // @ts-ignore
           series={this.state.series}
           type="bar"
-          height={100}
+          height="70"
         />
       </div>
     );

@@ -36,8 +36,8 @@ export const ProposalCard = () => {
         <Text fontSize="16px" fontWeight="600">
           Proposer
         </Text>
-        <Text fontSize="16px" fontWeight="300">
-          Proposer name
+        <Text fontFamily="Work Sans" fontSize="16px" fontWeight="300">
+          archway1fltce97v6352r5l6jc8e25lpsl07nc2nkqrmnu
         </Text>
       </Box>
       <Flex mb="16px">
@@ -45,7 +45,7 @@ export const ProposalCard = () => {
           <Text fontSize="16px" fontWeight="600">
             Submit time
           </Text>
-          <Text fontSize="16px" fontWeight="300">
+          <Text fontFamily="Work Sans" fontSize="16px" fontWeight="300">
             Apr 25, 2022 (15 days ago)
           </Text>
         </Box>
@@ -53,7 +53,7 @@ export const ProposalCard = () => {
           <Text fontSize="16px" fontWeight="600">
             Voting end
           </Text>
-          <Text fontSize="16px" fontWeight="300">
+          <Text fontFamily="Work Sans" fontSize="16px" fontWeight="300">
             Apr 28, 2022 (13 days ago)
           </Text>
         </Box>
@@ -62,7 +62,7 @@ export const ProposalCard = () => {
         <Text fontSize="16px" fontWeight="600">
           Results
         </Text>
-        <Text fontSize="16px" fontWeight="300">
+        <Text fontFamily="Work Sans" fontSize="16px" fontWeight="300">
           Most voted on 🟢 Yes 100.00%
         </Text>
       </Box>

@@ -17,7 +17,7 @@ const Governance = () => {
 
       <ProposalsTable />
 
-      {/*<HorizontalBarChart />*/}
+      <HorizontalBarChart />
 
       {/*<SimpleGrid columns={[1, 2, 2, 3]} spacing={10}>*/}
       {/*  {[...Array(6)].map((e, i) => (*/}

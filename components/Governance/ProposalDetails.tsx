@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, Box, Flex, Spacer } from '@chakra-ui/react';
+import { HorizontalBarChart } from '../Charts';
 
 export const ProposalDetails = ({ proposal }: any) => {
   return (
@@ -54,6 +55,56 @@ export const ProposalDetails = ({ proposal }: any) => {
       <Box w="70%" mt="24px">
         <Text fontWeight="600">Details</Text>
         <Text fontFamily="Work Sans">{proposal.details}</Text>
+      </Box>
+      <Box w="100%" mt="24px" p="24px" bg="#f2f6fd" borderRadius="15px">
+        <Text fontWeight="600">Total: 534,702,907.306000 utori</Text>
+        <HorizontalBarChart />
+        <Flex fontFamily="Work Sans">
+          <Box flex="0 0 auto" width="25%" px="12px" borderLeft="3px solid #9fe6b9">
+            <Text mb="4px" fontSize="16px" fontWeight="600">
+              Yes
+            </Text>
+            <Text mb="4px" fontSize="15px">
+              64.77%
+            </Text>
+            <Text fontSize="15px" fontWeight="500">
+              437,877,946.098280 <span style={{ color: '#98bbff' }}> utori</span>
+            </Text>
+          </Box>
+          <Box flex="0 0 auto" width="25%" px="12px" borderLeft="3px solid #ff8686">
+            <Text mb="4px" fontSize="16px" fontWeight="600">
+              No
+            </Text>
+            <Text mb="4px" fontSize="15px">
+              5%
+            </Text>
+            <Text fontSize="15px" fontWeight="500">
+              180,630.395656 <span style={{ color: '#98bbff' }}> utori</span>
+            </Text>
+          </Box>
+          <Box flex="0 0 auto" width="25%" px="12px" borderLeft="3px solid #ffd029">
+            <Text mb="4px" fontSize="16px" fontWeight="600">
+              No with veto
+            </Text>
+            <Text mb="4px" fontSize="15px">
+              1%
+            </Text>
+            <Text fontSize="15px" fontWeight="500">
+              437,877,946.098280 <span style={{ color: '#98bbff' }}> utori</span>
+            </Text>
+          </Box>
+          <Box flex="0 0 auto" width="25%" px="12px" borderLeft="3px solid #e3e3e3">
+            <Text mb="4px" fontSize="16px" fontWeight="600">
+              Abstain
+            </Text>
+            <Text mb="4px" fontSize="15px">
+              29.23%
+            </Text>
+            <Text fontSize="15px" fontWeight="500">
+              437,877,946.098280 <span style={{ color: '#98bbff' }}> utori</span>
+            </Text>
+          </Box>
+        </Flex>
       </Box>
     </Flex>
   );
