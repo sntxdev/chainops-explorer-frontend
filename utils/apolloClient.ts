@@ -5,7 +5,7 @@ import { createClient } from 'graphql-ws';
 import WebSocket from 'isomorphic-ws';
 
 const httpLink = new HttpLink({
-  uri: 'http://194.163.167.188:8080/v1/graphql',
+  uri: 'https://194.163.167.188:8080/v1/graphql',
   // uri: 'https://explorer.chainops.org/api/v1/graphql',
 });
 
