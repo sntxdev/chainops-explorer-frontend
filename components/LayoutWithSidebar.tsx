@@ -56,6 +56,7 @@ const LinkItems: Array<LinkItemProps> = [
   // { name: "Transactions", to: "/transactions", icon: IoWallet },
   { name: 'Validators', to: '/validators', icon: IoSettingsSharp },
   { name: 'Governance', to: '/governance', icon: IoBarChart },
+  { name: 'Staking', to: '/staking', icon: IoBarChart },
 ];
 
 const socialsLinkItems: Array<LinkItemProps> = [
