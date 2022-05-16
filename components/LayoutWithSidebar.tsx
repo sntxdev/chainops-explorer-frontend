@@ -42,6 +42,7 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 import { NetworksMenuModal } from './NetworksMenu';
+import { Search } from './Search';
 
 interface LinkItemProps {
   name: string;
@@ -237,17 +238,7 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
       <NetworksMenuModal />
 
       {/*SEARCH */}
-      <Input
-        height="56px"
-        borderRadius="md"
-        boxShadow="sm"
-        bg="fff"
-        border="0"
-        focusBorderColor="none"
-        placeholder="Search transaction, address or go to block #"
-        _placeholder={{ color: '#D3D3D3' }}
-        w="100%"
-      />
+      <Search />
     </Flex>
   );
 };

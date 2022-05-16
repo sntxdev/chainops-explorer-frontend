@@ -1,5 +1,7 @@
-export { formatTime } from "./formatTime";
-export { truncate } from "./truncate";
+export { formatTime } from './formatTime';
+export { truncate } from './truncate';
+export { isSHA256 } from './isSHA256';
+export { isBech32 } from './isBech32';
 
 export function keybase(identity: any) {
   return fetch(

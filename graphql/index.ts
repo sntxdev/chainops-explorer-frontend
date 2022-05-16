@@ -125,3 +125,29 @@ export const ValidatorDetailsQuery = gql`
     }
   }
 `;
+
+export const TxByHashQuery = gql`
+  query txByHash($hash: String!) {
+    archway_transaction(where: { hash: { _eq: $hash } }) {
+      hash
+      height
+      messages
+    }
+  }
+`;
+
+export const BlockByHeightQuery = gql`
+  query blockByHeight($height: bigint!) {
+    archway_block(where: { height: { _eq: $height } }) {
+      height
+    }
+  }
+`;
+
+export const ValidatorByAddressQuery = gql`
+  query validatorByAddress($address: String!) {
+    archway_validator_info(where: { operator_address: { _eq: $address } }) {
+      operator_address
+    }
+  }
+`;

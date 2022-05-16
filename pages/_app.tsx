@@ -7,6 +7,7 @@ import apolloClient from '../utils/apolloClient';
 import { LayoutWithSidebar } from '../components';
 import '../styles/globals.css';
 import '../components/Governance/ProposalsTable.css';
+
 const theme = extendTheme({
   colors: {
     primary: {
