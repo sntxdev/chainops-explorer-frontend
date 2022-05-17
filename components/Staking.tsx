@@ -39,7 +39,7 @@ const Staking = () => {
             setUserAddress(accounts[0].address);
 
             const client = await SigningStargateClient.connectWithSigner(
-              'https://rpc.cosmos.network/',
+              'https://cosmoshub-4--rpc--full.datahub.figment.io/',
               offlineSigner
             );
             const balance = await client.getBalance(accounts[0].address, 'uatom');
