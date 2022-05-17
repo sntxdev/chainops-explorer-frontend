@@ -4,10 +4,18 @@ import { SigningCosmosClient } from '@cosmjs/launchpad';
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { assertIsDeliverTxSuccess, SigningStargateClient } from '@cosmjs/stargate';
 import { calculateFee, GasPrice } from '@cosmjs/stargate';
-import { Button } from '@chakra-ui/react';
+
+import { Box, Button, Input, Text } from '@chakra-ui/react';
 
 const Staking = () => {
   const [userAddress, setUserAddress] = useState();
+  const AMOUNT = {
+    value: '42000.00000000',
+    currency: {
+      code: 'RUR',
+      minority: 5,
+    },
+  };
 
   const connectWallet = async () => {
     console.log('Connecting wallet...');
@@ -20,14 +28,23 @@ const Staking = () => {
             let offlineSigner = await window.getOfflineSigner(ToriiInfo.chainId);
 
             const accounts = await offlineSigner.getAccounts();
-
+            console.log(accounts);
             // Initialize the gaia api with the offline signer that is injected by Keplr extension.
-            const cosmJS = new SigningCosmosClient(
-              ToriiInfo.rpc,
-              accounts[0].address,
+            // const cosmJS = new SigningCosmosClient(
+            //   ToriiInfo.rpc,
+            //   accounts[0].address,
+            //   offlineSigner
+            // );
+
+            setUserAddress(accounts[0].address);
+
+            const client = await SigningStargateClient.connectWithSigner(
+              'https://rpc.cosmos.network/',
               offlineSigner
             );
-            setUserAddress(accounts[0].address);
+            const balance = await client.getBalance(accounts[0].address, 'uatom');
+            console.log(balance);
+            console.log('client:', client);
           } else {
             console.warn('Error access experimental features, please update Keplr');
           }
@@ -44,15 +61,21 @@ const Staking = () => {
 
   useEffect(() => {
     // @ts-ignore
-    console.log(userAddress);
+    console.log('userAddress: ', userAddress);
   }, [userAddress]);
   return (
     <div>
-      <Button>Stake</Button>
-      <Button>Unstake</Button>
-      <Button>Claim Rewards</Button>
+      <Button mx="8px">Stake</Button>
+      <Button mx="8px">Unstake</Button>
+      <Button mx="8px">Claim Rewards</Button>
       <Button onClick={connectWallet}>Connect Wallet</Button>
       <p>Your address: {userAddress}</p>
+      <Box my={4}>
+        <Text>Send tokens</Text>
+        <Input placeholder="to address" width="40%" />
+        <Input placeholder="amount" htmlSize={5} width="auto" />
+        <Text as="span">tori</Text>
+      </Box>
     </div>
   );
 };
