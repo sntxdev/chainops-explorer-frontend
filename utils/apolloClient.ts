@@ -6,6 +6,7 @@ import WebSocket from 'isomorphic-ws';
 
 const httpLink = new HttpLink({
   uri: 'https://denispotapov.ru/v1/graphql',
+
   // uri: 'https://194.163.167.188:8080/v1/graphql',
   // uri: 'https://explorer.chainops.org/api/v1/graphql',
 });
@@ -34,6 +35,7 @@ const splitLink =
 const client = new ApolloClient({
   ssrMode: typeof window === 'undefined',
   link: splitLink,
+
   cache: new InMemoryCache(),
 });
 
