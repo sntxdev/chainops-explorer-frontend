@@ -135,7 +135,7 @@ const Staking = () => {
       <Box my="12px">
         <p>Your address: {userAddress || 'wallet is not connected'}</p>
         <p>
-          Your balance: {userBalance?.amount || '0'} {userBalance?.denom}
+          Your balance: {userBalance?.amount / 1000000 || '0'} {userBalance?.denom}
         </p>
       </Box>
       <Box my={4}>
