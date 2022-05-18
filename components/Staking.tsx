@@ -134,9 +134,7 @@ const Staking = () => {
       <Button onClick={connectWallet}>Connect Wallet</Button>
       <Box my="12px">
         <p>Your address: {userAddress || 'wallet is not connected'}</p>
-        <p>
-          Your balance: {userBalance?.amount / 1000000 || '0'} {userBalance?.denom}
-        </p>
+        <p>Your balance: {userBalance?.amount / 1000000 || '0'} ATOM</p>
       </Box>
       <Box my={4}>
         <Text>Send tokens</Text>
