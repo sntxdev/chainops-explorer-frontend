@@ -52,14 +52,6 @@ const Staking = () => {
             let offlineSigner = await window.getOfflineSigner(ToriiInfo.chainId);
             setSigner(offlineSigner);
             const accounts = await offlineSigner.getAccounts();
-            console.log(accounts);
-            console.log(offlineSigner);
-            // Initialize the gaia api with the offline signer that is injected by Keplr extension.
-            // const cosmJS = new SigningCosmosClient(
-            //   ToriiInfo.rpc,
-            //   accounts[0].address,
-            //   offlineSigner
-            // );
 
             setUserAddress(accounts[0].address);
 
@@ -69,11 +61,9 @@ const Staking = () => {
               offlineSigner
             );
             setStargateClient(client);
-            console.log('client:', client);
 
             const balance = await client.getBalance(accounts[0].address, 'utorii');
             setUserBalance(balance);
-            console.log('balance:', balance);
           } else {
             console.warn('Error access experimental features, please update Keplr');
           }
@@ -120,8 +110,6 @@ const Staking = () => {
     let amount = parseFloat(amount);
     amount *= 1000000;
     amount = Math.floor(amount);
-
-    console.log('recipient:', recipient);
 
     const sendMsg = {
       typeUrl: '/cosmos.staking.v1beta1.MsgDelegate',
