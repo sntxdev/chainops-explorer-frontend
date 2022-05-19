@@ -53,8 +53,11 @@ export const BlocksQuery = gql`
 `;
 
 export const ValidatorsQuery = gql`
-  query Validators {
-    archway_validator(limit: 10, order_by: { validator_voting_power: {} }) {
+  query Validators($activeStatus: Int = 3) {
+    archway_validator(
+      where: { validator_status: { status: { _eq: $activeStatus } } }
+      order_by: { validator_voting_power: {} }
+    ) {
       validator_status {
         jailed
         status
