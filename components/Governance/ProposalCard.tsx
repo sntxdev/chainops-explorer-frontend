@@ -12,7 +12,7 @@ export const ProposalCard = () => {
             ✓ Passed
           </Badge>
         </Flex>
-        <Link href={`/governance/123`} key={1}>
+        <Link href={`/governance/17`} key={1}>
           <Button>Show</Button>
         </Link>
       </HStack>

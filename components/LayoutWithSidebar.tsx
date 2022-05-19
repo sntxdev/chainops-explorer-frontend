@@ -9,7 +9,9 @@ import { FiMenu, FiChevronDown } from 'react-icons/fi';
 import { GiAtom } from 'react-icons/gi';
 import { ImHome, ImChrome } from 'react-icons/im';
 import { BsGridFill } from 'react-icons/bs';
-import { FaTelegramPlane } from 'react-icons/fa';
+import { FaTelegramPlane, FaHandHoldingUsd } from 'react-icons/fa';
+import { GiReceiveMoney } from 'react-icons/gi';
+// FiTrendingUp
 import {
   IoSettingsSharp,
   IoWallet,
@@ -56,7 +58,7 @@ const LinkItems: Array<LinkItemProps> = [
   // { name: "Transactions", to: "/transactions", icon: IoWallet },
   { name: 'Validators', to: '/validators', icon: IoSettingsSharp },
   { name: 'Governance', to: '/governance', icon: IoBarChart },
-  { name: 'Staking', to: '/staking', icon: IoBarChart },
+  { name: 'Staking', to: '/staking', icon: FaHandHoldingUsd },
 ];
 
 const socialsLinkItems: Array<LinkItemProps> = [

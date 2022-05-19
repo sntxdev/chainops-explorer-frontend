@@ -198,9 +198,6 @@ const Staking = () => {
 
   return (
     <div>
-      <Button mr="8px">Stake</Button>
-      <Button mx="8px">Unstake</Button>
-      <Button mx="8px">Claim Rewards</Button>
       <Button onClick={connectWallet}>Connect Wallet</Button>
       <Box my="12px">
         <p>Your address: {userAddress || 'wallet is not connected'}</p>
@@ -238,6 +235,9 @@ const Staking = () => {
           Delegate
         </Button>
       </Box>
+
+      <Button>Claim Rewards</Button>
+      <Button mx="8px">Unstake</Button>
     </div>
   );
 };

@@ -7,7 +7,7 @@ const Governance = () => {
   return (
     <>
       <Text mb="26px" fontSize="22px" fontWeight="medium" color="#323B5A">
-        Governance
+        Governance (demo)
       </Text>
       <ProposalsList />
       <ProposalsTable />

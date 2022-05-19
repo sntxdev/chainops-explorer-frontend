@@ -79,7 +79,7 @@ export const ValidatorsTable = ({ isActive }) => {
                 </Link>
               </Td>
               <Td py="20px">{validator?.validator_voting_power?.voting_power || 'n/a'}</Td>
-              <Td py="20px">{validator.uptime?.over_blocks || 'n/a'}%</Td>
+              <Td py="20px">{validator.uptime?.over_blocks || '100%'}</Td>
               <Td py="20px">{parseFloat(validator.validator_info?.max_rate) * 100}%</Td>
             </Tr>
           ))}
