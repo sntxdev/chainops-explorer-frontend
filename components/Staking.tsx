@@ -32,7 +32,6 @@ export interface MsgDelegate {
 
 const Staking = () => {
   const toast = useToast();
-
   const [loading, setLoading] = useState(false);
   const [userAddress, setUserAddress] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -49,20 +48,18 @@ const Staking = () => {
           if (window.keplr['experimentalSuggestChain']) {
             await window.keplr.experimentalSuggestChain(ToriiInfo);
             await window.keplr.enable(ToriiInfo.chainId);
-            let offlineSigner = await window.getOfflineSigner(ToriiInfo.chainId);
-            setSigner(offlineSigner);
-            const accounts = await offlineSigner.getAccounts();
-
-            setUserAddress(accounts[0].address);
-
+            const offlineSigner = await window.getOfflineSigner(ToriiInfo.chainId);
             const client = await SigningStargateClient.connectWithSigner(
-              // 'https://cosmos-testnet-rpc.allthatnode.com:26657',
               'http://92.255.207.219:26657',
               offlineSigner
             );
-            setStargateClient(client);
 
+            const accounts = await offlineSigner.getAccounts();
             const balance = await client.getBalance(accounts[0].address, 'utorii');
+
+            setSigner(offlineSigner);
+            setUserAddress(accounts[0].address);
+            setStargateClient(client);
             setUserBalance(balance);
           } else {
             console.warn('Error access experimental features, please update Keplr');
