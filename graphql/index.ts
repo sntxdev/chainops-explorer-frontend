@@ -56,7 +56,7 @@ export const ValidatorsQuery = gql`
   query Validators($activeStatus: Int = 3) {
     archway_validator(
       where: { validator_status: { status: { _eq: $activeStatus } } }
-      order_by: { validator_voting_power: {} }
+      order_by: { validator_voting_power: { voting_power: desc } }
     ) {
       validator_status {
         jailed
