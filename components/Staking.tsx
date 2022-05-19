@@ -8,6 +8,9 @@ import {
   coins,
   parseCoins,
 } from '@cosmjs/stargate';
+import { coin } from '@cosmjs/proto-signing';
+import { MsgDelegate } from '@cosmjs/stargate/build/codec/cosmos/staking/v1beta1/tx';
+
 import { calculateFee, GasPrice } from '@cosmjs/stargate';
 
 import {
@@ -18,11 +21,19 @@ import {
   InputGroup,
   InputRightElement,
   Text,
+  Spinner,
 } from '@chakra-ui/react';
+
+export interface MsgDelegate {
+  delegatorAddress: string;
+  validatorAddress: string;
+  amount?: any;
+}
 
 const Staking = () => {
   const toast = useToast();
 
+  const [loading, setLoading] = useState(false);
   const [userAddress, setUserAddress] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
   const [recipientAddress, setRecipientAddress] = useState(null);
@@ -36,9 +47,9 @@ const Staking = () => {
       if (window) {
         if (window['keplr']) {
           if (window.keplr['experimentalSuggestChain']) {
-            await window.keplr.experimentalSuggestChain(ThetaTestnetInfo);
-            await window.keplr.enable(ThetaTestnetInfo.chainId);
-            let offlineSigner = await window.getOfflineSigner(ThetaTestnetInfo.chainId);
+            await window.keplr.experimentalSuggestChain(ToriiInfo);
+            await window.keplr.enable(ToriiInfo.chainId);
+            let offlineSigner = await window.getOfflineSigner(ToriiInfo.chainId);
             setSigner(offlineSigner);
             const accounts = await offlineSigner.getAccounts();
             console.log(accounts);
@@ -53,13 +64,14 @@ const Staking = () => {
             setUserAddress(accounts[0].address);
 
             const client = await SigningStargateClient.connectWithSigner(
-              'https://cosmos-testnet-rpc.allthatnode.com:26657',
+              // 'https://cosmos-testnet-rpc.allthatnode.com:26657',
+              'http://92.255.207.219:26657',
               offlineSigner
             );
             setStargateClient(client);
             console.log('client:', client);
 
-            const balance = await client.getBalance(accounts[0].address, 'uatom');
+            const balance = await client.getBalance(accounts[0].address, 'utorii');
             setUserBalance(balance);
             console.log('balance:', balance);
           } else {
@@ -86,26 +98,68 @@ const Staking = () => {
       value: {
         fromAddress: userAddress,
         toAddress: recipient,
-        amount: parseCoins(`${amount}uatom`),
+        amount: parseCoins(`${amount}utorii`),
       },
     };
 
     const fee = {
-      gas: '80000',
+      gas: '800000',
       amount: [
         {
           amount: '5000',
-          denom: 'uatom',
+          denom: 'utorii',
         },
       ],
     };
 
-    return await stargateClient.signAndBroadcast(userAddress, [sendMsg], fee as any, 'MEMO tuta');
+    return await stargateClient.signAndBroadcast(userAddress, [sendMsg], fee as any);
+  };
+
+  const delegateTokens = async (recipient: any, amount: any) => {
+    await window.keplr.enable(ToriiInfo.chainId);
+    let amount = parseFloat(amount);
+    amount *= 1000000;
+    amount = Math.floor(amount);
+
+    console.log('recipient:', recipient);
+
+    const sendMsg = {
+      typeUrl: '/cosmos.staking.v1beta1.MsgDelegate',
+      value: {
+        delegatorAddress: userAddress,
+        validatorAddress: recipient,
+        amount: coin(amount, 'utorii'),
+      },
+    };
+    // const fee = {
+    //   gas: '85000',
+    //   amount: [
+    //     {
+    //       amount: '5000',
+    //       denom: 'utorii',
+    //     },
+    //   ],
+    // };
+    const gasPrice = GasPrice.fromString('0.025utorii');
+    const gasLimitSend = process.env.FAUCET_GAS_LIMIT
+      ? parseInt(process.env.FAUCET_GAS_LIMIT, 10)
+      : 200_000;
+    const fee = calculateFee(gasLimitSend, gasPrice);
+
+    return await stargateClient.signAndBroadcast(
+      userAddress,
+      [sendMsg],
+      fee as any,
+      'MEMO delegate'
+    );
   };
 
   const handleSendClick = async () => {
     const result = await sendTokens(recipientAddress, recipientAmount);
-    if (result.transactionHash) {
+
+    if (result.code !== undefined && result.code !== 0) {
+      alert('Failed to send tx: ' + result.log || result.rawLog);
+    } else {
       const balance = await stargateClient.getBalance(userAddress, 'uatom');
       setUserBalance(balance);
       toast({
@@ -116,13 +170,29 @@ const Staking = () => {
         isClosable: true,
       });
     }
+
     console.log(result);
   };
+
+  const handleDelegateClick = async () => {
+    setLoading(true);
+    const result = await delegateTokens(recipientAddress, recipientAmount);
+    setLoading(false);
+    if (result.code !== undefined && result.code !== 0) {
+      alert('Failed to send tx: ' + result.log || result.rawLog);
+    } else {
+      const balance = await stargateClient.getBalance(userAddress, 'uatom');
+      setUserBalance(balance);
+      alert('Succeed to send tx:' + result.transactionHash);
+    }
+
+    console.log(result);
+  };
+
   const handleRecipientAddressChange = (event) => setRecipientAddress(event.target.value);
   const handleRecipientAmountChange = (event) => setRecipientAmount(event.target.value);
 
   useEffect(() => {
-    // @ts-ignore
     console.log('userAddress: ', userAddress);
   }, [userAddress]);
 
@@ -134,12 +204,21 @@ const Staking = () => {
       <Button onClick={connectWallet}>Connect Wallet</Button>
       <Box my="12px">
         <p>Your address: {userAddress || 'wallet is not connected'}</p>
-        <p>Your balance: {userBalance?.amount / 1000000 || '0'} ATOM</p>
+        <p>Your balance: {userBalance?.amount / 1000000 || '0'} TORII</p>
       </Box>
-      <Box my={4}>
-        <Text>Send tokens</Text>
+
+      {loading && (
+        <>
+          loading...
+          <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
+        </>
+      )}
+
+      {/* Delegate tokens */}
+      <Box>
+        <Text>Delegate tokens</Text>
         <Input
-          placeholder="to address"
+          placeholder="to valoper address"
           width="30%"
           onChange={handleRecipientAddressChange}
           mr="6px"
@@ -152,19 +231,12 @@ const Staking = () => {
             mx="6px"
           />
           <Text as="span" pos="absolute" right="16px" fontSize="14px">
-            ATOM
+            TORII
           </Text>
         </Box>
-        <Button width="120px" onClick={handleSendClick}>
-          Send
+        <Button width="120px" onClick={handleDelegateClick}>
+          Delegate
         </Button>
-      </Box>
-
-      <Box>
-        <p> Recipient address example:</p>
-        <a href="https://explorer.theta-testnet.polypore.xyz/account/cosmos1glnl9nkcu9n3ptcg2f05huya6vq8gfvr8u0xfx">
-          https://explorer.theta-testnet.polypore.xyz/account/cosmos1glnl9nkcu9n3ptcg2f05huya6vq8gfvr8u0xfx
-        </a>
       </Box>
     </div>
   );
@@ -191,7 +263,7 @@ export const ToriiInfo = {
   currencies: [{ coinDenom: 'TORII', coinMinimalDenom: 'utorii', coinDecimals: 6 }],
   feeCurrencies: [{ coinDenom: 'TORII', coinMinimalDenom: 'utorii', coinDecimals: 6 }],
   coinType: 118,
-  gasPriceStep: { low: 0, average: 0.1, high: 0.2 },
+  gasPriceStep: { low: 0, average: 1, high: 2 },
   features: ['cosmwasm'],
 };
 

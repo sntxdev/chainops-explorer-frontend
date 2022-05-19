@@ -3,15 +3,12 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
   Box,
   Text,
   Image,
   useDisclosure,
-  VStack,
   HStack,
   SimpleGrid,
 } from '@chakra-ui/react';
@@ -41,6 +38,7 @@ const testnets = [
     imgUrl: 'https://nym.explorers.guru/chains/nym.svg',
   },
 ];
+
 export const NetworksMenuModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
