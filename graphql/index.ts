@@ -161,3 +161,15 @@ export const ValidatorByAddressQuery = gql`
     }
   }
 `;
+
+export const TokenomicsQuery = gql`
+  query BondedTokens {
+    archway_staking_pool {
+      bonded_tokens
+      not_bonded_tokens
+    }
+    archway_supply {
+      coins
+    }
+  }
+`;

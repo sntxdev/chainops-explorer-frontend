@@ -12,6 +12,7 @@ import {
   TxCountSubscription,
   TxPerMinuteSubscription,
   ActiveValidatorsQuery,
+  TokenomicsQuery,
 } from '../graphql';
 
 const Home: NextPage = (props) => {
@@ -57,36 +58,7 @@ const Home: NextPage = (props) => {
             px="30px"
             boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
           >
-            <Box py="20px" position="relative" width="60%">
-              <Text fontSize="18px" fontWeight="bold">
-                Tokenomics
-              </Text>
-              <Box mt="30px" display="flex" alignItems="center">
-                <Square size="20px" bg="brand.accent" color="white" borderRadius="4px" />
-                <Text pl="6px" fontSize="16px" fontWeight="medium">
-                  Supply
-                </Text>
-                <Text pl="6px" marginLeft="68px" fontSize="16px" fontWeight="medium">
-                  75%
-                </Text>
-              </Box>
-              <Box mt="15px" display="inline-flex" alignItems="center">
-                <Square size="20px" bg="brand.accentBlue" color="white" borderRadius="4px" />
-                <Text pl="6px" fontSize="16px" fontWeight="medium">
-                  Bonded
-                </Text>
-                <Text pl="6px" marginLeft="60px" fontSize="16px" fontWeight="medium">
-                  25%
-                </Text>
-              </Box>
-
-              <Text position="absolute" bottom="20px" fontSize="16px" fontWeight="medium">
-                Total supply:
-                <Text as="span" ml="10px" fontWeight="semibold">
-                  10 220 637 486 23
-                </Text>
-              </Text>
-            </Box>
+            <Tokenomics />
             {/*<Donut />*/}
             <Box width="40%">
               <Radialbar />
@@ -112,6 +84,51 @@ const Home: NextPage = (props) => {
 };
 
 export default Home;
+
+const Tokenomics = () => {
+  const { data, loading, error } = useQuery(TokenomicsQuery);
+
+  const totalSupply = data?.archway_supply[0].coins[0].amount;
+  const bondedTokens = data?.archway_staking_pool[0].bonded_tokens;
+  const notBondedTokens = data?.archway_staking_pool[0].not_bonded_tokens;
+
+  useEffect(() => console.log('totalSupply:', totalSupply), [data]);
+  useEffect(() => console.log('bondedTokens:', bondedTokens), [data]);
+  // const bondedTokens = data?.archway_staking_pool[0].bonded_tokens;
+  // const notBondedTokens = data?.archway_staking_pool[0].not_bonded_tokens;
+  return (
+    <Box py="20px" position="relative" width="60%">
+      <Text fontSize="18px" fontWeight="bold">
+        Tokenomics
+      </Text>
+      <Box mt="30px" display="flex" alignItems="center">
+        <Square size="20px" bg="brand.accent" color="white" borderRadius="4px" />
+        <Text pl="6px" fontSize="16px" fontWeight="medium">
+          Not bonded
+        </Text>
+        <Text pl="6px" marginLeft="68px" fontSize="16px" fontWeight="medium">
+          {notBondedTokens}
+        </Text>
+      </Box>
+      <Box mt="15px" display="inline-flex" alignItems="center">
+        <Square size="20px" bg="brand.accentBlue" color="white" borderRadius="4px" />
+        <Text pl="6px" fontSize="16px" fontWeight="medium">
+          Bonded
+        </Text>
+        <Text pl="6px" marginLeft="60px" fontSize="16px" fontWeight="medium">
+          {bondedTokens}
+        </Text>
+      </Box>
+
+      <Text position="absolute" bottom="20px" fontSize="16px" fontWeight="medium">
+        Total supply:
+        <Text as="span" ml="10px" fontWeight="semibold">
+          {totalSupply}
+        </Text>
+      </Text>
+    </Box>
+  );
+};
 
 const DataBoxBlockHeight = ({ onHover, activeBox }: any) => {
   const { data, loading, error } = useSubscription(BlockHeightCountSubscription);

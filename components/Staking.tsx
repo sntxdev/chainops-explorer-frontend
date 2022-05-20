@@ -138,6 +138,35 @@ const Staking = () => {
     );
   };
 
+  const undelegateTokens = async (recipient: any, amount: any) => {
+    await window.keplr.enable(ToriiInfo.chainId);
+    let amount = parseFloat(amount);
+    amount *= 1000000;
+    amount = Math.floor(amount);
+
+    const gasPrice = GasPrice.fromString('0.025utorii');
+    const gasLimitSend = process.env.FAUCET_GAS_LIMIT
+      ? parseInt(process.env.FAUCET_GAS_LIMIT, 10)
+      : 200_000;
+    const fee = calculateFee(gasLimitSend, gasPrice);
+
+    const sendMsg = {
+      typeUrl: '/cosmos.staking.v1beta1.MsgUndelegate',
+      value: {
+        delegatorAddress: userAddress,
+        validatorAddress: recipient,
+        amount: coin(amount, 'utorii'),
+      },
+    };
+
+    return await stargateClient.signAndBroadcast(
+      userAddress,
+      [sendMsg],
+      fee as any,
+      'MEMO undelegate'
+    );
+  };
+
   const handleSendClick = async () => {
     const result = await sendTokens(recipientAddress, recipientAmount);
 
@@ -162,6 +191,20 @@ const Staking = () => {
     setLoading(true);
     const result = await delegateTokens(recipientAddress, recipientAmount);
     setLoading(false);
+    if (result.code !== undefined && result.code !== 0) {
+      alert('Failed to send tx: ' + result.log || result.rawLog);
+    } else {
+      const balance = await stargateClient.getBalance(userAddress, 'uatom');
+      setUserBalance(balance);
+      alert('Succeed to send tx:' + result.transactionHash);
+    }
+
+    console.log(result);
+  };
+
+  const handleUndelegateClick = async () => {
+    const result = await undelegateTokens(recipientAddress, recipientAmount);
+
     if (result.code !== undefined && result.code !== 0) {
       alert('Failed to send tx: ' + result.log || result.rawLog);
     } else {
@@ -221,7 +264,9 @@ const Staking = () => {
       </Box>
 
       <Button>Claim Rewards</Button>
-      <Button mx="8px">Unstake</Button>
+      <Button mx="8px" onClick={handleUndelegateClick}>
+        Unstake
+      </Button>
     </div>
   );
 };
