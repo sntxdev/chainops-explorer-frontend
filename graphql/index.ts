@@ -17,6 +17,13 @@ export const TxCountSubscription = gql`
     }
   }
 `;
+export const TxPerMinuteSubscription = gql`
+  subscription TxPerMinute {
+    txPerMin: archway_average_block_time_per_minute {
+      average_time
+    }
+  }
+`;
 
 export const BlockHeightCountSubscription = gql`
   subscription BlockHeightSubscription {

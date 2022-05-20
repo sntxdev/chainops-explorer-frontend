@@ -10,6 +10,7 @@ import {
   BlockHeightCountSubscription,
   BlocksQuery,
   TxCountSubscription,
+  TxPerMinuteSubscription,
   ActiveValidatorsQuery,
 } from '../graphql';
 
@@ -232,10 +233,12 @@ const DataBoxTrxCount = ({ onHover, activeBox }: any) => {
 
 const DataBoxActiveValidators = ({ onHover, activeBox }: any) => {
   const { data, loading, error } = useQuery(ActiveValidatorsQuery);
-  useEffect(() => console.log('active:', active), [data]);
+
   // const trxCounter = data?.archway_block[0].height;
   const active = data?.active?.aggregate?.count;
   const inactive = data?.inactive?.aggregate?.count;
+
+  useEffect(() => console.log('active:', active), [data]);
   return (
     <ClientOnly>
       <Box
@@ -287,6 +290,13 @@ const DataBoxActiveValidators = ({ onHover, activeBox }: any) => {
 };
 
 const DataBoxTrxPs = ({ onHover, activeBox }: any) => {
+  const { data, loading, error } = useSubscription(TxPerMinuteSubscription);
+  console.log('data:', data);
+  console.log('error:', error);
+  console.log('loading:', loading);
+
+  const trxPerMinute = data?.txPerMin[0].average_time;
+  // useEffect(() => console  .log('data:', data), [data]);
   return (
     <ClientOnly>
       <Box
@@ -327,11 +337,11 @@ const DataBoxTrxPs = ({ onHover, activeBox }: any) => {
         }}
       >
         <Text fontSize="12px" padding="28px">
-          Transactions per second
+          Transactions per minute
         </Text>
         <Center fontWeight="bold">
           <Flex flexDir="row" alignItems="baseline">
-            <Text>1 248 </Text>
+            <Text>{parseInt(trxPerMinute)}</Text>
             <Text
               style={{
                 color: '#9C9B9E',
@@ -339,7 +349,7 @@ const DataBoxTrxPs = ({ onHover, activeBox }: any) => {
                 fontWeight: '300',
               }}
             >
-              &nbsp;Tp / s
+              &nbsp;Tx / min
             </Text>
           </Flex>
         </Center>

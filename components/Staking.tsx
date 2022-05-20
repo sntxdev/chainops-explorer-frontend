@@ -41,7 +41,6 @@ const Staking = () => {
   const [stargateClient, setStargateClient] = useState(null);
 
   const connectWallet = async () => {
-    console.log('Connecting wallet...');
     try {
       if (window) {
         if (window['keplr']) {
@@ -50,7 +49,7 @@ const Staking = () => {
             await window.keplr.enable(ToriiInfo.chainId);
             const offlineSigner = await window.getOfflineSigner(ToriiInfo.chainId);
             const client = await SigningStargateClient.connectWithSigner(
-              'http://92.255.207.219:26657',
+              'https://chainops.store:26657/',
               offlineSigner
             );
 

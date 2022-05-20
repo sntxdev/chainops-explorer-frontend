@@ -32,7 +32,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
@@ -44,7 +44,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
@@ -57,7 +57,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
@@ -69,7 +69,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
@@ -81,7 +81,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
@@ -93,7 +93,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
@@ -105,7 +105,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
@@ -117,7 +117,7 @@ export const ProposalsTable = () => {
           <Tr>
             <Td>#17</Td>
             <Td>
-              <NextLink href={`/governance/123`} key={1}>
+              <NextLink href={`/governance/17`} key={1}>
                 <Link color="teal.500"> Upgrade core v1.1.0</Link>
               </NextLink>
             </Td>
