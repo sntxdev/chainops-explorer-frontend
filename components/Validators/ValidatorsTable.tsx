@@ -67,7 +67,7 @@ export const ValidatorsTable = ({ isActive }) => {
                         <Avatar
                           size={32}
                           name={validator.validator_description?.moniker}
-                          variant="beam"
+                          variant="pixel"
                           colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
                         />
                       )}

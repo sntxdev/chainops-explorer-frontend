@@ -67,11 +67,7 @@ const Home: NextPage = (props) => {
             </Box>
           </Box>
           <Box height="270px" w="49%" mt="10px">
-            {/*<Text p="15px" fontSize="18px" fontWeight="bold">*/}
-            {/*  Top 5 coin holders*/}
-            {/*</Text>*/}
             <ProjectInfoBlock />
-            {/*<TopCoinHoldersTable />*/}
           </Box>
         </Flex>
       </main>

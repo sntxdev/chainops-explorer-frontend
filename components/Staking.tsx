@@ -282,7 +282,6 @@ const Staking = () => {
 
 export default Staking;
 
-// https://blog.archway.io/how-to-build-your-first-archway-dapp-2c72a3993c9f
 export const ToriiInfo = {
   chainId: 'torii-1',
   chainName: 'Torii Testnet',
@@ -303,71 +302,4 @@ export const ToriiInfo = {
   coinType: 118,
   gasPriceStep: { low: 0, average: 1, high: 2 },
   features: ['cosmwasm'],
-};
-
-export const ThetaTestnetInfo = {
-  chainId: 'theta-testnet-001',
-  chainName: 'theta-testnet-001',
-  rpc: 'https://rpc.sentry-01.theta-testnet.polypore.xyz/',
-  rest: 'https://rest.sentry-01.theta-testnet.polypore.xyz/',
-  bip44: {
-    coinType: 118,
-  },
-  bech32Config: {
-    bech32PrefixAccAddr: 'cosmos',
-    bech32PrefixAccPub: 'cosmos' + 'pub',
-    bech32PrefixValAddr: 'cosmos' + 'valoper',
-    bech32PrefixValPub: 'cosmos' + 'valoperpub',
-    bech32PrefixConsAddr: 'cosmos' + 'valcons',
-    bech32PrefixConsPub: 'cosmos' + 'valconspub',
-  },
-  currencies: [
-    {
-      coinDenom: 'ATOM',
-      coinMinimalDenom: 'uatom',
-      coinDecimals: 6,
-      coinGeckoId: 'cosmos',
-    },
-    {
-      coinDenom: 'THETA',
-      coinMinimalDenom: 'theta',
-      coinDecimals: 0,
-    },
-    {
-      coinDenom: 'LAMBDA',
-      coinMinimalDenom: 'lambda',
-      coinDecimals: 0,
-    },
-    {
-      coinDenom: 'RHO',
-      coinMinimalDenom: 'rho',
-      coinDecimals: 0,
-    },
-    {
-      coinDenom: 'EPSILON',
-      coinMinimalDenom: 'epsilon',
-      coinDecimals: 0,
-    },
-  ],
-  feeCurrencies: [
-    {
-      coinDenom: 'ATOM',
-      coinMinimalDenom: 'uatom',
-      coinDecimals: 6,
-      coinGeckoId: 'cosmos',
-    },
-  ],
-  stakeCurrency: {
-    coinDenom: 'ATOM',
-    coinMinimalDenom: 'uatom',
-    coinDecimals: 6,
-    coinGeckoId: 'cosmos',
-  },
-  coinType: 118,
-  gasPriceStep: {
-    low: 0.1,
-    average: 0.5,
-    high: 1,
-  },
-  features: ['stargate', 'ibc-transfer', 'no-legacy-stdTx'],
 };

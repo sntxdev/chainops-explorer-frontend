@@ -55,27 +55,27 @@ export const DelegatorsTable = () => {
         <Tbody fontSize="16px" fontWeight="medium">
           <Tr bg="white">
             <Td>bcna1eyrh5yc7l8spdrausd5xc4tg0ruxrc60q8se9j</Td>
-            <Td isNumeric>1,360,020 BCNA</Td>
+            <Td isNumeric>1,360,020 TORII</Td>
           </Tr>
           <Tr bg="white">
             <Td>bcna18sfsljlc34tkc0cza22jfqrakk3ju56tncd07e</Td>
-            <Td isNumeric>1,263,407 BCNA</Td>
+            <Td isNumeric>1,263,407 TORII</Td>
           </Tr>
           <Tr bg="white">
             <Td>bcna1wdr9wdl2x7a8s4926jwpz32gt9vtykf4yzvxtx</Td>
-            <Td isNumeric>1,001,397 BCNA</Td>
+            <Td isNumeric>1,001,397 TORII</Td>
           </Tr>
           <Tr bg="white">
             <Td>bcna16qf0qc0cf6g6u8zjm95s9pzh647gyljj38wdt3</Td>
-            <Td isNumeric>750,000 BCNA</Td>
+            <Td isNumeric>750,000 TORII</Td>
           </Tr>
           <Tr bg="white">
             <Td>bcna13zv80wzv0x9drchzldynjnp24j6fz760h3mf6y</Td>
-            <Td isNumeric>500,000 BCNA</Td>
+            <Td isNumeric>500,000 TORII</Td>
           </Tr>
           <Tr bg="white">
             <Td>bcna18wvcvg8hr6xt5l76nsufdwx0zuejcshf5sn2zh</Td>
-            <Td isNumeric>268,002 BCNA</Td>
+            <Td isNumeric>268,002 TORII</Td>
           </Tr>
         </Tbody>
       </Table>

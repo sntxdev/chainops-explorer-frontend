@@ -26,6 +26,10 @@ const theme = extendTheme({
     heading: 'Montserrat, sans-serif',
     body: 'Montserrat, sans-serif',
   },
+  components: {
+    Button: { baseStyle: { _focus: { boxShadow: 'none' } } },
+    Link: { baseStyle: { _focus: { boxShadow: 'none' } } },
+  },
 });
 // fontFamily="Work Sans"
 function MyApp({ Component, pageProps, router }: AppProps) {
