@@ -2,8 +2,9 @@
 import type { NextPage } from 'next';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useQuery, useSubscription, gql } from '@apollo/client';
-import ClientOnly from '../components/ClientOnly';
 import { Flex, Box, SimpleGrid, Center, Text, Square } from '@chakra-ui/react';
+import { currencyFormatter } from '../utils/curencyFormat';
+import ClientOnly from '../components/ClientOnly';
 import { AreaSpline, Donut, Radialbar } from '../components/Charts';
 import { TopCoinHoldersTable } from '../components/';
 import {
@@ -30,7 +31,7 @@ const Home: NextPage = (props) => {
         <Flex wrap="wrap" justifyContent="space-between">
           <Box w="50%" bg="white" borderRadius="10" boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)">
             <Text pl="30px" mt="30px" fontSize="18px" fontWeight="bold">
-              Price Arch
+              Price Arch (Demo)
             </Text>
             <Text pl="30px" fontSize="18px" fontWeight="medium" mt="6px" mb="18px">
               $ 30.064 (-4.007%)
@@ -92,10 +93,11 @@ const Tokenomics = () => {
   const bondedTokens = data?.archway_staking_pool[0].bonded_tokens;
   const notBondedTokens = data?.archway_staking_pool[0].not_bonded_tokens;
 
-  useEffect(() => console.log('totalSupply:', totalSupply), [data]);
-  useEffect(() => console.log('bondedTokens:', bondedTokens), [data]);
-  // const bondedTokens = data?.archway_staking_pool[0].bonded_tokens;
-  // const notBondedTokens = data?.archway_staking_pool[0].not_bonded_tokens;
+  useEffect(
+    () => console.log('notBondedTokens: ', currencyFormatter(parseInt(notBondedTokens))),
+    [data]
+  );
+  useEffect(() => console.log('notBondedTokens: ', notBondedTokens), [data]);
   return (
     <Box py="20px" position="relative" width="60%">
       <Text fontSize="18px" fontWeight="bold">
@@ -107,7 +109,7 @@ const Tokenomics = () => {
           Not bonded
         </Text>
         <Text pl="6px" marginLeft="68px" fontSize="16px" fontWeight="medium">
-          {notBondedTokens}
+          {currencyFormatter(parseInt(notBondedTokens / 1000000))}
         </Text>
       </Box>
       <Box mt="15px" display="inline-flex" alignItems="center">
@@ -116,14 +118,14 @@ const Tokenomics = () => {
           Bonded
         </Text>
         <Text pl="6px" marginLeft="60px" fontSize="16px" fontWeight="medium">
-          {bondedTokens}
+          {currencyFormatter(parseInt(bondedTokens / 1000000))}
         </Text>
       </Box>
 
       <Text position="absolute" bottom="20px" fontSize="16px" fontWeight="medium">
         Total supply:
         <Text as="span" ml="10px" fontWeight="semibold">
-          {totalSupply}
+          {currencyFormatter(parseInt(totalSupply / 1000000))}
         </Text>
       </Text>
     </Box>
@@ -354,11 +356,11 @@ const DataBoxTrxPs = ({ onHover, activeBox }: any) => {
         }}
       >
         <Text fontSize="12px" padding="28px">
-          Transactions per minute
+          Block time
         </Text>
         <Center fontWeight="bold">
           <Flex flexDir="row" alignItems="baseline">
-            <Text>{parseInt(trxPerMinute)}</Text>
+            <Text>{trxPerMinute?.toFixed(2)}</Text>
             <Text
               style={{
                 color: '#9C9B9E',
@@ -366,7 +368,7 @@ const DataBoxTrxPs = ({ onHover, activeBox }: any) => {
                 fontWeight: '300',
               }}
             >
-              &nbsp;Tx / min
+              &nbsp; sec
             </Text>
           </Flex>
         </Center>
