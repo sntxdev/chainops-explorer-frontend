@@ -15,6 +15,7 @@ import {
   ActiveValidatorsQuery,
   TokenomicsQuery,
 } from '../graphql';
+import { ProjectInfoBlock } from '../components/ProjectInfoBlock';
 
 const Home: NextPage = (props) => {
   const [activeBox, setActiveBox] = useState<any>(0);
@@ -65,18 +66,12 @@ const Home: NextPage = (props) => {
               <Radialbar />
             </Box>
           </Box>
-          <Box
-            bg="white"
-            height="270px"
-            w="49%"
-            borderRadius="10"
-            mt="10px"
-            boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
-          >
-            <Text p="15px" fontSize="18px" fontWeight="bold">
-              Top 5 coin holders
-            </Text>
-            <TopCoinHoldersTable />
+          <Box height="270px" w="49%" mt="10px">
+            {/*<Text p="15px" fontSize="18px" fontWeight="bold">*/}
+            {/*  Top 5 coin holders*/}
+            {/*</Text>*/}
+            <ProjectInfoBlock />
+            {/*<TopCoinHoldersTable />*/}
           </Box>
         </Flex>
       </main>
