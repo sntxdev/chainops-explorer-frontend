@@ -88,7 +88,7 @@ export const BlocksTable = () => {
                       ) : (
                         <Avatar
                           size={28}
-                          name="Maria Mitchell"
+                          name={block?.validator?.validator_description?.moniker}
                           variant="beam"
                           colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
                         />
