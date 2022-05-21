@@ -1,8 +1,8 @@
 export const defaultOptions = {
   significantDigits: '',
-  thousandsSeparator: ' ',
+  thousandsSeparator: ', ',
   decimalSeparator: '',
-  symbol: 'TORII',
+  symbol: '',
 };
 
 export const currencyFormatter = (value: any, options: any) => {
@@ -14,5 +14,5 @@ export const currencyFormatter = (value: any, options: any) => {
   const [currency, decimal] = value.split('.');
   return `${currency.replace(/\B(?=(\d{3})+(?!\d))/g, options.thousandsSeparator)}${
     options.decimalSeparator
-  }${decimal || ''} ${options.symbol}`;
+  }${decimal || ''}${options.symbol}`;
 };

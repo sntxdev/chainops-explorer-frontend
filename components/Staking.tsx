@@ -240,9 +240,9 @@ const Staking = () => {
 
       {/* Delegate tokens */}
       <Box>
-        <Text>Delegate tokens</Text>
+        <Text>Staking</Text>
         <Input
-          placeholder="to valoper address"
+          placeholder="to/from valoper address"
           width="30%"
           onChange={handleRecipientAddressChange}
           mr="6px"
@@ -250,23 +250,23 @@ const Staking = () => {
         <Box pos="relative" display="inline-flex" alignItems="center">
           <Input
             placeholder="amount"
-            width="180px"
+            width="130px"
             onChange={handleRecipientAmountChange}
             mx="6px"
+            fontSize="13px"
           />
-          <Text as="span" pos="absolute" right="16px" fontSize="14px">
+          <Text as="span" pos="absolute" right="16px" fontSize="13px">
             TORII
           </Text>
         </Box>
         <Button width="120px" onClick={handleDelegateClick}>
           Delegate
         </Button>
+        <Button mx="8px" onClick={handleUndelegateClick}>
+          Undelegate
+        </Button>
+        <Button disabled>Claim Rewards</Button>
       </Box>
-
-      <Button>Claim Rewards</Button>
-      <Button mx="8px" onClick={handleUndelegateClick}>
-        Unstake
-      </Button>
     </div>
   );
 };

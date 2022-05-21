@@ -109,7 +109,10 @@ const Tokenomics = () => {
           Not bonded
         </Text>
         <Text pl="6px" marginLeft="68px" fontSize="16px" fontWeight="medium">
-          {currencyFormatter(parseInt(notBondedTokens / 1000000))}
+          {currencyFormatter(parseInt(notBondedTokens / 1000000))}{' '}
+          <Text as="span" fontSize="12px" fontWeight="500">
+            TORII
+          </Text>
         </Text>
       </Box>
       <Box mt="15px" display="inline-flex" alignItems="center">
@@ -118,14 +121,20 @@ const Tokenomics = () => {
           Bonded
         </Text>
         <Text pl="6px" marginLeft="60px" fontSize="16px" fontWeight="medium">
-          {currencyFormatter(parseInt(bondedTokens / 1000000))}
+          {currencyFormatter(parseInt(bondedTokens / 1000000))}{' '}
+          <Text as="span" fontSize="12px" fontWeight="500">
+            TORII
+          </Text>
         </Text>
       </Box>
 
       <Text position="absolute" bottom="20px" fontSize="16px" fontWeight="medium">
         Total supply:
         <Text as="span" ml="10px" fontWeight="semibold">
-          {currencyFormatter(parseInt(totalSupply / 1000000))}
+          {currencyFormatter(parseInt(totalSupply / 1000000))}{' '}
+          <Text as="span" fontSize="12px" fontWeight="500">
+            TORII
+          </Text>
         </Text>
       </Text>
     </Box>
