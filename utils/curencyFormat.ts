@@ -1,6 +1,6 @@
 export const defaultOptions = {
   significantDigits: '',
-  thousandsSeparator: ', ',
+  thousandsSeparator: ' ',
   decimalSeparator: '',
   symbol: '',
 };

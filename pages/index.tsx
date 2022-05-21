@@ -73,7 +73,7 @@ const Home: NextPage = (props) => {
             mt="10px"
             boxShadow="0 0.5rem 1rem rgb(0 0 0 / 5%)"
           >
-            <Text p="20px" fontSize="18px" fontWeight="bold">
+            <Text p="15px" fontSize="18px" fontWeight="bold">
               Top 5 coin holders
             </Text>
             <TopCoinHoldersTable />
