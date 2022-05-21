@@ -46,8 +46,8 @@ export const TransactionsTable = ({ transactions }: any) => {
             // @ts-ignore
             transactions.map((t, i) => (
               <Tr key={i} fontSize="15px">
-                <Td py="10px">
-                  {truncate(t.hash, 5, 5, 13)}{' '}
+                <Td py="10px" display="flex">
+                  <Text>{truncate(t.hash, 7, 5, 16)}</Text>
                   <Tooltip label="copy" placement="top-end" closeDelay={100}>
                     <IconButton
                       variant="link"
@@ -58,6 +58,7 @@ export const TransactionsTable = ({ transactions }: any) => {
                       onClick={() => {
                         navigator.clipboard.writeText(t.hash);
                       }}
+                      aria-label=""
                     />
                   </Tooltip>
                 </Td>
