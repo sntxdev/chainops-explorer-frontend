@@ -10,12 +10,13 @@ import {
   Td,
   TableContainer,
   Box,
-  Avatar,
+  Avatar as ChakraAvatar,
   Text,
 } from '@chakra-ui/react';
+import Avatar from 'boring-avatars';
 import { useQuery } from '@apollo/client';
 import { ValidatorsQuery } from '../../graphql';
-import { AiOutlineUser } from 'react-icons/ai';
+import { currencyFormatter } from '../../utils/curencyFormat';
 
 export const ValidatorsTable = ({ isActive }) => {
   const { data, loading, error } = useQuery(ValidatorsQuery, {
@@ -61,13 +62,13 @@ export const ValidatorsTable = ({ isActive }) => {
                   <a display="block" style={{ color: '#1F1BE3' }}>
                     <Box display="flex" alignItems="center">
                       {validator.validator_description?.avatar_url ? (
-                        <Avatar src={validator.validator_description?.avatar_url} size="sm" />
+                        <ChakraAvatar src={validator.validator_description?.avatar_url} size="sm" />
                       ) : (
                         <Avatar
-                          size="sm"
-                          color="black"
-                          bg="red.100"
-                          icon={<AiOutlineUser fontSize="1rem" />}
+                          size={32}
+                          name="Maria Mitchell"
+                          variant="beam"
+                          colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
                         />
                       )}
 
@@ -78,7 +79,9 @@ export const ValidatorsTable = ({ isActive }) => {
                   </a>
                 </Link>
               </Td>
-              <Td py="20px">{validator?.validator_voting_power?.voting_power || 'n/a'}</Td>
+              <Td py="20px">
+                {currencyFormatter(validator?.validator_voting_power?.voting_power) || 'n/a'}
+              </Td>
               <Td py="20px">{validator.uptime?.over_blocks || '100%'}</Td>
               <Td py="20px">{parseFloat(validator.validator_info?.max_rate) * 100}%</Td>
             </Tr>

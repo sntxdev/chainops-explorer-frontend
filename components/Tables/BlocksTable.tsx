@@ -10,18 +10,20 @@ import {
   Tr,
   Th,
   Td,
-  Avatar,
+  Avatar as ChakraAvatar,
   TableContainer,
   Box,
   Text,
   IconButton,
   Tooltip,
 } from '@chakra-ui/react';
+import Avatar from 'boring-avatars';
 import { IoCopyOutline } from 'react-icons/io5';
 import { formatTime, truncate } from '../../utils';
 
 export const BlocksTable = () => {
   const { data, loading, error } = useQuery(BlocksQuery);
+
   useEffect(() => console.log(blocks), [blocks]);
 
   if (loading) {
@@ -71,16 +73,31 @@ export const BlocksTable = () => {
                     icon={<IoCopyOutline />}
                     _hover={{ cursor: 'pointer' }}
                     _focus={{ outline: 'none' }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(block.hash);
+                    }}
                   />
                 </Tooltip>
               </Td>
               <Td>
                 <Link href={`/validators/${block?.validator?.validator_info?.operator_address}`}>
-                  <a style={{ color: '#1F1BE3' }}>
-                    <Avatar src={avatar_url} size="xs" />
-                    <Text as="span" ml="12px">
-                      {block?.validator?.validator_description?.moniker}
-                    </Text>
+                  <a className="" style={{ color: '#1F1BE3' }}>
+                    <Box display="flex" alignItems="center">
+                      {avatar_url ? (
+                        <ChakraAvatar src={avatar_url} size="xs" />
+                      ) : (
+                        <Avatar
+                          size={28}
+                          name="Maria Mitchell"
+                          variant="beam"
+                          colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
+                        />
+                      )}
+
+                      <Text as="span" ml="12px">
+                        {block?.validator?.validator_description?.moniker}
+                      </Text>
+                    </Box>
                   </a>
                 </Link>
               </Td>

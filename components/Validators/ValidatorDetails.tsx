@@ -1,7 +1,7 @@
 import {
   Box,
   Divider,
-  Avatar,
+  Avatar as ChakraAvatar,
   Text,
   Progress,
   Grid,
@@ -13,6 +13,7 @@ import {
   ButtonGroup,
   Button,
 } from '@chakra-ui/react';
+import Avatar from 'boring-avatars';
 import { useQuery, useSubscription, gql } from '@apollo/client';
 import { BlocksQuery, TxCountSubscription, ValidatorDetailsQuery } from '../../graphql';
 import React, { useState, useEffect } from 'react';
@@ -46,9 +47,14 @@ export const ValidatorDetails = ({ valoperAddress }: any) => {
       <Box bg="white" borderRadius="10px" p="18px">
         <Box display="flex" alignItems="center">
           {description?.avatar_url ? (
-            <Avatar src={description?.avatar_url} mr="16px" size="lg" />
+            <ChakraAvatar src={description?.avatar_url} mr="16px" size="lg" />
           ) : (
-            <Avatar bg="red.100" icon={<AiOutlineUser fontSize="1rem" />} />
+            <Avatar
+              size={46}
+              name="Maria Mitchell"
+              variant="beam"
+              colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
+            />
           )}
 
           <Box ml="16px">

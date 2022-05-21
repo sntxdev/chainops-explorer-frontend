@@ -10,9 +10,12 @@ import {
   TableCaption,
   TableContainer,
   Text,
+  IconButton,
+  Tooltip,
 } from '@chakra-ui/react';
 import React from 'react';
 import { formatTime, truncate } from '../../utils';
+import { IoCopyOutline } from 'react-icons/io5';
 
 const tableRowsData = ['Tx Hash', 'Type', 'Status', 'Amount'];
 
@@ -43,7 +46,21 @@ export const TransactionsTable = ({ transactions }: any) => {
             // @ts-ignore
             transactions.map((t, i) => (
               <Tr key={i} fontSize="15px">
-                <Td py="10px">{truncate(t.hash, 5, 5, 13)}</Td>
+                <Td py="10px">
+                  {truncate(t.hash, 5, 5, 13)}{' '}
+                  <Tooltip label="copy" placement="top-end" closeDelay={100}>
+                    <IconButton
+                      variant="link"
+                      verticalAlign="text-top"
+                      icon={<IoCopyOutline />}
+                      _hover={{ cursor: 'pointer' }}
+                      _focus={{ outline: 'none' }}
+                      onClick={() => {
+                        navigator.clipboard.writeText(t.hash);
+                      }}
+                    />
+                  </Tooltip>
+                </Td>
                 <Td py="1px">{t.messages[0]['@type'].split('.').slice(-1)[0]}</Td>
                 <Td py="1px">
                   {t.success ? <Text color="green">Success</Text> : <Text color="red">Fail</Text>}
