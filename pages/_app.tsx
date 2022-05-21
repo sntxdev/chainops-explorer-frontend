@@ -27,7 +27,7 @@ const theme = extendTheme({
     body: 'Montserrat, sans-serif',
   },
 });
-
+// fontFamily="Work Sans"
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <ApolloProvider client={apolloClient}>

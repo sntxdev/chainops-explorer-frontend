@@ -242,10 +242,11 @@ const Staking = () => {
       <Box>
         <Text>Staking</Text>
         <Input
-          placeholder="to/from valoper address"
+          placeholder="to / from valoper address"
           width="30%"
           onChange={handleRecipientAddressChange}
           mr="6px"
+          fontSize="13px"
         />
         <Box pos="relative" display="inline-flex" alignItems="center">
           <Input
@@ -259,10 +260,18 @@ const Staking = () => {
             TORII
           </Text>
         </Box>
-        <Button width="120px" onClick={handleDelegateClick}>
+        <Button
+          width="120px"
+          onClick={handleDelegateClick}
+          disabled={userAddress == null ? true : false}
+        >
           Delegate
         </Button>
-        <Button mx="8px" onClick={handleUndelegateClick}>
+        <Button
+          mx="8px"
+          onClick={handleUndelegateClick}
+          disabled={userAddress == null ? true : false}
+        >
           Undelegate
         </Button>
         <Button disabled>Claim Rewards</Button>
