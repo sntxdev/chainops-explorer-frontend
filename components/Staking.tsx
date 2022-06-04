@@ -1,28 +1,16 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import { SigningCosmosClient } from '@cosmjs/launchpad';
-import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import {
   assertIsDeliverTxSuccess,
   SigningStargateClient,
   coins,
   parseCoins,
+  calculateFee,
+  GasPrice,
 } from '@cosmjs/stargate';
 import { coin } from '@cosmjs/proto-signing';
-import { MsgDelegate } from '@cosmjs/stargate/build/codec/cosmos/staking/v1beta1/tx';
 
-import { calculateFee, GasPrice } from '@cosmjs/stargate';
-
-import {
-  useToast,
-  Box,
-  Button,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Text,
-  Spinner,
-} from '@chakra-ui/react';
+import { useToast, Box, Button, Input, Text, Spinner } from '@chakra-ui/react';
 
 export interface MsgDelegate {
   delegatorAddress: string;
@@ -115,15 +103,7 @@ const Staking = () => {
         amount: coin(amount, 'utorii'),
       },
     };
-    // const fee = {
-    //   gas: '85000',
-    //   amount: [
-    //     {
-    //       amount: '5000',
-    //       denom: 'utorii',
-    //     },
-    //   ],
-    // };
+
     const gasPrice = GasPrice.fromString('0.025utorii');
     const gasLimitSend = process.env.FAUCET_GAS_LIMIT
       ? parseInt(process.env.FAUCET_GAS_LIMIT, 10)

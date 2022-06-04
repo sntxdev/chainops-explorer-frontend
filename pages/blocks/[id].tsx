@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useRouter } from 'next/router';
 import { useQuery, gql } from '@apollo/client';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, Link } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { TransactionsTable } from '../../components/Tables/TransactionsTable';
 

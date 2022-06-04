@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   Table,
   Thead,
@@ -10,6 +9,7 @@ import {
   TableCaption,
   TableContainer,
   Text,
+  Link,
   IconButton,
   Tooltip,
 } from '@chakra-ui/react';
@@ -47,7 +47,10 @@ export const TransactionsTable = ({ transactions }: any) => {
             transactions.map((t, i) => (
               <Tr key={i} fontSize="15px">
                 <Td py="10px" display="flex">
-                  <Text>{truncate(t.hash, 7, 5, 16)}</Text>
+                  <Link href={`/transactions/${t.hash}`} key={1}>
+                    <Text>{truncate(t.hash, 7, 5, 16)}</Text>
+                  </Link>
+
                   <Tooltip label="copy" placement="top-end" closeDelay={100}>
                     <IconButton
                       variant="link"

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import ClientOnly from '../../components/ClientOnly';
-import { ValidatorDetails } from '../../components/Validators/ValidatorDetails';
+import TransactionDetails from '../../components/TransactionDetails';
 
 const TransactionDetailPage = () => {
   const router = useRouter();
@@ -8,8 +8,8 @@ const TransactionDetailPage = () => {
 
   return (
     <ClientOnly>
-      <p>tx {id} details</p>
-      {/*<ValidatorDetails valoperAddress={id} />*/}
+      <p>Transaction Details</p>
+      <TransactionDetails hash={id} />
     </ClientOnly>
   );
 };
